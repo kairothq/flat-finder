@@ -21,9 +21,11 @@ import verified
 ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "out"
 WEB = ROOT.parent / "web" / "public" / "data"
-GENERIC = {"the", "of", "at", "in", "sector", "gurgaon", "gurugram", "residency", "residences", "homes",
+GENERIC = {"the", "of", "at", "in", "sector", "residency", "residences", "homes",
            "apartments", "apartment", "towers", "tower", "heights", "city", "phase", "park", "estate",
            "floors", "society", "cghs", "group", "housing", "and", "by", "new", "greens", "green", "plaza"}
+# city names are filler in project names too ("Pune Heights"), for every configured city
+GENERIC |= {w for k, c in json.loads((ROOT.parent / "data" / "cities.json").read_text()).items() for w in (k, *c["name"].lower().split())}
 TOWER_H = 55.0  # visual default height (m) for generated apartment towers; shapes are not data
 
 
@@ -159,7 +161,7 @@ def events_for(s):
     ev = []
     sid = s["id"]
     src = s.get("url")
-    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or 'Gurgaon'} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
+    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or 'locality unknown'} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
     bits = [f"{int(s['towers'])} towers" if s.get("towers") else None, f"{int(s['units']):,} units" if s.get("units") else None,
             f"{s['acres']} acres" if s.get("acres") else None]
     if any(bits):
@@ -222,11 +224,12 @@ def shapes_for(s, area, bld_grid, sid_seed):
     return feats, shape
 
 
-def main(city="gurgaon"):
+def main(city):
     cfg = json.loads((ROOT.parent / "data" / "cities.json").read_text())[city]
     out = OUT / city
     raw = json.loads((out / "mb_projects.json").read_text())
-    located = [p for p in raw if p.get("lat") and p.get("lng") and 28.2 < p["lat"] < 28.7 and 76.7 < p["lng"] < 77.3]
+    bs, bw, bn, be = cfg["bbox"]  # 0.15 deg margin keeps fringe projects, still drops geocodes in the wrong city
+    located = [p for p in raw if p.get("lat") and p.get("lng") and bs - 0.15 < p["lat"] < bn + 0.15 and bw - 0.15 < p["lng"] < be + 0.15]
     not_located = len(raw) - len(located)
     projects = dedupe(located)
     areas = json.loads((out / "osm_areas.geojson").read_text())["features"]
@@ -442,7 +445,7 @@ def main(city="gurgaon"):
                        "ai_read": sum(1 for s in societies if s.get("ai_read")),
                        "for_sale": sum(s["sale_count"] or 0 for s in societies), "for_rent": sum(s["rent_count"] or 0 for s in societies),
                        "verified": sum(s["verified"] for s in societies)},
-            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", "HRERA Gurugram", "Builder brochures (verified rows)"],
+            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", *(["HRERA Gurugram"] if hrera else []), "Builder brochures (verified rows)"],
             "societies": societies, "events": events}
     details = {}
     for s in societies:  # heavy per-society text, loaded only when a card opens
@@ -500,4 +503,4 @@ def write_csv(soc_path, unit_path, societies):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "gurgaon")
+    main(sys.argv[1] if len(sys.argv) > 1 else sys.exit(__doc__))

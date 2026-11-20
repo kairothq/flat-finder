@@ -13,7 +13,11 @@ ROOT = pathlib.Path(__file__).parent
 CACHE = ROOT / "cache" / "osm"
 OUT = ROOT / "out"
 CITIES = json.loads((ROOT.parent / "data" / "cities.json").read_text())
-CITY = next((a for a in sys.argv[1:] if a in CITIES), "gurgaon")
+CITY = next((a for a in sys.argv[1:] if a in CITIES), None)
+if CITY is None:
+    if __name__ == "__main__":
+        sys.exit(f"usage: python osm_fetch.py <city>  (one of: {', '.join(CITIES)})")
+    CITY = next(iter(CITIES))  # imported by tests: any configured city will do
 BBOX = tuple(CITIES[CITY]["bbox"])  # south, west, north, east
 OUT = OUT / CITY
 CACHE = CACHE / CITY

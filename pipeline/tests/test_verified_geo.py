@@ -13,7 +13,7 @@ def test_room_sorted_short_side_first():
 
 
 def test_load_verified_araya_and_heritage():
-    v = {s["name"]: s for s in verified.load_verified()}
+    v = {s["name"]: s for s in verified.load_verified(verified.ROOT / "data" / "verified" / "gurgaon.json")}
     ar = v["Pioneer Araya"]["unit_types"][0]
     assert [11.583, 16.0] in v["Pioneer Urban Presidia"]["unit_types"][0]["bedrooms"]
     assert ar["confidence"] == "primary" and ar["page"] == "17" and ar["rooms_complete"]

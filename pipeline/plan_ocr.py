@@ -1,6 +1,6 @@
 """Read every bedroom's printed size off floor plan images with local OCR (macOS Vision), cross-checked by Jev.
 
-usage: uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python plan_ocr.py gurgaon
+usage: uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python plan_ocr.py <city>
        -> data/verified/<city>-ocr.json
 
 OCR returns text boxes; code pairs each bedroom label with the size printed under or beside it, so the
@@ -129,7 +129,7 @@ def judge(r, jev):
     return r
 
 
-def main(city="gurgaon"):
+def main(city):
     data = json.loads((ROOT.parent / "web" / "public" / "data" / f"{city}.json").read_text())
     jev = json.loads((ROOT.parent / "data" / "verified" / f"{city}-ai.json").read_text())["plans"]
     jobs, sid_of = [], {}
@@ -152,4 +152,4 @@ def main(city="gurgaon"):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "gurgaon")
+    main(sys.argv[1] if len(sys.argv) > 1 else sys.exit(__doc__))

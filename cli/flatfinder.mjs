@@ -10,7 +10,7 @@ const HELP = `flatfinder: find housing societies that fit
 
   npx github:kairothq/flat-finder [options]
 
-  --city <id>            gurgaon (default), more as they are added
+  --city <id>            city id (default: the first built city)
   --bhk 3,4              BHK types
   --min-bedroom 11'3x12'3   every bedroom must clear both sides (also 11.25x12.25)
   --min-sqft 1620        minimum unit size (super area where known)
@@ -40,7 +40,7 @@ export function parsePrice(s) {
 }
 
 export function parseArgs(argv) {
-  const o = { city: 'gurgaon', crit: structuredClone(DEFAULT_CRITERIA), limit: 30, json: false, likely: false, data: null };
+  const o = { city: null, crit: structuredClone(DEFAULT_CRITERIA), limit: 30, json: false, likely: false, data: null };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], v = () => argv[++i];
     if (a === '--city') o.city = v();
@@ -83,17 +83,18 @@ const money = (p, mode) => (p ? `${p.estimated ? '~' : ''}${formatINR(p.value)}$
 async function main() {
   const o = parseArgs(process.argv.slice(2));
   if (o.help) return console.log(HELP);
+  if (!o.data) o.city ||= Object.keys(await (await fetch(`${SITE}/data/cities.json`)).json())[0];
   const city = o.data ? JSON.parse(await readFile(o.data, 'utf8')) : await (await fetch(`${SITE}/data/${o.city}.json`)).json();
   const rows = search(city, o);
   if (o.json) return console.log(JSON.stringify(rows.slice(0, o.limit).map(({ s, v }) => ({ verdict: v, ...s })), null, 2));
   console.log(`${rows.length} societies in ${city.city.name}${o.likely ? ' (including likely)' : ''}\n`);
   const table = rows.slice(0, o.limit).map(({ s, v }) => ({
     society: s.name.slice(0, 32), area: (s.locality || '').slice(0, 22), verdict: v + (s.verified ? '*' : ''),
-    'smallest bedroom': smallestRoom(s), [o.crit.mode === 'rent' ? 'rent from' : 'price from']: money(priceFor(s, o.crit.mode, o.crit.bhk), o.crit.mode), link: `${SITE}/?city=${o.city}&open=${s.id}`,
+    'smallest bedroom': smallestRoom(s), [o.crit.mode === 'rent' ? 'rent from' : 'price from']: money(priceFor(s, o.crit.mode, o.crit.bhk), o.crit.mode), link: `${SITE}/?city=${city.city.id}&open=${s.id}`,
   }));
   console.table(table);
   console.log('~ = our estimate from the rent-to-price ratio, not a listing.');
-  console.log('* verified from brochures or HRERA plans. Unit rows without room sizes are "not checked yet" and never shown as matches.');
+  console.log('* verified from brochures or RERA plans. Unit rows without room sizes are "not checked yet" and never shown as matches.');
 }
 
 const self = fileURLToPath(import.meta.url);

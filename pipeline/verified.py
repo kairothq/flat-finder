@@ -4,7 +4,6 @@ import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).parent.parent
-FILE = ROOT / "data" / "verified" / "gurgaon.json"
 
 
 def side_to_ft(s):
@@ -44,7 +43,7 @@ def unit_from_verified(u):
     }
 
 
-def load_verified(path=FILE):
+def load_verified(path):
     data = json.loads(pathlib.Path(path).read_text())
     out = []
     for s in data["societies"]:

@@ -1,6 +1,6 @@
 """Read bedroom sizes off floor plan images with Jev (TypeSafe), keeping only confident answers.
 
-usage: python jev_reader.py gurgaon [limit]   -> data/verified/<city>-ai.json (cache in cache/plans/)
+usage: python jev_reader.py <city> [limit]   -> data/verified/<city>-ai.json (cache in cache/plans/)
 
 Jev answers typed questions, so sizes are asked as multiple choice in 3-inch steps:
   min_short  the smallest shorter side among all bedrooms
@@ -141,7 +141,7 @@ def read_plan(url, bhk_hint, api_key):
     return out
 
 
-def main(city="gurgaon", limit=None):
+def main(city, limit=None):
     data = json.loads((ROOT.parent / "web" / "public" / "data" / f"{city}.json").read_text())
     pool = [s for s in data["societies"] if s["kind"] in ("apartment", "builder floor") and s.get("plan_links")]
     pool.sort(key=lambda s: -((s.get("sale_count") or 0) + (s.get("rent_count") or 0)))
@@ -175,4 +175,4 @@ def main(city="gurgaon", limit=None):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "gurgaon", int(sys.argv[2]) if len(sys.argv) > 2 else None)
+    main(sys.argv[1] if len(sys.argv) > 1 else sys.exit(__doc__), int(sys.argv[2]) if len(sys.argv) > 2 else None)

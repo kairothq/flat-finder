@@ -7,10 +7,15 @@ const PROTOCOL = '2025-06-18';
 const SITE = 'https://flat-finder.pages.dev';
 const cache = new Map();
 
+const builtCities = (env, origin) => env.ASSETS.fetch(new Request(`${origin}/data/cities.json`)).then((r) => r.json());
+
 async function city(env, origin, id) {
   if (!cache.has(id)) {
     const res = await env.ASSETS.fetch(new Request(`${origin}/data/${id}.json`));
-    if (!res.ok) throw new Error(`Unknown city "${id}"`);
+    if (!res.ok) {
+      const built = await builtCities(env, origin).catch(() => ({}));
+      throw new Error(`Unknown city "${id}". Built cities: ${Object.keys(built).join(', ')}`);
+    }
     cache.set(id, await res.json());
   }
   return cache.get(id);
@@ -18,8 +23,9 @@ async function city(env, origin, id) {
 
 const KINDS = ['apartment', 'builder floor', 'villa', 'plot', 'commercial', 'other'];
 const PLACES = ['park', 'metro', 'rail', 'school', 'hospital', 'shopping'];
+const CITY_ARG = { type: 'string', description: 'City id as in the site URL (?city=). Defaults to the first built city; an unknown id returns the list of built cities.' };
 const FILTERS = {
-  city: { type: 'string', description: 'City id, e.g. "gurgaon"', default: 'gurgaon' },
+  city: CITY_ARG,
   mode: { type: 'string', enum: ['buy', 'rent'], default: 'buy', description: 'Which price the budget and price sorting use' },
   localities: { type: 'array', items: { type: 'string' }, description: 'Sectors or localities, e.g. ["Sector 56", "Golf Course Road"] or ["56", "57"]. Matches the locality exactly, or as its start ("Sohna" also matches "Sohna Road"). Use list_localities to see names.' },
   name_contains: { type: 'string', description: 'Words that must appear in the society name, developer or locality, e.g. "DLF" or "Ireo"' },
@@ -60,17 +66,17 @@ const TOOLS = [
   {
     name: 'list_localities',
     description: 'Every sector or locality in a city with its number of societies and its centre point. Use to find the exact locality names.',
-    inputSchema: { type: 'object', properties: { city: { type: 'string', default: 'gurgaon' }, contains: { type: 'string' } } },
+    inputSchema: { type: 'object', properties: { city: CITY_ARG, contains: { type: 'string' } } },
   },
   {
     name: 'get_society',
     description: 'Full details for one society by name: unit types and bedroom sizes with sources, buy and rent prices per BHK, resident ratings by category, review snippets, description, nearby places, amenities and links.',
-    inputSchema: { type: 'object', properties: { city: { type: 'string', default: 'gurgaon' }, name: { type: 'string' } }, required: ['name'] },
+    inputSchema: { type: 'object', properties: { city: CITY_ARG, name: { type: 'string' } }, required: ['name'] },
   },
   {
     name: 'compare_societies',
     description: 'Side-by-side comparison of up to 10 societies by name: per-BHK prices, rents, sizes, smallest bedrooms, score, rating, nearby, amenities.',
-    inputSchema: { type: 'object', properties: { city: { type: 'string', default: 'gurgaon' }, mode: { type: 'string', enum: ['buy', 'rent'], default: 'buy' }, names: { type: 'array', items: { type: 'string' }, maxItems: 10 } }, required: ['names'] },
+    inputSchema: { type: 'object', properties: { city: CITY_ARG, mode: { type: 'string', enum: ['buy', 'rent'], default: 'buy' }, names: { type: 'array', items: { type: 'string' }, maxItems: 10 } }, required: ['names'] },
   },
 ];
 
@@ -150,7 +156,7 @@ function nearbyOut(s) {
   return Object.fromEntries(Object.entries(s.nearby || {}).map(([k, v]) => [k, v?.m != null ? `${v.m} m${v.name ? ` (${v.name})` : ''}` : null]));
 }
 
-function summary(s, st, crit, d, allAmenities) {
+function summary(s, st, crit, d, allAmenities, cid) {
   return {
     name: s.name, locality: s.locality, verdict: st, type: s.kind, status: s.status, possession: s.possession, developer: s.developer,
     rooms_checked: s.verified ? 'by hand' : s.ai_read ? 'AI-read floor plans' : 'no',
@@ -160,7 +166,7 @@ function summary(s, st, crit, d, allAmenities) {
     nearby: nearbyOut(s),
     amenities: allAmenities ? s.amenities : KEY_AMENITIES.filter((k) => hasAmenity(s, k)),
     towers: s.towers, units: s.units, acres: s.acres,
-    link: `${SITE}/?open=${s.id}`,
+    link: `${SITE}/?city=${cid}&open=${s.id}`,
   };
 }
 
@@ -203,7 +209,7 @@ async function details(env, origin, id, sid) {
   return detailsCache.data[sid] || null;
 }
 
-function detail(s, extra) {
+function detail(s, extra, cid) {
   return {
     name: s.name, developer: s.developer, locality: s.locality, lat: s.lat, lng: s.lng, type: s.kind, status: s.status, possession: s.possession, rera: s.rera_id,
     towers: s.towers, units: s.units, acres: s.acres, verified: s.verified, note: s.note,
@@ -217,12 +223,12 @@ function detail(s, extra) {
     ratings_by_category: extra?.ratings || null,
     reviews: (extra?.reviews || []).slice(0, 8).map((r) => ({ title: r.title, text: r.text, date: r.date, by: r.by })),
     description: extra?.description || null,
-    nearby: s.nearby, amenities: s.amenities, brochure: s.brochure_url, magicbricks: s.url, google_maps: s.gmaps, flat_finder: `${SITE}/?open=${s.id}`,
+    nearby: s.nearby, amenities: s.amenities, brochure: s.brochure_url, magicbricks: s.url, google_maps: s.gmaps, flat_finder: `${SITE}/?city=${cid}&open=${s.id}`,
   };
 }
 
 async function callTool(name, args, env, origin) {
-  const id = args.city || 'gurgaon';
+  const id = args.city || Object.keys(await builtCities(env, origin))[0];
   const data = await city(env, origin, id);
   if (name === 'search_societies' || name === 'breakdown') {
     const crit = criteria(args);
@@ -257,7 +263,7 @@ async function callTool(name, args, env, origin) {
     const offset = Math.max(0, args.offset || 0), limit = Math.min(args.limit || 25, 200);
     return { city: data.city.name, total: hits.length, counts, offset, returned: Math.min(limit, Math.max(0, hits.length - offset)), has_more: offset + limit < hits.length,
       how_to_read: 'verdict: match = bedrooms read from floor plans and all pass, or no room filter was used; likely = rooms read so far pass; probable = plans unread, estimated from unit size. Societies without room data are left out under room filters. by_bhk prices: median of live listings with range and count, or "estimate" when there are none. A price with "flag" is what the listing says but our checks think it is a typo: say so, and prefer the estimate. nearby: distance to the closest place of each kind.',
-      results: hits.slice(offset, offset + limit).map(([s, st, d]) => summary(s, st, crit, d, args.include_all_amenities)) };
+      results: hits.slice(offset, offset + limit).map(([s, st, d]) => summary(s, st, crit, d, args.include_all_amenities, id)) };
   }
   if (name === 'list_localities') {
     const m = new Map();
@@ -275,11 +281,11 @@ async function callTool(name, args, env, origin) {
   const find = (n) => searchSocieties(data.societies, n, 1)[0];
   if (name === 'get_society') {
     const s = find(args.name);
-    return s ? detail(s, await details(env, origin, id, s.id)) : { error: `No society found for "${args.name}"` };
+    return s ? detail(s, await details(env, origin, id, s.id), id) : { error: `No society found for "${args.name}"` };
   }
   if (name === 'compare_societies') {
     const crit = { ...structuredClone(DEFAULT_CRITERIA), mode: args.mode || 'buy' };
-    return { societies: (args.names || []).slice(0, 10).map((n) => { const s = find(n); return s ? summary(s, s.verified ? 'verified' : 'portal data', crit, null, true) : { name: n, error: 'not found' }; }) };
+    return { societies: (args.names || []).slice(0, 10).map((n) => { const s = find(n); return s ? summary(s, s.verified ? 'verified' : 'portal data', crit, null, true, id) : { name: n, error: 'not found' }; }) };
   }
   throw new Error(`Unknown tool ${name}`);
 }
@@ -298,7 +304,7 @@ export async function onRequest({ request, env }) {
       case 'initialize':
         return reply({ protocolVersion: msg.params?.protocolVersion || PROTOCOL, capabilities: { tools: {} },
           serverInfo: { name: 'flat-finder', version: '0.2.0' },
-          instructions: 'Search Indian housing societies by sector, real bedroom sizes, buy or rent budget, amenities and what is nearby. search_societies lists every match (paginate with offset, up to 200 per call); breakdown groups them by locality, BHK, amenity, metro distance or rent/price band; list_localities gives exact sector names. Always say which results are verified, likely or estimated, and share the Flat Finder link for each society.' });
+          instructions: 'Search Indian housing societies by sector or locality, real bedroom sizes, buy or rent budget, amenities and what is nearby. search_societies lists every match (paginate with offset, up to 200 per call); breakdown groups them by locality, BHK, amenity, metro distance or rent/price band; list_localities gives exact sector names. Always say which results are verified, likely or estimated, and share the Flat Finder link for each society.' });
       case 'notifications/initialized':
         return new Response(null, { status: 202 });
       case 'ping':

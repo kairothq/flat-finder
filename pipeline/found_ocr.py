@@ -1,6 +1,6 @@
 """OCR floor plans that were found on other sites (data/verified/<city>-found-plans.json).
 
-usage: uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python found_ocr.py gurgaon
+usage: uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python found_ocr.py <city>
        -> data/verified/<city>-found.json
 
 Images go through the floor plan reader (complete when the bedroom count matches the BHK);
@@ -44,7 +44,7 @@ def read_one(job):
                  "status": "read" if complete else ("partial" if beds else "no sizes found")}
 
 
-def main(city="gurgaon"):
+def main(city):
     src = ROOT.parent / "data" / "verified" / f"{city}-found-plans.json"
     if not src.exists():
         print("nothing found yet")
@@ -62,4 +62,4 @@ def main(city="gurgaon"):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "gurgaon")
+    main(sys.argv[1] if len(sys.argv) > 1 else sys.exit(__doc__))

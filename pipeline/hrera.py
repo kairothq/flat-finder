@@ -1,6 +1,6 @@
 """Find each society's HRERA Gurugram filing and OCR its brochure / apartment plan documents.
 
-usage: uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python hrera.py gurgaon [limit]
+usage: uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python hrera.py <city> [limit]
        -> data/verified/<city>-hrera.json
 
 HRERA pages are public and load without login. Pages are fetched one per second; documents are read
@@ -106,7 +106,7 @@ def run(job):
     return sid, d["name"], r
 
 
-def main(city="gurgaon", limit=None):
+def main(city, limit=None):
     data = json.loads((ROOT.parent / "web" / "public" / "data" / f"{city}.json").read_text())
     out_file = ROOT.parent / "data" / "verified" / f"{city}-hrera.json"
     done = json.loads(out_file.read_text())["societies"] if out_file.exists() else {}
@@ -147,4 +147,4 @@ def main(city="gurgaon", limit=None):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "gurgaon", int(sys.argv[2]) if len(sys.argv) > 2 else None)
+    main(sys.argv[1] if len(sys.argv) > 1 else sys.exit(__doc__), int(sys.argv[2]) if len(sys.argv) > 2 else None)

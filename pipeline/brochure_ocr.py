@@ -1,6 +1,6 @@
 """Read bedroom sizes from builder brochure PDFs: render each page, OCR it locally, pair sizes with room labels.
 
-usage: uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python brochure_ocr.py gurgaon
+usage: uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python brochure_ocr.py <city>
        -> data/verified/<city>-brochures.json
 
 A page counts as a unit plan when it has bedroom labels with sizes. Its BHK comes from text printed on the
@@ -73,7 +73,7 @@ def read_brochure(job):
         shutil.rmtree(tmp, ignore_errors=True)
 
 
-def main(city="gurgaon"):
+def main(city):
     data = json.loads((ROOT.parent / "web" / "public" / "data" / f"{city}.json").read_text())
     out_file = ROOT.parent / "data" / "verified" / f"{city}-brochures.json"
     done = json.loads(out_file.read_text())["brochures"] if out_file.exists() else {}
@@ -97,4 +97,4 @@ def main(city="gurgaon"):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "gurgaon")
+    main(sys.argv[1] if len(sys.argv) > 1 else sys.exit(__doc__))
