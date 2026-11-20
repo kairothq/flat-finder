@@ -203,7 +203,9 @@ export const PLACE_STYLE = {
 };
 const kindColor = ['match', ['get', 'k'], ...Object.entries(PLACE_STYLE).flatMap(([k, v]) => [k, v.color]), '#999999'];
 // metro lines in their own colour; railway track grey (train routes' colours belong to long-distance services)
-const lineColor = ['case', ['!=', ['get', 'kind'], 'metro'], '#9a9aa6', ['has', 'colour'], ['to-color', ['get', 'colour'], '#3d9bff'], '#3d9bff'];
+// (a metro tagged gray or black, like Gurugram's Rapid Metro, would vanish on the dark maps: draw it light grey-blue)
+const lineColor = ['case', ['!=', ['get', 'kind'], 'metro'], '#9a9aa6', ['!', ['has', 'colour']], '#3d9bff',
+  ['in', ['downcase', ['get', 'colour']], ['literal', ['gray', 'grey', 'black', '#000', '#000000', '#808080']]], '#aab8d6', ['to-color', ['get', 'colour'], '#3d9bff']];
 const lineWidth = (open) => ['interpolate', ['linear'], ['zoom'], 10, ['match', ['get', 'kind'], 'metro', open ? 2 : 1.5, 1], 16, ['match', ['get', 'kind'], 'metro', open ? 6 : 4, 3]];
 
 export function addPlaceLayers(map, places) {
