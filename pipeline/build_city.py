@@ -21,10 +21,26 @@ import verified
 ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "out"
 WEB = ROOT.parent / "web" / "public" / "data"
-GENERIC = {"the", "of", "at", "in", "sector", "gurgaon", "gurugram", "residency", "residences", "homes",
+GENERIC = {"the", "of", "at", "in", "sector", "residency", "residences", "homes",
            "apartments", "apartment", "towers", "tower", "heights", "city", "phase", "park", "estate",
            "floors", "society", "cghs", "group", "housing", "and", "by", "new", "greens", "green", "plaza"}
 TOWER_H = 55.0  # visual default height (m) for generated apartment towers; shapes are not data
+PAD = 0.15  # the portal puts some projects just outside the city bbox (Sohna for Gurugram); keep them
+
+
+def city_tokens(city, cfg):
+    """City and region words that do not identify a society, so they never count towards a name match."""
+    words = {city} | set(re.findall(r"[a-z0-9]+", (cfg.get("name") or "").lower())) \
+        | {w for t in cfg.get("tokens") or [] for w in re.findall(r"[a-z0-9]+", t.lower())}
+    return {w for w in words if len(w) > 2}
+
+
+def in_city(p, cfg):
+    """Project has coordinates inside the city bbox, padded for the surrounding district."""
+    if not p.get("lat") or not p.get("lng"):
+        return False
+    s, w, n, e = cfg["bbox"]
+    return s - PAD < p["lat"] < n + PAD and w - PAD < p["lng"] < e + PAD
 
 
 def tokens(name):
@@ -155,11 +171,11 @@ def match_verified(v, projects, taken=()):
     return best
 
 
-def events_for(s):
+def events_for(s, city_name):
     ev = []
     sid = s["id"]
     src = s.get("url")
-    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or 'Gurgaon'} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
+    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or city_name} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
     bits = [f"{int(s['towers'])} towers" if s.get("towers") else None, f"{int(s['units']):,} units" if s.get("units") else None,
             f"{s['acres']} acres" if s.get("acres") else None]
     if any(bits):
@@ -222,11 +238,38 @@ def shapes_for(s, area, bld_grid, sid_seed):
     return feats, shape
 
 
+def sources_for(city, cfg, vdir, societies=()):
+    """Where the city's numbers came from. Only name a source that actually contributed a file.
+
+    A city built from a seed file has never been crawled, so crediting the portal would claim a provenance
+    its numbers do not have. Name it only once a society actually links to a portal page.
+    """
+    out = ["OpenStreetMap contributors"]
+    if any("magicbricks" in (s.get("url") or "") for s in societies):
+        out.insert(0, "Magicbricks project pages")
+    if cfg.get("rera") and (vdir / f"{city}-hrera.json").exists():
+        out.append(cfg["rera"])
+    if (vdir / f"{city}.json").exists():
+        out.append("Builder brochures (verified rows)")
+    return out
+
+
+def plan_urls(ai_plans, ocr_plans):
+    """Every floor plan url, in a fixed order.
+
+    Iterating the union as a set ordered the rows by string hash, which Python randomises per process, so two
+    builds of the same inputs wrote the same unit_types in a different order: a rebuild showed hundreds of
+    societies as changed and no data diff could be read.
+    """
+    return sorted(set(ai_plans) | set(ocr_plans))
+
+
 def main(city="gurgaon"):
     cfg = json.loads((ROOT.parent / "data" / "cities.json").read_text())[city]
+    GENERIC.update(city_tokens(city, cfg))
     out = OUT / city
     raw = json.loads((out / "mb_projects.json").read_text())
-    located = [p for p in raw if p.get("lat") and p.get("lng") and 28.2 < p["lat"] < 28.7 and 76.7 < p["lng"] < 77.3]
+    located = [p for p in raw if in_city(p, cfg)]
     not_located = len(raw) - len(located)
     projects = dedupe(located)
     areas = json.loads((out / "osm_areas.geojson").read_text())["features"]
@@ -279,7 +322,7 @@ def main(city="gurgaon"):
     ai_plans = json.loads((vdir / f"{city}-ai.json").read_text())["plans"] if (vdir / f"{city}-ai.json").exists() else {}
     ocr_plans = json.loads((vdir / f"{city}-ocr.json").read_text())["plans"] if (vdir / f"{city}-ocr.json").exists() else {}
     by_sid = {s["id"]: s for s in societies}
-    for url in set(ai_plans) | set(ocr_plans):
+    for url in plan_urls(ai_plans, ocr_plans):
         o, j = ocr_plans.get(url, {}), ai_plans.get(url, {})
         s = by_sid.get(o.get("sid") or j.get("sid"))
         if not s or s.get("verified"):
@@ -432,17 +475,20 @@ def main(city="gurgaon"):
         f, shape = shapes_for(s, area, bld_grid, i)
         s["shape"] = shape
         shapes.extend(f)
-        events.extend(events_for(s))
+        events.extend(events_for(s, cfg["name"]))
 
     WEB.mkdir(parents=True, exist_ok=True)
-    doc = {"city": {"id": city, "name": cfg["name"], "center": cfg["center"], "zoom": cfg["zoom"]},
+    city_doc = {"id": city, "name": cfg["name"], "center": cfg["center"], "zoom": cfg["zoom"]}
+    if cfg.get("default_mode"):  # rent-first cities open on the rent slider; elsewhere buy stays the default
+        city_doc["default_mode"] = cfg["default_mode"]
+    doc = {"city": city_doc,
             "price_model": model,
             "room_model": room_model,
             "counts": {"listed": len(raw), "on_map": len(societies), "not_located": not_located,
                        "ai_read": sum(1 for s in societies if s.get("ai_read")),
                        "for_sale": sum(s["sale_count"] or 0 for s in societies), "for_rent": sum(s["rent_count"] or 0 for s in societies),
                        "verified": sum(s["verified"] for s in societies)},
-            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", "HRERA Gurugram", "Builder brochures (verified rows)"],
+            "sources": sources_for(city, cfg, vdir, societies),
             "societies": societies, "events": events}
     details = {}
     for s in societies:  # heavy per-society text, loaded only when a card opens
