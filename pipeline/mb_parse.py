@@ -109,6 +109,33 @@ def parse_project_page(html):
     }
 
 
+def parse_project_card(html):
+    """The list-card fields (card_to_project), read from a project page instead.
+    For cities with no list page, where the index comes from the sitemap and holds only URLs."""
+    state = _json_after(html, "window.SERVER_PRELOADED_STATE_") or {}
+    pdd = state.get("projectDetailData") or {}
+    mob = pdd.get("prjMobileBean") or {}
+    info = mob.get("infoBean") or {}
+    det = mob.get("detailBean") or {}
+    area = re.fullmatch(r"([\d.]+)\s*Acres?", (det.get("projArea") or "").strip())
+    m = re.search(r'"brochurelink":"([^"]+\.pdf)"', html)
+    photos = [u for u in ((pdd.get("galleryData") or {}).get("Project Photos") or {}) if u.startswith("http")]
+    return {
+        "name": (info.get("projectName") or "").strip(),
+        "developer": info.get("devName"),
+        "locality": info.get("lmtDName") or info.get("localityName"),
+        "pincode": det.get("pincode"),
+        "possession": (re.findall(r"\d{4}", det.get("possdateStr") or "") or [None])[-1],
+        "acres": _num(area.group(1)) if area else None,
+        "price_min": _num(info.get("minSalePrice")),
+        "price_max": _num(info.get("maxSalePrice")),
+        "prop_types": info.get("psmCndPropTypes"),
+        "brochure_url": "https://img.staticmb.com/mbimages/project/" + m.group(1) if m else None,
+        "images": [{"thumb": u, "full": re.sub(r"_310_462(\.\w+)$", r"\1", u.replace("Photo_h310_w462/", ""))} for u in photos[:8]],
+        "type_codes": [pdd["propTy"]] if pdd.get("propTy") else [],
+    }
+
+
 def parse_unit_info(raw):
     """'2 , 10002 , 1484  Sq-ft | ...' -> [{bhk, sqft, kind}]; entries without a size are dropped."""
     units = []

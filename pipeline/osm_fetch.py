@@ -3,6 +3,7 @@
 usage: python osm_fetch.py <city>  -> out/<city>/osm_areas.geojson, out/<city>/osm_buildings.geojson
 """
 import json
+import math
 import pathlib
 import sys
 import time
@@ -28,7 +29,7 @@ def overpass(query, name):
     CACHE.mkdir(parents=True, exist_ok=True)
     f = CACHE / f"{name}.json"
     if f.exists():
-        return json.loads(f.read_text())
+        return json.loads(f.read_bytes())  # bytes: utf-8 on every OS (read_text uses cp1252 on Windows)
     body = urllib.parse.urlencode({"data": query}).encode()
     for url in MIRRORS * 2:
         try:
@@ -102,9 +103,19 @@ def main():
     (OUT / "osm_areas.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": feats}))
     print("areas", len(feats))
 
-    blds = overpass(f'[out:json][timeout:280];way["building"]{bb};out geom;', "buildings")
+    # one query for a small city; big ones (Delhi) in ~0.1 degree tiles so Overpass does not time out
+    rows, cols = (1, 1) if max(n - s, e - w) <= 0.3 else (math.ceil((n - s) / 0.1), math.ceil((e - w) / 0.1))
+    dy, dx = (n - s) / rows, (e - w) / cols
+    elements, seen = [], set()
+    for i in range(rows):
+        for j in range(cols):
+            tb = f"({s + i * dy},{w + j * dx},{s + (i + 1) * dy},{w + (j + 1) * dx})"
+            part = overpass(f'[out:json][timeout:280];way["building"]{tb};out geom;', "buildings" if rows * cols == 1 else f"buildings_{i}_{j}")
+            elements += [el for el in part["elements"] if el["id"] not in seen and not seen.add(el["id"])]
+            if rows * cols > 1:
+                print(f"  tile {i * cols + j + 1}/{rows * cols}: {len(elements)} buildings", flush=True)
     bf = []
-    for el in blds["elements"]:
+    for el in elements:
         if "geometry" not in el:
             continue
         r = _pts(el["geometry"])

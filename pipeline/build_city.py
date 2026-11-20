@@ -155,11 +155,11 @@ def match_verified(v, projects, taken=()):
     return best
 
 
-def events_for(s):
+def events_for(s, city_name="Gurgaon"):
     ev = []
     sid = s["id"]
     src = s.get("url")
-    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or 'Gurgaon'} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
+    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or city_name}· {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
     bits = [f"{int(s['towers'])} towers" if s.get("towers") else None, f"{int(s['units']):,} units" if s.get("units") else None,
             f"{s['acres']} acres" if s.get("acres") else None]
     if any(bits):
@@ -226,7 +226,8 @@ def main(city="gurgaon"):
     cfg = json.loads((ROOT.parent / "data" / "cities.json").read_text())[city]
     out = OUT / city
     raw = json.loads((out / "mb_projects.json").read_text())
-    located = [p for p in raw if p.get("lat") and p.get("lng") and 28.2 < p["lat"] < 28.7 and 76.7 < p["lng"] < 77.3]
+    s_, w_, n_, e_ = cfg["bbox"]  # south, west, north, east; padded so edge projects survive
+    located = [p for p in raw if p.get("lat") and p.get("lng") and s_ - 0.15 < p["lat"] < n_ + 0.15 and w_ - 0.15 < p["lng"] < e_ + 0.15]
     not_located = len(raw) - len(located)
     projects = dedupe(located)
     areas = json.loads((out / "osm_areas.geojson").read_text())["features"]
@@ -432,7 +433,7 @@ def main(city="gurgaon"):
         f, shape = shapes_for(s, area, bld_grid, i)
         s["shape"] = shape
         shapes.extend(f)
-        events.extend(events_for(s))
+        events.extend(events_for(s, cfg["name"]))
 
     WEB.mkdir(parents=True, exist_ok=True)
     doc = {"city": {"id": city, "name": cfg["name"], "center": cfg["center"], "zoom": cfg["zoom"]},
@@ -442,7 +443,7 @@ def main(city="gurgaon"):
                        "ai_read": sum(1 for s in societies if s.get("ai_read")),
                        "for_sale": sum(s["sale_count"] or 0 for s in societies), "for_rent": sum(s["rent_count"] or 0 for s in societies),
                        "verified": sum(s["verified"] for s in societies)},
-            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", "HRERA Gurugram", "Builder brochures (verified rows)"],
+            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", *(["HRERA Gurugram"] if hrera else []), "Builder brochures (verified rows)"],
             "societies": societies, "events": events}
     details = {}
     for s in societies:  # heavy per-society text, loaded only when a card opens
@@ -471,7 +472,7 @@ def write_csv(soc_path, unit_path, societies):
     for b in range(1, 6):
         cols += [f"buy_{b}bhk_median", f"buy_{b}bhk_estimate", f"rent_{b}bhk_median", f"rent_{b}bhk_estimate", f"{b}bhk_price_flag"]
     cols += ["rating", "rating_count", "review_count", "amenities", "verified", "smallest_bedroom_ft", "magicbricks_url", "google_maps_url"]
-    with open(soc_path, "w", newline="") as f:
+    with open(soc_path, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(cols)
         for s in societies:
@@ -487,7 +488,7 @@ def write_csv(soc_path, unit_path, societies):
             row += [s["rating"], s["rating_count"], s["review_count"], "; ".join(s["amenities"]), s["verified"],
                     f"{smallest[0]:.2f} x {smallest[1]:.2f}" if smallest else None, s["url"], s["gmaps"]]
             w.writerow(row)
-    with open(unit_path, "w", newline="") as f:
+    with open(unit_path, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["society_id", "society", "unit", "bhk", "super_sqft", "carpet_sqft", "listed_sqft", "bedrooms_ft", "all_bedrooms_read",
                     "ai_narrowest_bedroom_ft", "ai_every_bedroom_long_side_at_least_ft", "ai_every_bedroom_area_at_least_sqft", "confidence", "source", "page"])

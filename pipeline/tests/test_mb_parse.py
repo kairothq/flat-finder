@@ -61,3 +61,22 @@ def test_photo_links_skip_floor_plans():
     links = mb_parse.photo_links("2025/09/18/Project-Photo-9-X-5021659_410_1440.jpg,2025/07/01/Floor-Plan-36-X_505_661.jpg")
     assert links == [{"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2025/09/18/Project-Photo-9-X-5021659_410_1440_310_462.jpg",
                       "full": "https://img.staticmb.com/mbimages/project/2025/09/18/Project-Photo-9-X-5021659_410_1440.jpg"}]
+
+
+def test_project_card_from_project_page():
+    p = mb_parse.parse_project_card(read("mb_project_flat.html"))
+    assert (p["name"], p["developer"], p["locality"], p["acres"]) == ("Ireo The Corridors", "Ireo Management Pvt. Ltd.", "Sector 67A", 37.0)
+    assert p["brochure_url"].endswith("ireo-the-corridors-brochure.pdf")
+    assert p["images"] and "Photo_h310_w462" not in p["images"][0]["full"]
+
+
+def test_sitemap_projects_filters_city_and_strips_subpages():
+    import mb_crawl
+    base = "https://www.magicbricks.com/"
+    got = mb_crawl.sitemap_projects([
+        base + "ansal-crown-heights-floor-plan-sector-80-faridabad-pdpid-4d4235303233373839",
+        base + "ansal-crown-heights-sector-80-faridabad-pdpid-4d4235303233373839",           # same project
+        base + "monde-de-provence-floor-plan-faridabad-gurgaon-road-gurgaon-pdpid-4d4235303231313037",  # Gurgaon
+    ], "faridabad")
+    assert list(got) == ["5023789"]
+    assert got["5023789"]["url"] == base + "ansal-crown-heights-sector-80-faridabad-pdpid-4d4235303233373839"
