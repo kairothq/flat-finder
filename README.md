@@ -69,9 +69,9 @@ cd ../web && npm install && npm run dev
 
 Tests: `cd pipeline && uv run --with pytest pytest` and `cd web && npx vitest run --root .. cli web/src`.
 
-Cities live in `data/cities.json`. Gurugram is built; Bengaluru and Mumbai are configured and need the pipeline run (see the skill, Job 2).
+Cities live in `data/cities.json`. Gurugram, Mira Road–Bhayandar and Vasai–Virar are built; Bengaluru and Mumbai are configured and need the pipeline run (see the skill, Job 2). A city can also be a set of Magicbricks localities inside a bigger city: list their slugs in `magicbricks_localities` (Mira Road uses six Mumbai localities, about 1,500 projects, instead of all 26,000 in Mumbai). Projects outside `located_bbox` (default: `bbox`) are dropped, since locality pages also show cards from neighbouring areas.
 
-Press `/` to search for a society. The Streets button switches to a street map with road and sector names.
+Press `/` to search for a society. The Streets button switches to a street map with road and sector names. The map-style menu (layers button) also shows **places** from OpenStreetMap: metro lines in their own colour (dashed where under construction or proposed), railway lines, metro and railway stations, malls and supermarkets, parks, hospitals and schools, each with its own on/off switch. Click a dot for its name. They come from `osm_fetch.py <city>` (`osm_pois.json`, `osm_transit.geojson`) and are written to `web/public/data/<city>-places.geojson` by `build_city.py <city>` (or `build_city.py <city> places` on its own).
 
 Useful links: `?city=gurgaon`, `?map=streets` or `?map=light`, `?preset=divy` loads the example search, `?open=<society id>` opens one society, `?nointro` skips the globe fly-in.
 
@@ -81,4 +81,4 @@ Verified rows live in `data/verified/<city>.json`. Each unit type lists its bedr
 
 ## Sources
 
-Magicbricks project pages (listing facts, live sale and rent listings, resident ratings and reviews), OpenStreetMap contributors (outlines, ODbL), Esri World Imagery (basemap), OpenFreeMap (roads and city buildings), HRERA Gurugram and builder brochures (verified rows).
+Magicbricks project pages (listing facts, live sale and rent listings, resident ratings and reviews), MahaRERA public project search (registration numbers and filing links for Maharashtra cities, `pipeline/maharera.py`; filing pages need a captcha, so their floor plans are read by hand, never automatically), OpenStreetMap contributors (outlines, ODbL), Esri World Imagery (basemap), OpenFreeMap (roads and city buildings), HRERA Gurugram and builder brochures (verified rows).

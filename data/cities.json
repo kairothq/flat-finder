@@ -1,5 +1,7 @@
 {
-  "gurgaon": { "name": "Gurugram", "magicbricks": "gurgaon", "bbox": [28.33, 76.88, 28.55, 77.16], "center": [77.065, 28.425], "zoom": 12.4 },
+  "gurgaon": { "name": "Gurugram", "magicbricks": "gurgaon", "bbox": [28.33, 76.88, 28.55, 77.16], "located_bbox": [28.2, 76.7, 28.7, 77.3], "center": [77.065, 28.425], "zoom": 12.4 },
   "bangalore": { "name": "Bengaluru", "magicbricks": "bangalore", "bbox": [12.80, 77.40, 13.20, 77.80], "center": [77.60, 12.97], "zoom": 11.4 },
-  "mumbai": { "name": "Mumbai", "magicbricks": "mumbai", "bbox": [18.89, 72.77, 19.30, 73.05], "center": [72.88, 19.08], "zoom": 11.4 }
+  "mumbai": { "name": "Mumbai", "magicbricks": "mumbai", "bbox": [18.89, 72.77, 19.30, 73.05], "center": [72.88, 19.08], "zoom": 11.4 },
+  "mira-road": { "name": "Mira Road–Bhayandar", "magicbricks": "mumbai", "magicbricks_localities": ["mira-road-area", "mira-road-east", "mira-road", "mira-bhayandar", "bhayandar-east", "bhayandar-west"], "maharera_districts": ["517"], "bbox": [19.25, 72.82, 19.34, 72.91], "located_bbox": [19.235, 72.82, 19.34, 72.91], "center": [72.865, 19.29], "zoom": 13.2 },
+  "vasai-virar": { "name": "Vasai–Virar", "magicbricks": "mumbai", "magicbricks_localities": ["vasai", "vasai-east", "vasai-west", "virar", "virar-east", "virar-west", "nala-sopara", "nalasopara-east", "nalasopara-west", "palghar-naigaon-east"], "maharera_districts": ["990", "517"], "bbox": [19.33, 72.76, 19.50, 72.93], "center": [72.835, 19.42], "zoom": 12.4 }
 }

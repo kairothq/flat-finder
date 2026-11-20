@@ -1,6 +1,6 @@
 import './style.css';
 import maplibregl from 'maplibre-gl';
-import { addBaseLayers, addSocietyLayers, BASE_MODES, createMap, OVERVIEW, setBaseMode, setHighlights, setSelected, setStates, startPulse } from './map.js';
+import { addBaseLayers, addPlaceLayers, addSocietyLayers, BASE_MODES, createMap, OVERVIEW, PLACE_STYLE, setBaseMode, setHighlights, setPlaces, setSelected, setStates, startPulse } from './map.js';
 import { searchSocieties } from './search.js';
 import { createFeed } from './feed.js';
 import { AMENITY_KEYS, DEFAULT_CRITERIA, NEAR, RANK, feetLabel, formatINR, matchSociety, matchUnit, priceFor, roomPasses } from './filters.js';
@@ -32,14 +32,18 @@ let roomMode = 'off', areaUnit = 'gaj', sortBy = 'best';
 let data, byId, map, feed, selected = null, states = new Map(), tourTimer = null, cityId = 'gurgaon', details = null;
 let myList = [], allAmenities = [];
 const highlights = { glow: true, bounds: true, labels: true, ...store.get('ff-highlights', {}) };
+const placesOn = { metro: true, rail: true, shopping: true, park: true, hospital: true, school: false, ...store.get('ff-places', {}) };
+let places = { type: 'FeatureCollection', features: [] };
 
 async function boot() {
   const cities = await fetch('/data/cities.json').then((r) => r.json()).catch(() => ({ gurgaon: { name: 'Gurugram' } }));
   cityId = cities[params.get('city')] ? params.get('city') : 'gurgaon';
-  const [city, shapes] = await Promise.all([
+  const [city, shapes, placeData] = await Promise.all([
     fetch(`/data/${cityId}.json`).then((r) => r.json()),
     fetch(`/data/${cityId}-shapes.geojson`).then((r) => r.json()),
+    fetch(`/data/${cityId}-places.geojson`).then((r) => (r.ok ? r.json() : null)).catch(() => null),
   ]);
+  if (placeData) places = placeData;
   data = city;
   OVERVIEW.center = city.city.center;
   OVERVIEW.zoom = city.city.zoom || OVERVIEW.zoom;
@@ -53,7 +57,7 @@ async function boot() {
 
   myList = params.get('list') ? params.get('list').split(',').filter((id) => byId.has(id)) : store.get(`ff-list-${cityId}`, []).filter((id) => byId.has(id));
   const c = city.counts, m = city.price_model || {}, rated = city.societies.filter((s) => s.rating).length;
-  $('note').textContent = `${c.on_map.toLocaleString()} societies · ${(c.for_sale || 0).toLocaleString()} homes for sale, ${(c.for_rent || 0).toLocaleString()} for rent on Magicbricks · ${c.verified} verified from brochures and HRERA plans`;
+  $('note').textContent = `${c.on_map.toLocaleString()} societies · ${(c.for_sale || 0).toLocaleString()} homes for sale, ${(c.for_rent || 0).toLocaleString()} for rent on Magicbricks · ${c.verified} verified from brochures and RERA plans`;
   $('about-prices').innerHTML = `Prices and rents are medians of live Magicbricks listings. <b>⚠</b> marks a listing price our checks think is a typo (far from the same home nearby, or rent and price that cannot both be right): it is shown as listed but not used for filters. <b>~</b> marks our estimate: rent is about ${((m.city_yield || 0.025) * 100).toFixed(1)}% of the price per year here (measured on ${m.pairs || 0} society and BHK pairs, correlation ${m.log_price_rent_correlation ?? 'n/a'}). "Probably fits" uses a cautious bedroom size estimated from unit size (${city.room_model?.n || 0} verified unit types). Resident ratings exist for ${rated.toLocaleString()} societies.`;
   $('dl-all').href = `/data/${cityId}-societies.csv`;
   $('dl-units').href = `/data/${cityId}-units.csv`;
@@ -81,8 +85,17 @@ async function boot() {
   map.once('style.load', () => {
     addSocietyLayers(map, shapes, points);
     addBaseLayers(map);
+    addPlaceLayers(map, places);
     setBaseMode(map, baseMode);
+    setPlaces(map, placesOn, baseMode);
     setHighlights(map, highlights);
+    map.on('click', 'place-dot', (e) => {
+      const p = e.features[0].properties;
+      new maplibregl.Popup({ closeButton: false, offset: 8, className: 'place-pop' }).setLngLat(e.lngLat)
+        .setHTML(`<b>${esc(p.name || 'Unnamed')}</b><br><span>${esc(PLACE_STYLE[p.k]?.one || p.k)} · OpenStreetMap</span>`).addTo(map);
+    });
+    map.on('mouseenter', 'place-dot', () => (map.getCanvas().style.cursor = 'pointer'));
+    map.on('mouseleave', 'place-dot', () => (map.getCanvas().style.cursor = ''));
     startPulse(map);
     // any hand on the map stops a running tour
     for (const ev of ['dragstart', 'wheel', 'touchstart']) map.on(ev, (e) => { if (e.originalEvent) stopTour(); });
@@ -435,10 +448,11 @@ function renderCard(s) {
       <a class="btnlink" href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener">Directions</a>
       <a href="${esc(s.url)}" target="_blank" rel="noopener">Magicbricks page</a>
       ${s.brochure_url ? `<a href="${esc(s.brochure_url)}" target="_blank" rel="noopener">Brochure</a>` : ''}
+      ${(s.maharera || []).slice(0, 3).map((r) => r.url ? `<a href="${esc(r.url)}" target="_blank" rel="noopener" title="MahaRERA filing: ${esc(r.name)} (${esc(r.promoter || '')}). Floor plans are in the filing; the site asks for a captcha.">MahaRERA ${esc(r.reg)}</a>` : '').join('')}
       ${plans}
       ${!s.verified ? `<a href="${esc(issue)}" target="_blank" rel="noopener">Request a room check →</a>` : ''}
     </div>
-    <div class="fine">${s.rera_id ? 'RERA ' + esc(s.rera_id) + ' · ' : ''}${s.shape === 'osm' ? 'Buildings from OpenStreetMap' : s.shape === 'osm-site' ? 'Boundary from OpenStreetMap, towers drawn approximately' : 'Approximate shape: towers drawn from the listed tower count'}</div>`;
+    <div class="fine">${s.rera_id ? 'RERA ' + esc(s.rera_id) + ' · ' : ''}${s.location_source ? 'Location: ' + esc(s.location_source) + ' (portal pin was outside the city) · ' : ''}${s.shape === 'osm' ? 'Buildings from OpenStreetMap' : s.shape === 'osm-site' ? 'Boundary from OpenStreetMap, towers drawn approximately' : 'Approximate shape: towers drawn from the listed tower count'}</div>`;
   $('card').hidden = false;
   $('c-close').onclick = () => { stopTour(); closeCard(); };
   $('c-star').onclick = () => { toggle(myList, s.id); saveList(); renderCard(s); renderResults(); };
@@ -560,7 +574,7 @@ const MOON = '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M20 14.5A
 function setBase(mode) {
   baseMode = mode;
   document.body.dataset.base = mode;
-  if (map?.getLayer?.('st-bg')) setBaseMode(map, mode);
+  if (map?.getLayer?.('st-bg')) { setBaseMode(map, mode); setPlaces(map, placesOn, mode); }
   document.querySelectorAll('#layers button[data-mode]').forEach((b) => b.classList.toggle('on', b.dataset.mode === mode));
   $('btn-theme').innerHTML = mode === 'light' ? MOON : SUN;
   $('btn-theme').title = mode === 'light' ? 'Dark mode' : 'Light mode';
@@ -593,6 +607,21 @@ function buildControls() {
     box.checked = highlights[k];
     box.onchange = () => { highlights[k] = box.checked; store.set('ff-highlights', highlights); if (map) setHighlights(map, highlights); };
   }
+  const counts = {};
+  for (const f of places.features) {
+    const k = f.geometry.type === 'Point' ? f.properties.k : f.properties.kind;
+    counts[k] = (counts[k] || 0) + 1;
+  }
+  $('places-hl').replaceChildren(...Object.entries(PLACE_STYLE).filter(([k]) => counts[k]).map(([k, v]) => {
+    const label = document.createElement('label');
+    label.className = 'sw';
+    label.innerHTML = `<input type="checkbox"> <i class="dot" style="background:${v.color}"></i>${v.label}`;
+    const box = label.querySelector('input');
+    box.checked = placesOn[k];
+    box.onchange = () => { placesOn[k] = box.checked; store.set('ff-places', placesOn); if (map) setPlaces(map, placesOn, baseMode); };
+    return label;
+  }));
+  $('places-hl').hidden = !places.features.length;
   if (store.get('ff-log', true) === false) toggleLog(false);
   setBase(baseMode);
 }

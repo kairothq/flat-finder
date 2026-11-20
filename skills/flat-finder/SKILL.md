@@ -28,7 +28,7 @@ Explain the verdicts: **match** (every bedroom read and passes), **likely** (roo
 
 ## Job 2: add a city
 
-1. Add the city to `data/cities.json`: `name`, Magicbricks city slug (`magicbricks`, as in `magicbricks.com/residential-projects-in-<slug>-nprid`), `bbox` as [south, west, north, east], `center` [lng, lat], `zoom`.
+1. Add the city to `data/cities.json`: `name`, Magicbricks city slug (`magicbricks`, as in `magicbricks.com/residential-projects-in-<slug>-nprid`), `bbox` as [south, west, north, east], `center` [lng, lat], `zoom`. For a town inside a bigger Magicbricks city (Mira Road in Mumbai), set `magicbricks` to the parent city and `magicbricks_localities` to the locality slugs from `magicbricks.com/residential-projects-<locality>-in-<city>-nprid`; projects outside `located_bbox` (default `bbox`) are dropped, because locality pages also carry cards from neighbouring areas.
 2. Run the pipeline (python 3.9+, no dependencies):
    ```bash
    cd pipeline
@@ -37,6 +37,7 @@ Explain the verdicts: **match** (every bedroom read and passes), **likely** (roo
    python3 osm_fetch.py <city>           # OSM outlines; retries Overpass mirrors
    python3 build_city.py <city>          # writes web/public/data/<city>.json, -shapes.geojson, cities.json
    ```
+   Maharashtra cities: set `maharera_districts` (MahaRERA district codes, Thane 517, Palghar 990) and run `python3 maharera.py <city>` then `build_city.py <city>` again. It matches societies to registrations by RERA number, else by name within 600 m, and links each filing on the card. Filing pages ask for a captcha: never automate them; open them by hand for Job 3.
 3. Check the printed counts: `not_located` should be small, and `other` kinds should be under 1%. Open `cd web && npm run dev` then `http://localhost:5173/?city=<city>` and confirm societies sit on the right neighbourhoods.
 4. Run tests: `cd pipeline && uv run --with pytest pytest` and `cd web && npx vitest run --root .. cli web/src`.
 5. Open a pull request with the new data files. Do not commit `pipeline/cache/` or `osm_buildings.geojson`.
