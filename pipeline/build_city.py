@@ -526,5 +526,26 @@ def write_csv(soc_path, unit_path, societies):
                             u.get("confidence"), u.get("source"), u.get("page")])
 
 
+PLACE_KINDS = ("metro", "rail", "shopping", "park", "hospital", "school")
+
+
+def write_places(city):
+    """Map layer of places (stations, malls, parks, hospitals, schools) and metro / rail lines, all from OpenStreetMap."""
+    out = OUT / city
+    pois = json.loads((out / "osm_pois.json").read_text()) if (out / "osm_pois.json").exists() else []
+    lines = json.loads((out / "osm_transit.geojson").read_text())["features"] if (out / "osm_transit.geojson").exists() else []
+    feats = [{"type": "Feature", "properties": {"k": q["k"], "name": q["name"]}, "geometry": {"type": "Point", "coordinates": [q["lng"], q["lat"]]}}
+             for q in pois if q["k"] in PLACE_KINDS]
+    feats += lines
+    WEB.mkdir(parents=True, exist_ok=True)
+    (WEB / f"{city}-places.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": feats}, separators=(",", ":")))
+    print("places", len(feats) - len(lines), "lines", len(lines))
+
+
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "gurgaon")
+    city = sys.argv[1] if len(sys.argv) > 1 else "gurgaon"
+    if "places" in sys.argv[2:]:
+        write_places(city)  # just the places layer, e.g. for a city whose building outlines are not on this machine
+    else:
+        main(city)
+        write_places(city)

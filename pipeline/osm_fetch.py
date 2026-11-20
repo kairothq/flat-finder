@@ -1,9 +1,10 @@
 """Fetch residential areas and building footprints for a city bbox from Overpass, once.
 
-usage: python osm_fetch.py <city>  -> out/<city>/osm_areas.geojson, out/<city>/osm_buildings.geojson
+usage: python osm_fetch.py <city> [pois|transit]  -> out/<city>/osm_areas.geojson, osm_buildings.geojson, osm_pois.json, osm_transit.geojson
 """
 import json
 import pathlib
+import re
 import sys
 import time
 import urllib.parse
@@ -154,9 +155,70 @@ def fetch_pois():
     print("pois", Counter(p["k"] for p in out))
 
 
+TRANSIT_QUERY = """[out:json][timeout:280];
+(
+  way["railway"~"^(rail|subway|light_rail|monorail)$"]["service"!~"."]{bb};
+  way["railway"~"^(construction|proposed)$"]{bb};
+)->.w;
+.w out geom;
+rel(bw.w)["route"~"^(subway|light_rail|monorail|train)$"];
+out body;"""
+METRO = {"subway", "light_rail", "monorail"}
+
+
+def transit_features(data):
+    """Metro and rail track as LineStrings: kind metro|rail, status open|construction|proposed, line name, colour."""
+    routes = {}  # way id -> route relation tags; a metro route wins over a train route
+    for el in data["elements"]:
+        if el["type"] != "relation":
+            continue
+        t = el.get("tags", {})
+        for m in el.get("members", []):
+            if m["type"] == "way" and (m["ref"] not in routes or t.get("route") in METRO):
+                routes[m["ref"]] = t
+    feats = []
+    for el in data["elements"]:
+        if el["type"] != "way" or "geometry" not in el:
+            continue
+        t = el.get("tags", {})
+        rw = t["railway"]
+        status = rw if rw in ("construction", "proposed") else "open"
+        mode = t.get(rw) if status != "open" else rw
+        if mode not in METRO | {"rail"}:
+            continue
+        r = routes.get(el["id"], {})
+        name = r.get("name") or t.get("name")
+        if name:  # "Line 9 (Dahisar (East) → Kashigaon)" -> "Line 9": one name per line, not per direction
+            name = re.sub(r"\s*[:(].*(→|=>|->).*$", "", name).strip() or name
+        feats.append({"type": "Feature",
+                      "properties": {"kind": "metro" if mode in METRO else "rail", "status": status, "name": name,
+                                     "ref": r.get("ref"), "colour": r.get("colour") or t.get("colour")},
+                      "geometry": {"type": "LineString", "coordinates": [list(c) for c in _pts(el["geometry"])]}})
+    # unfinished sections often lack the colour tag: take the colour of the open section with the same name
+    colour = {f["properties"]["name"]: f["properties"]["colour"] for f in feats if f["properties"]["colour"] and f["properties"]["name"]}
+    for f in feats:
+        f["properties"]["colour"] = f["properties"]["colour"] or colour.get(f["properties"]["name"])
+    return feats
+
+
+def fetch_transit():
+    s, w, n, e = BBOX
+    pad = 0.05  # lines run on past the city edge; keep a little of them for context
+    data = overpass(TRANSIT_QUERY.replace("{bb}", f"({s - pad},{w - pad},{n + pad},{e + pad})"), "transit")
+    feats = transit_features(data)
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "osm_transit.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": feats}))
+    from collections import Counter
+    print("transit", Counter((f["properties"]["kind"], f["properties"]["status"]) for f in feats))
+    print("lines", Counter(f["properties"]["name"] for f in feats).most_common(12))
+
+
 if __name__ == "__main__":
     if "pois" in sys.argv:
         fetch_pois()
+    elif "transit" in sys.argv:
+        fetch_transit()
     else:
         main()
         fetch_pois()
+        fetch_transit()

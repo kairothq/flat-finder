@@ -303,3 +303,10 @@ body.has-card .maplibregl-ctrl-bottom-right { right: calc(var(--right-w) + var(-
 
 .prices .flagged { color: var(--muted); text-decoration: line-through dotted; }
 .flag-note { color: var(--likely); }
+
+/* Places layer toggles and popup */
+.layer-menu .hl[hidden] { display: none; }
+.sw .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 1px rgba(0, 0, 0, .5); }
+.place-pop .maplibregl-popup-content { background: var(--glass-strong); color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font-size: 12px; box-shadow: var(--shadow); }
+.place-pop .maplibregl-popup-content span { color: var(--muted); font-size: 11px; }
+.place-pop .maplibregl-popup-tip { display: none; }

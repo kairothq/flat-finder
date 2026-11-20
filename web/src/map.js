@@ -191,3 +191,64 @@ export function setHighlights(map, { glow = true, bounds = true, labels = true }
   map.setLayoutProperty('site-line', 'visibility', bounds ? 'visible' : 'none');
   map.setLayoutProperty('labels', 'visibility', labels ? 'visible' : 'none');
 }
+
+// ---------- Places: metro / rail lines and stations, malls, parks, hospitals, schools (OpenStreetMap) ----------
+export const PLACE_STYLE = {
+  metro: { label: 'Metro', one: 'Metro station', color: '#3d9bff' },
+  rail: { label: 'Rail station', one: 'Railway station', color: '#c9c9d4' },
+  shopping: { label: 'Malls & supermarkets', one: 'Mall or supermarket', color: '#c48cff' },
+  park: { label: 'Parks', one: 'Park', color: '#5cc26c' },
+  hospital: { label: 'Hospitals', one: 'Hospital', color: '#ff6b6b' },
+  school: { label: 'Schools', one: 'School', color: '#ffc24d' },
+};
+const kindColor = ['match', ['get', 'k'], ...Object.entries(PLACE_STYLE).flatMap(([k, v]) => [k, v.color]), '#999999'];
+// metro lines in their own colour; railway track grey (train routes' colours belong to long-distance services)
+const lineColor = ['case', ['!=', ['get', 'kind'], 'metro'], '#9a9aa6', ['has', 'colour'], ['to-color', ['get', 'colour'], '#3d9bff'], '#3d9bff'];
+const lineWidth = (open) => ['interpolate', ['linear'], ['zoom'], 10, ['match', ['get', 'kind'], 'metro', open ? 2 : 1.5, 1], 16, ['match', ['get', 'kind'], 'metro', open ? 6 : 4, 3]];
+
+export function addPlaceLayers(map, places) {
+  map.addSource('places', { type: 'geojson', data: places });
+  const isLine = ['==', ['geometry-type'], 'LineString'];
+  map.addLayer({ id: 'transit-open', type: 'line', source: 'places', filter: ['all', isLine, ['==', ['get', 'status'], 'open']],
+    layout: { 'line-cap': 'round', 'line-join': 'round' },
+    paint: { 'line-color': lineColor, 'line-width': lineWidth(true), 'line-opacity': 0.9 } }, 'labels');
+  map.addLayer({ id: 'transit-planned', type: 'line', source: 'places', filter: ['all', isLine, ['!=', ['get', 'status'], 'open']],
+    layout: { 'line-join': 'round' },
+    paint: { 'line-color': lineColor, 'line-width': lineWidth(false), 'line-opacity': 0.75, 'line-dasharray': [2, 1.5] } }, 'labels');
+  const isPoint = ['==', ['geometry-type'], 'Point'];
+  const station = ['in', ['get', 'k'], ['literal', ['metro', 'rail']]];
+  map.addLayer({ id: 'place-dot', type: 'circle', source: 'places', filter: isPoint,
+    paint: { 'circle-color': kindColor, 'circle-stroke-color': 'rgba(0,0,0,.75)', 'circle-stroke-width': 1.2,
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, ['case', station, 3.5, 2], 16, ['case', station, 8, 6]] } }, 'labels');
+  map.addLayer({ id: 'place-label', type: 'symbol', source: 'places', filter: ['all', isPoint, ['has', 'name'], ['any', station, ['>=', ['zoom'], 14.5]]],
+    minzoom: 11.5,
+    layout: { 'text-field': ['get', 'name'], 'text-font': ['Noto Sans Regular'], 'text-size': ['case', station, 12, 11],
+      'text-offset': [0, 1], 'text-anchor': 'top', 'text-max-width': 9, 'text-optional': true },
+    paint: { 'text-color': kindColor, 'text-halo-color': 'rgba(0,0,0,.9)', 'text-halo-width': 1.4 } });
+  map.addLayer({ id: 'transit-label', type: 'symbol', source: 'places', filter: ['all', isLine, ['has', 'name'], ['==', ['get', 'kind'], 'metro']],
+    minzoom: 12,
+    layout: { 'symbol-placement': 'line', 'symbol-spacing': 400, 'text-field': ['get', 'name'], 'text-font': ['Noto Sans Regular'], 'text-size': 11 },
+    paint: { 'text-color': lineColor, 'text-halo-color': 'rgba(0,0,0,.9)', 'text-halo-width': 1.4 } });
+}
+
+// Which kinds of places show. "metro" also covers the metro lines, "rail" the railway lines.
+export function setPlaces(map, on, mode = 'night') {
+  if (!map.getLayer('place-dot')) return;
+  const kinds = Object.keys(PLACE_STYLE).filter((k) => on[k]);
+  const pick = ['in', ['get', 'k'], ['literal', kinds]];
+  const lines = ['in', ['get', 'kind'], ['literal', kinds]];
+  const isPoint = ['==', ['geometry-type'], 'Point'];
+  const isLine = ['==', ['geometry-type'], 'LineString'];
+  const station = ['in', ['get', 'k'], ['literal', ['metro', 'rail']]];
+  map.setFilter('place-dot', ['all', isPoint, pick]);
+  map.setFilter('place-label', ['all', isPoint, pick, ['has', 'name'], ['any', station, ['>=', ['zoom'], 14.5]]]);
+  map.setFilter('transit-open', ['all', isLine, lines, ['==', ['get', 'status'], 'open']]);
+  map.setFilter('transit-planned', ['all', isLine, lines, ['!=', ['get', 'status'], 'open']]);
+  map.setFilter('transit-label', ['all', isLine, lines, ['has', 'name'], ['==', ['get', 'kind'], 'metro']]);
+  // the base map's own station names would double ours
+  if (map.getLayer('lbl-metro') && (on.metro || on.rail)) map.setLayoutProperty('lbl-metro', 'visibility', 'none');
+  const light = mode === 'light';
+  map.setPaintProperty('place-label', 'text-halo-color', light ? 'rgba(255,255,255,.95)' : 'rgba(0,0,0,.9)');
+  map.setPaintProperty('transit-label', 'text-halo-color', light ? 'rgba(255,255,255,.95)' : 'rgba(0,0,0,.9)');
+  map.setPaintProperty('place-dot', 'circle-stroke-color', light ? 'rgba(255,255,255,.9)' : 'rgba(0,0,0,.75)');
+}
