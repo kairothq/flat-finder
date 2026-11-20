@@ -64,10 +64,20 @@ describe('buy and rent', () => {
     expect(priceFor(s, 'rent', [])).toMatchObject({ value: 70000, estimated: false, bhk: 3 });
     expect(priceFor(s, 'buy', [4])).toMatchObject({ value: 4e7, estimated: true, basis: 'x' });
   });
-  it('rent budget filters on monthly rent; unknown price never excludes', () => {
+  it('rent budget filters on monthly rent; no price is unknown, never a match', () => {
     expect(matchSociety(s, crit({ mode: 'rent', maxRent: 60000 }))).toBe('no');
     expect(matchSociety(s, crit({ mode: 'rent', maxRent: 75000 }))).toBe('match');
-    expect(matchSociety(soc(), crit({ mode: 'rent', maxRent: 10000 }))).toBe('match');
+    // one society cannot honestly answer "yes" to both of these, which is what skipping the test did
+    expect(matchSociety(soc(), crit({ mode: 'rent', maxRent: 10000 }))).toBe('unknown');
+    expect(matchSociety(soc(), crit({ mode: 'rent', minRent: 500000 }))).toBe('unknown');
+    expect(matchSociety(soc(), crit({ mode: 'rent' }))).toBe('match'); // no budget set, nothing to check
+  });
+  it('an unknown price cannot promise a room match, but rooms can still rule a society out', () => {
+    const tiny = soc({ unit_types: [{ bhk: 3, super_sqft: 2000, bedrooms: [[9, 10]], rooms_complete: true }] });
+    const big = soc({ unit_types: [{ bhk: 3, super_sqft: 2000, bedrooms: [[12, 14]], rooms_complete: true }] });
+    expect(matchSociety(tiny, crit({ maxPrice: 1e7, room: ROOM }))).toBe('no'); // a room that small is a no either way
+    expect(matchSociety(big, crit({ maxPrice: 1e7, room: ROOM }))).toBe('unknown'); // rooms fit, budget unchecked
+    expect(matchSociety(big, crit({ room: ROOM }))).toBe('match');
   });
   it('formats rupees', () => {
     expect(formatINR(41500000)).toBe('₹4.15 Cr');

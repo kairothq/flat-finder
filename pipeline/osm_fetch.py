@@ -2,6 +2,7 @@
 
 usage: python osm_fetch.py <city>  -> out/<city>/osm_areas.geojson, out/<city>/osm_buildings.geojson
 """
+import hashlib
 import json
 import pathlib
 import sys
@@ -24,9 +25,31 @@ MIRRORS = [
 ]
 
 
+class Overpass(Exception):
+    """An answer that is not usable OSM data, so it must not be cached or built on."""
+
+
+def checked(data):
+    """Overpass reports a timeout or an overloaded server with HTTP 200 and a remark, and the body
+    then holds no elements or only some of them. Parsing that gives an empty or half city with no
+    error anywhere, so it is a failure: another mirror gets asked and nothing reaches the cache."""
+    if "remark" in data:
+        raise Overpass(str(data["remark"]).strip())
+    if "elements" not in data:
+        raise Overpass(f"no elements in the answer (keys: {sorted(data)})")
+    return data
+
+
+def cache_file(name, query):
+    """The bbox and the tags live in the query, not in the name. Keyed on the name alone, widening a
+    city's bbox in data/cities.json served the narrower answer back for ever, and a city fetched in
+    tiles had to name every tile by hand to stop them overwriting each other."""
+    return CACHE / f"{name}-{hashlib.sha1(query.encode()).hexdigest()[:12]}.json"
+
+
 def overpass(query, name):
     CACHE.mkdir(parents=True, exist_ok=True)
-    f = CACHE / f"{name}.json"
+    f = cache_file(name, query)
     if f.exists():
         return json.loads(f.read_text())
     body = urllib.parse.urlencode({"data": query}).encode()
@@ -34,13 +57,15 @@ def overpass(query, name):
         try:
             req = urllib.request.Request(url, data=body, headers={"User-Agent": "flat-finder/0.1"})
             raw = urllib.request.urlopen(req, timeout=300).read()
-            data = json.loads(raw)
-            f.write_bytes(raw)
+            data = checked(json.loads(raw))
+            tmp = f.with_suffix(".tmp")  # buildings runs to tens of MB: a kill mid-write left a cache file that no later run could parse
+            tmp.write_bytes(raw)
+            tmp.replace(f)
             return data
         except Exception as e:
             print("mirror failed", url, e, flush=True)
             time.sleep(10)
-    raise SystemExit("all Overpass mirrors failed")
+    raise SystemExit(f"all Overpass mirrors failed for {name}")
 
 
 def _pts(geom):

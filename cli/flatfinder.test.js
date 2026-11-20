@@ -1,6 +1,6 @@
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { parseArgs, parseFeet, parsePrice, search } from './flatfinder.mjs';
+import { linkFor, parseArgs, parseFeet, parsePrice, search } from './flatfinder.mjs';
 
 it('reads feet and prices', () => {
   expect(parseFeet("11'3")).toBe(11.25);
@@ -16,6 +16,33 @@ it("Divy's search finds Araya and Presidia as matches", () => {
   expect(names).toContain('Pioneer Araya');
   expect(names).toContain('Pioneer Presidia');
   expect(names).not.toContain('Emaar Amaris');
+});
+
+it('links to the city the data came from, not the one --city defaulted to', () => {
+  const s = { id: 's4242' };
+  // --data <other city>.json used to print ?city=gurgaon, so following the link opened the wrong city and the id missed
+  expect(linkFor({ city: { id: 'hyderabad' } }, s, 'gurgaon')).toContain('?city=hyderabad&open=s4242');
+  expect(linkFor({ city: { id: 'gurgaon' } }, { id: 's123' }, 'gurgaon')).toContain('?city=gurgaon&open=s123');
+  expect(linkFor({}, s, 'gurgaon')).toContain('?city=gurgaon');  // older data files carry no id
+});
+
+it('--near filters on what is nearby, and says so when the key is not one', () => {
+  const city = JSON.parse(readFileSync(new URL('../web/public/data/gurgaon.json', import.meta.url)));
+  expect(parseArgs(['--near', 'park,Metro']).crit.near).toEqual(['park', 'metro']);
+  expect(() => parseArgs(['--near', 'mteor'])).toThrow(/unknown --near "mteor"/);
+  const withPark = search(city, parseArgs(['--near', 'park']));
+  const all = search(city, parseArgs([]));
+  expect(withPark.length).toBeGreaterThan(0);
+  expect(withPark.length).toBeLessThan(all.length);
+  expect(withPark.every((r) => r.s.nearby?.park?.m <= 500)).toBe(true);
+});
+
+it('FF_SITE moves where it reads and where its links point', async () => {
+  vi.stubEnv('FF_SITE', 'http://localhost:4173/');
+  vi.resetModules(); // SITE is read once, at import
+  const fresh = await import('./flatfinder.mjs?ff-site');
+  expect(fresh.linkFor({ city: { id: 'hyderabad' } }, { id: 's1' }, 'gurgaon')).toBe('http://localhost:4173/?city=hyderabad&open=s1'); // one slash, not two
+  vi.unstubAllEnvs();
 });
 
 it('reads monthly rent', () => {

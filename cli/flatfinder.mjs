@@ -2,9 +2,11 @@
 // flatfinder: search the Flat Finder data from a terminal. Same filter logic as the website.
 import { readFile, realpath } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { DEFAULT_CRITERIA, feetLabel, formatINR, matchSociety, priceFor } from '../web/src/filters.js';
+import { DEFAULT_CRITERIA, NEAR, feetLabel, formatINR, matchSociety, priceFor } from '../web/src/filters.js';
 
-const SITE = 'https://flat-finder.pages.dev';
+// Where the data is fetched from and where the printed links point. FF_SITE moves both: a fork
+// publishes its own cities, and `FF_SITE=http://localhost:4173` reads the build in front of you.
+const SITE = (process.env.FF_SITE || 'https://flat-finder.pages.dev').replace(/\/+$/, '');
 
 const HELP = `flatfinder: find housing societies that fit
 
@@ -18,6 +20,7 @@ const HELP = `flatfinder: find housing societies that fit
   --rent                 renting instead of buying
   --max-rent 80k         monthly rent budget
   --amenity squash,pool  squash pool gym club tennis badminton jogging kids
+  --near park,metro      ${Object.entries(NEAR).map(([k, n]) => `${k} (${n.m} m)`).join(', ')}
   --type apartment       apartment, "builder floor", villa, plot (comma separated)
   --ready                ready to move only
   --likely               also show "likely" (rooms read so far pass)
@@ -51,6 +54,14 @@ export function parseArgs(argv) {
     else if (a === '--rent') o.crit.mode = 'rent';
     else if (a === '--max-rent') { o.crit.mode = 'rent'; o.crit.maxRent = parsePrice(v()); }
     else if (a === '--amenity') o.crit.amenities = v().split(',');
+    // The web app and the MCP server both filter on what is nearby and the CLI could not, though it
+    // shares the code that does it. An unknown key is an error rather than a filter that quietly
+    // matches nothing: isNear would read NEAR[key].kinds off undefined and crash on the first society.
+    else if (a === '--near') o.crit.near = v().split(',').map((k) => {
+      const key = k.trim().toLowerCase();
+      if (!Object.hasOwn(NEAR, key)) throw new Error(`unknown --near "${k}". Try: ${Object.keys(NEAR).join(', ')}`);
+      return key;
+    });
     else if (a === '--type') o.crit.kinds = v().split(',');
     else if (a === '--ready') o.crit.ready = true;
     else if (a === '--likely') o.likely = true;
@@ -80,20 +91,40 @@ function smallestRoom(s) {
 
 const money = (p, mode) => (p ? `${p.estimated ? '~' : ''}${formatINR(p.value)}${mode === 'rent' ? '/mo' : ''}` : '');
 
+// The city the data says it is, not the one --city defaulted to: `--data hyderabad.json` printed Gurugram
+// links, so following one opened the wrong city and the society id resolved to nothing.
+export const linkFor = (city, s, fallback) => `${SITE}/?city=${city.city?.id || fallback}&open=${s.id}`;
+
+// A city the site does not publish used to end the run on `Unexpected token '<', "<!doctype "`, with
+// no mention of the city or the url. The status is no help: both deployments serve the app's own
+// index.html, with a 200, for any path under /data that does not exist. So judge the body, and say
+// which cities there are.
+async function fetchCity(id) {
+  const url = `${SITE}/data/${encodeURIComponent(id)}.json`;
+  const res = await fetch(url).catch((e) => { throw new Error(`could not reach ${SITE}: ${e.message}`); });
+  try {
+    const city = JSON.parse(await res.text());
+    if (city?.societies) return city;
+  } catch { /* not json at all: the index.html fallback */ }
+  const known = await fetch(`${SITE}/data/cities.json`).then((r) => r.json()).catch(() => null);
+  const list = known ? ` Cities on ${SITE}: ${Object.keys(known).join(', ')}.` : '';
+  throw new Error(`no city data at ${url} (HTTP ${res.status}).${list} Use --data <file> for a local build, or set FF_SITE to read another deployment.`);
+}
+
 async function main() {
   const o = parseArgs(process.argv.slice(2));
   if (o.help) return console.log(HELP);
-  const city = o.data ? JSON.parse(await readFile(o.data, 'utf8')) : await (await fetch(`${SITE}/data/${o.city}.json`)).json();
+  const city = o.data ? JSON.parse(await readFile(o.data, 'utf8')) : await fetchCity(o.city);
   const rows = search(city, o);
   if (o.json) return console.log(JSON.stringify(rows.slice(0, o.limit).map(({ s, v }) => ({ verdict: v, ...s })), null, 2));
   console.log(`${rows.length} societies in ${city.city.name}${o.likely ? ' (including likely)' : ''}\n`);
   const table = rows.slice(0, o.limit).map(({ s, v }) => ({
     society: s.name.slice(0, 32), area: (s.locality || '').slice(0, 22), verdict: v + (s.verified ? '*' : ''),
-    'smallest bedroom': smallestRoom(s), [o.crit.mode === 'rent' ? 'rent from' : 'price from']: money(priceFor(s, o.crit.mode, o.crit.bhk), o.crit.mode), link: `${SITE}/?city=${o.city}&open=${s.id}`,
+    'smallest bedroom': smallestRoom(s), [o.crit.mode === 'rent' ? 'rent from' : 'price from']: money(priceFor(s, o.crit.mode, o.crit.bhk), o.crit.mode), link: linkFor(city, s, o.city),
   }));
   console.table(table);
   console.log('~ = our estimate from the rent-to-price ratio, not a listing.');
-  console.log('* verified from brochures or HRERA plans. Unit rows without room sizes are "not checked yet" and never shown as matches.');
+  console.log('* verified from brochures or RERA plans. Unit rows without room sizes are "not checked yet" and never shown as matches.');
 }
 
 const self = fileURLToPath(import.meta.url);

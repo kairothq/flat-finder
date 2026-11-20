@@ -4,11 +4,14 @@ import { addBaseLayers, addSocietyLayers, BASE_MODES, createMap, OVERVIEW, setBa
 import { searchSocieties } from './search.js';
 import { createFeed } from './feed.js';
 import { AMENITY_KEYS, DEFAULT_CRITERIA, NEAR, RANK, feetLabel, formatINR, matchSociety, matchUnit, priceFor, roomPasses } from './filters.js';
+import { esc, href } from './html.js';
 
 const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const mobile = matchMedia('(max-width: 700px)').matches;
 const REPO = 'https://github.com/kairothq/flat-finder';
+// Where the site is served from, with a trailing slash. '/' on its own domain, '/<repo>/' on GitHub Pages;
+// Vite bakes it in at build time from `base`, so every data file and permalink has to be built from it.
+const BASE = import.meta.env.BASE_URL;
 const params = new URLSearchParams(location.search);
 const store = { // localStorage can be missing or blocked: never let it break the page
   get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
@@ -34,11 +37,13 @@ let myList = [], allAmenities = [];
 const highlights = { glow: true, bounds: true, labels: true, ...store.get('ff-highlights', {}) };
 
 async function boot() {
-  const cities = await fetch('/data/cities.json').then((r) => r.json()).catch(() => ({ gurgaon: { name: 'Gurugram' } }));
-  cityId = cities[params.get('city')] ? params.get('city') : 'gurgaon';
+  const cities = await fetch(`${BASE}data/cities.json`).then((r) => r.json()).catch(() => ({ gurgaon: { name: 'Gurugram' } }));
+  // hasOwn, not a truthiness test: ?city=constructor finds Object.prototype.constructor, and the page
+  // then fetches data/constructor.json, gets the 404 page, and dies on parsing it with nothing drawn.
+  cityId = Object.hasOwn(cities, params.get('city') ?? '') ? params.get('city') : 'gurgaon';
   const [city, shapes] = await Promise.all([
-    fetch(`/data/${cityId}.json`).then((r) => r.json()),
-    fetch(`/data/${cityId}-shapes.geojson`).then((r) => r.json()),
+    fetch(`${BASE}data/${cityId}.json`).then((r) => r.json()),
+    fetch(`${BASE}data/${cityId}-shapes.geojson`).then((r) => r.json()),
   ]);
   data = city;
   OVERVIEW.center = city.city.center;
@@ -55,8 +60,8 @@ async function boot() {
   const c = city.counts, m = city.price_model || {}, rated = city.societies.filter((s) => s.rating).length;
   $('note').textContent = `${c.on_map.toLocaleString()} societies · ${(c.for_sale || 0).toLocaleString()} homes for sale, ${(c.for_rent || 0).toLocaleString()} for rent on Magicbricks · ${c.verified} verified from brochures and HRERA plans`;
   $('about-prices').innerHTML = `Prices and rents are medians of live Magicbricks listings. <b>⚠</b> marks a listing price our checks think is a typo (far from the same home nearby, or rent and price that cannot both be right): it is shown as listed but not used for filters. <b>~</b> marks our estimate: rent is about ${((m.city_yield || 0.025) * 100).toFixed(1)}% of the price per year here (measured on ${m.pairs || 0} society and BHK pairs, correlation ${m.log_price_rent_correlation ?? 'n/a'}). "Probably fits" uses a cautious bedroom size estimated from unit size (${city.room_model?.n || 0} verified unit types). Resident ratings exist for ${rated.toLocaleString()} societies.`;
-  $('dl-all').href = `/data/${cityId}-societies.csv`;
-  $('dl-units').href = `/data/${cityId}-units.csv`;
+  $('dl-all').href = `${BASE}data/${cityId}-societies.csv`;
+  $('dl-units').href = `${BASE}data/${cityId}-units.csv`;
   $('dl-results').onclick = exportResults;
 
   feed = createFeed($('feed'), $('log-mode'), { events: city.events, byId });
@@ -390,9 +395,12 @@ function renderCard(s) {
     `<tr><td>${b} BHK${p.psf ? `<div class="fine">₹${p.psf.toLocaleString()}/sq ft</div>` : ''}</td><td>${cell(p.buy, p.buy_est, false, p.flags?.buy, p.flags?.buy_range)}</td><td>${cell(p.rent, p.rent_est, true, p.flags?.rent, p.flags?.rent_range)}</td></tr>`).join('');
   const d = details?.[s.id];
   const want = new Set(crit.amenities.flatMap((k) => AMENITY_KEYS[k] || [k.slice(2)]));
-  const facts = Object.entries(s.amen_facts || {}).map(([k, f]) => `<span class="hit">${esc(AMEN_LABELS[k] || k)}: ${esc(f.value)} (<a href="${esc(f.source)}" target="_blank" rel="noopener">p.${esc(f.page)}</a>)</span>`).join('');
+  const facts = Object.entries(s.amen_facts || {}).map(([k, f]) => {
+    const cite = href(f.source) ? `<a href="${href(f.source)}" target="_blank" rel="noopener">p.${esc(f.page)}</a>` : `p.${esc(f.page)}`;
+    return `<span class="hit">${esc(AMEN_LABELS[k] || k)}: ${esc(f.value)} (${cite})</span>`;
+  }).join('');
   const amen = s.amenities.map((a) => `<span class="${[...want].some((w) => a.toLowerCase().includes(w)) ? 'hit' : ''}">${esc(a)}</span>`).join('');
-  const plans = Object.entries(s.plan_links || {}).map(([b, urls]) => urls.slice(0, 2).map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener">${b} BHK plan${urls.length > 1 ? ' ' + (i + 1) : ''}</a>`).join(' ')).join(' ');
+  const plans = Object.entries(s.plan_links || {}).map(([b, urls]) => urls.filter(href).slice(0, 2).map((u, i, kept) => `<a href="${href(u)}" target="_blank" rel="noopener">${b} BHK plan${kept.length > 1 ? ' ' + (i + 1) : ''}</a>`).join(' ')).join(' ');
   const issue = `${REPO}/issues/new?title=${encodeURIComponent('Research: ' + s.name)}&body=${encodeURIComponent(`Please verify room sizes and amenities for ${s.name} (${s.locality || ''}).\n\nPortal page: ${s.url}\n${s.brochure_url ? 'Brochure: ' + s.brochure_url : ''}`)}`;
   const facts2 = [s.towers && `${s.towers} towers`, s.units && `${Number(s.units).toLocaleString()} units`, s.acres && `${s.acres} acres`, s.status, s.possession && `possession ${s.possession}`].filter(Boolean).join(' · ');
   const counts = (s.sale_count || s.rent_count) ? `${(s.sale_count || 0).toLocaleString()} for sale · ${(s.rent_count || 0).toLocaleString()} for rent now` : 'No live listings';
@@ -403,12 +411,13 @@ function renderCard(s) {
   const near = s.nearby || {};
   const nearRows = [['park', 'Park'], ['metro', 'Metro'], ['rail', 'Rail station'], ['school', 'School'], ['hospital', 'Hospital'], ['shopping', 'Mall or supermarket']]
     .filter(([k]) => near[k]).map(([k, l]) => `<div><span>${l}</span><b>${metres(near[k].m)}</b><small>${esc(near[k].name || '')}${near[k].n > 1 ? ` · ${near[k].n} within 1 km` : ''}</small></div>`).join('');
-  const ratingBars = d && Object.keys(d.ratings || {}).length ? `<div class="bars">${Object.entries(d.ratings).map(([k, v]) => `<div><span>${esc(k)}</span><i style="--w:${(v / 5) * 100}%"></i><b>${v}</b></div>`).join('')}</div>` : '';
+  const ratingBars = d && Object.keys(d.ratings || {}).length ? `<div class="bars">${Object.entries(d.ratings).map(([k, v]) => `<div><span>${esc(k)}</span><i style="--w:${(Number(v) / 5) * 100}%"></i><b>${esc(v)}</b></div>`).join('')}</div>` : '';
   const reviews = d?.reviews?.length ? `<div class="reviews">${d.reviews.slice(0, 3).map((r) => `<blockquote>${esc(r.text)}<cite>${esc(r.by || 'Resident')}${r.date ? ' · ' + esc(r.date) : ''}</cite></blockquote>`).join('')}</div>` : '';
   const trend = d?.trend?.length > 1 ? sparkline(d.trend) : '';
   const about = d?.description ? `<details><summary>About this project</summary><p class="fine">${esc(d.description)}</p></details>` : '';
   const inList = myList.includes(s.id);
-  const photos = d?.images?.length ? `<div class="photos">${d.images.map((im) => `<a href="${esc(im.full)}" target="_blank" rel="noopener"><img src="${esc(im.thumb)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></a>`).join('')}</div><div class="fine">Photos: Magicbricks, opens full size</div>` : '';
+  const shots = (d?.images || []).filter((im) => href(im.full) && href(im.thumb));
+  const photos = shots.length ? `<div class="photos">${shots.map((im) => `<a href="${href(im.full)}" target="_blank" rel="noopener"><img src="${href(im.thumb)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></a>`).join('')}</div><div class="fine">Photos: Magicbricks, opens full size</div>` : '';
   $('card').innerHTML = `
     <div class="card-head">
       <div><span class="badge ${st}">${STATE_LABEL[st]}</span> ${s.verified ? '<span class="badge match">checked by hand</span>' : ''}${s.ai_read ? '<span class="badge likely">AI-read plans</span>' : ''}</div>
@@ -431,32 +440,49 @@ function renderCard(s) {
     ${facts || amen ? `<h4>Amenities (${s.amenities.length})</h4><div class="amen">${facts}${amen}</div>` : ''}
     ${about}
     <div class="links">
-      <a class="btnlink" href="${esc(s.gmaps)}" target="_blank" rel="noopener">Google Maps and reviews</a>
-      <a class="btnlink" href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener">Directions</a>
-      <a href="${esc(s.url)}" target="_blank" rel="noopener">Magicbricks page</a>
-      ${s.brochure_url ? `<a href="${esc(s.brochure_url)}" target="_blank" rel="noopener">Brochure</a>` : ''}
+      ${href(s.gmaps) ? `<a class="btnlink" href="${href(s.gmaps)}" target="_blank" rel="noopener">Google Maps and reviews</a>` : ''}
+      <a class="btnlink" href="https://www.google.com/maps/dir/?api=1&destination=${Number(s.lat)},${Number(s.lng)}" target="_blank" rel="noopener">Directions</a>
+      ${href(s.url) ? `<a href="${href(s.url)}" target="_blank" rel="noopener">Magicbricks page</a>` : ''}
+      ${href(s.brochure_url) ? `<a href="${href(s.brochure_url)}" target="_blank" rel="noopener">Brochure</a>` : ''}
       ${plans}
       ${!s.verified ? `<a href="${esc(issue)}" target="_blank" rel="noopener">Request a room check →</a>` : ''}
     </div>
-    <div class="fine">${s.rera_id ? 'RERA ' + esc(s.rera_id) + ' · ' : ''}${s.shape === 'osm' ? 'Buildings from OpenStreetMap' : s.shape === 'osm-site' ? 'Boundary from OpenStreetMap, towers drawn approximately' : 'Approximate shape: towers drawn from the listed tower count'}</div>`;
+    <div class="fine">${s.rera_id ? 'RERA ' + esc(s.rera_id) + ' · ' : ''}${shapeNote(s)}</div>`;
   $('card').hidden = false;
   $('c-close').onclick = () => { stopTour(); closeCard(); };
   $('c-star').onclick = () => { toggle(myList, s.id); saveList(); renderCard(s); renderResults(); };
   if (!details) loadDetails().then(() => { if (selected === s.id) renderCard(s); });
 }
 
+// What is real about the shape on the map, society by society. The footer used to tell every drawn
+// society that its "towers [were] drawn from the listed tower count", which is true of 1,293 of
+// Gurugram's 2,203 drawn societies: 476 have no tower count and get one tower per 120 homes, and 434
+// list neither towers nor homes, so their towers are a placeholder -- and a city seeded from
+// OpenStreetMap rather than crawled is all placeholders. The outline is a guess of its own: 806 of
+// 2,266 drawn outlines have no site area either and are a circle of an assumed three acres.
+function shapeNote(s) {
+  if (s.shape === 'osm') return 'Buildings from OpenStreetMap';
+  const outline = s.shape === 'osm-site' ? 'Boundary from OpenStreetMap'
+    : s.acres ? `Outline drawn to the listed ${esc(s.acres)} acres` : 'Outline drawn to an assumed size: the site area is not listed';
+  if (s.kind === 'plot') return outline;
+  const towers = s.towers ? `${esc(s.towers)} towers as listed` : s.units ? 'tower count not listed, estimated from the number of homes' : 'towers are a placeholder: neither their number nor the number of homes is listed';
+  return `${outline} · ${towers}, placed approximately`;
+}
+
 let detailsPromise = null;
 function loadDetails() {
-  detailsPromise ||= fetch(`/data/${cityId}-details.json`).then((r) => r.json()).then((d) => (details = d)).catch(() => (details = {}));
+  detailsPromise ||= fetch(`${BASE}data/${cityId}-details.json`).then((r) => r.json()).then((d) => (details = d)).catch(() => (details = {}));
   return detailsPromise;
 }
 
 function sparkline(trend) {
-  const vals = trend.map((t) => t[1]), lo = Math.min(...vals), hi = Math.max(...vals), w = 200, h = 36;
+  // The quarter labels are text off the portal page and the prices beside them are whatever the page
+  // said: the labels get escaped and the prices coerced, or one trend row writes its own HTML in here.
+  const vals = trend.map((t) => Number(t[1])), lo = Math.min(...vals), hi = Math.max(...vals), w = 200, h = 36;
   const pts = vals.map((v, i) => `${(i / (vals.length - 1)) * w},${h - 4 - ((v - lo) / (hi - lo || 1)) * (h - 8)}`).join(' ');
   const ch = ((vals.at(-1) - vals[0]) / vals[0]) * 100;
   return `<div class="trend"><svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-    <span class="fine">Average price per sq ft ${trend[0][0]} to ${trend.at(-1)[0]}: ₹${vals[0].toLocaleString()} to ₹${vals.at(-1).toLocaleString()} (${ch >= 0 ? '+' : ''}${ch.toFixed(0)}%)</span></div>`;
+    <span class="fine">Average price per sq ft ${esc(trend[0][0])} to ${esc(trend.at(-1)[0])}: ₹${vals[0].toLocaleString()} to ₹${vals.at(-1).toLocaleString()} (${ch >= 0 ? '+' : ''}${ch.toFixed(0)}%)</span></div>`;
 }
 
 // ---------- phone: one bottom sheet, two tabs (search | society) ----------
@@ -524,7 +550,7 @@ function buildList() {
   };
   $('btn-share').onclick = async () => {
     if (!myList.length) { toast('Your list is empty.'); return; }
-    const url = `${location.origin}/?city=${cityId}&list=${myList.join(',')}`;
+    const url = `${location.origin}${BASE}?city=${cityId}&list=${myList.join(',')}`;
     try { await navigator.clipboard.writeText(url); toast('Link to your list copied.'); } catch { prompt('Copy this link', url); }
   };
   if (params.get('list') && myList.length) crit.only = [...myList];
@@ -539,12 +565,12 @@ function toast(msg) {
 
 // ---------- CSV export of the current results ----------
 function exportResults() {
-  const cols = ['name', 'locality', 'verdict', 'type', crit.mode === 'rent' ? 'rent_from' : 'price_from', 'estimated', 'for_sale', 'for_rent', 'flat_finder_score', 'resident_rating', 'towers', 'units', 'nearest_park_m', 'nearest_metro_m', 'magicbricks_url', 'google_maps_url', 'flat_finder_url'];
+  const cols = ['name', 'locality', 'verdict', 'type', crit.mode === 'rent' ? 'rent_from' : 'price_from', 'estimated', 'for_sale', 'for_rent', 'flat_finder_score', 'resident_rating', 'towers', 'units', 'nearest_park_m', 'nearest_metro_m', 'source_url', 'google_maps_url', 'flat_finder_url'];
   const q = (v) => (v == null ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
   const rows = ranked().map((s) => {
     const p = priceFor(s, crit.mode, crit.bhk);
     return [s.name, s.locality, states.get(s.id), s.kind, p?.value, p ? p.estimated : '', s.sale_count, s.rent_count, s.score, s.rating, s.towers, s.units,
-      s.nearby?.park?.m, s.nearby?.metro?.m, s.url, s.gmaps, `${location.origin}/?city=${cityId}&open=${s.id}`];
+      s.nearby?.park?.m, s.nearby?.metro?.m, s.url, s.gmaps, `${location.origin}${BASE}?city=${cityId}&open=${s.id}`];
   });
   const blob = new Blob([[cols, ...rows].map((r) => r.map(q).join(',')).join('\n')], { type: 'text/csv' });
   const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: `flat-finder-${cityId}-${crit.mode}-results.csv` });
@@ -601,7 +627,7 @@ function buildControls() {
 function buildOnboarding() {
   const c = data.counts;
   const steps = [
-    ['Every society in ' + data.city.name + ', on one map', `${c.on_map.toLocaleString()} housing societies, ${(c.for_sale || 0).toLocaleString()} homes for sale and ${(c.for_rent || 0).toLocaleString()} for rent. Each one has its prices, rents, resident ratings, what is nearby, and links to Google Maps.`],
+    [`Every society in ${esc(data.city.name)}, on one map`, `${c.on_map.toLocaleString()} housing societies, ${(c.for_sale || 0).toLocaleString()} homes for sale and ${(c.for_rent || 0).toLocaleString()} for rent. Each one has its prices, rents, resident ratings, what is nearby, and links to Google Maps.`],
     ['Start with what you cannot live without', 'Pick Buy or Rent and your budget. Then set the smallest bedroom you can live with, by both sides or by area in gaj or sq ft. Add amenities and what you want nearby, like a park within 500 m.'],
     ['How to read the map', '<span class="lg match"></span> Verified: every bedroom read from builder plans and passes.<br><span class="lg likely"></span> Likely: the rooms read so far pass.<br><span class="lg probable"></span> Probably fits: plans not read yet, estimated from unit size.<br><span class="lg unknown"></span> Not checked yet: no room data, so neither pass nor fail.'],
     ['Open a society, keep a list', 'Click any building for prices, bedrooms, ratings and the research behind every number. Star the ones you like, or paste a list of names you already have. Export your results as a CSV any time.'],

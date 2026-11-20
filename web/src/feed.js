@@ -1,5 +1,5 @@
 // Research log: replays real provenance events. Never invents steps.
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+import { esc } from './html.js';
 
 export function createFeed(el, modeEl, { events, byId }) {
   let timer = null;

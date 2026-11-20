@@ -31,6 +31,24 @@ def tokens(name):
     return {t for t in re.findall(r"[a-z0-9]+", (name or "").lower()) if t not in GENERIC and len(t) > 2}
 
 
+ROMAN = {"i": 1, "ii": 2, "iii": 3, "iv": 4, "v": 5, "vi": 6, "vii": 7, "viii": 8, "ix": 9, "x": 10}
+
+
+def marks(name):
+    """Which phase, block, tower, pocket or sector this is.
+
+    tokens() drops every token of 1 or 2 characters, which is exactly where that number lives, so
+    "RWA Pocket B" and "RWA Pocket E" arrive at dedupe as the same name. A number written two ways is
+    one mark, so "Beverly Park II" and "Beverly Park 2" still merge.
+    """
+    out = set()
+    for t in re.findall(r"[a-z0-9]+", (name or "").lower()):
+        if len(t) > 2 or t in GENERIC:
+            continue
+        out.add(ROMAN[t] if t in ROMAN else int(t) if t.isdigit() else t)
+    return out
+
+
 UNIT_KIND = {"10002": "apartment", "10021": "apartment", "10003": "builder floor", "10000": "plot", "10017": "villa",
              "10007": "commercial", "10008": "commercial", "10009": "commercial", "10022": "apartment"}
 
@@ -114,17 +132,37 @@ def match_area(project, area_grid):
 
 
 def dedupe(projects):
-    """Merge listings with the same name tokens less than 400 m apart (phases, duplicates)."""
+    """Merge listings with the same name less than 400 m apart (re-listings, the same phase twice).
+
+    Two listings can only merge when their name tokens are equal, so group by those tokens and compare
+    distances inside a group instead of against every project kept so far: same order and same merge
+    lists, but the pairwise work is per name instead of per city, which is what a bigger city needs.
+    Measured on Gurugram's names grown to Hyderabad's size, 8,000 listings went from 12.0 s to 0.01 s.
+
+    A listing that names a different phase, block, tower or pocket is a different society and is never
+    merged away, however close it is: a merge keeps only one of the two, so it would take the other's
+    listings, units and rating off the map entirely.
+    """
+    groups = defaultdict(list)
+    for i, p in enumerate(projects):
+        groups[frozenset(tokens(p["name"]))].append((i, p, marks(p["name"])))
     kept = []
-    for p in projects:
-        for q in kept:
-            if tokens(p["name"]) == tokens(q["name"]) and tokens(p["name"]) and \
-                    geo.dist_m((p["lng"], p["lat"]), (q["lng"], q["lat"])) < 400:
-                q.setdefault("merged", []).append(p["url"])
-                break
-        else:
-            kept.append(p)
-    return kept
+    for name, members in groups.items():
+        if not name:  # nothing distinguishing left in the name: never merged, so never compared
+            kept += [(i, p) for i, p, _ in members]
+            continue
+        here = []
+        for i, p, m in members:
+            for _, q, qm in here:
+                if m and qm and not m & qm:  # Pocket B is not Pocket E; Park II is Park 2
+                    continue
+                if geo.dist_m((p["lng"], p["lat"]), (q["lng"], q["lat"])) < 400:
+                    q.setdefault("merged", []).append(p["url"])
+                    break
+            else:
+                here.append((i, p, m))
+        kept += [(i, p) for i, p, _ in here]
+    return [p for _, p in sorted(kept, key=lambda t: t[0])]  # back into the order they arrived in
 
 
 def portal_units(p):
@@ -470,7 +508,10 @@ def write_csv(soc_path, unit_path, societies):
             "listings_for_sale", "listings_for_rent", "price_range_min", "price_range_max", "price_per_sqft"]
     for b in range(1, 6):
         cols += [f"buy_{b}bhk_median", f"buy_{b}bhk_estimate", f"rent_{b}bhk_median", f"rent_{b}bhk_estimate", f"{b}bhk_price_flag"]
-    cols += ["rating", "rating_count", "review_count", "amenities", "verified", "smallest_bedroom_ft", "magicbricks_url", "google_maps_url"]
+    # source_url, not magicbricks_url: the column holds s["url"], which is wherever the society was found.
+    # For a city built from a seed file that is its OpenStreetMap node, and naming the portal in the header
+    # credits it with every row it had nothing to do with.
+    cols += ["rating", "rating_count", "review_count", "amenities", "verified", "smallest_bedroom_ft", "source_url", "google_maps_url"]
     with open(soc_path, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(cols)

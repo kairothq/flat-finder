@@ -127,15 +127,19 @@ export function matchSociety(s, c) {
   if (c.ready && !/ready/i.test(s.status || '')) return 'no';
   const budget = c.mode === 'rent' ? c.maxRent : c.maxPrice;
   const floor = c.mode === 'rent' ? c.minRent : c.minPrice;
+  // A society with no listing has no price to compare, and skipping the test used to leave it a full match:
+  // the same society answered "matches" to "under 20 lakh" and to "over 5 crore". Unchecked is not a match.
+  let priced = true;
   if (budget || floor) {
     const p = priceFor(s, c.mode, c.bhk);
-    if (p && budget && p.value > budget) return 'no';
-    if (p && floor && p.value < floor) return 'no';
+    if (!p) priced = false;
+    else if (budget && p.value > budget) return 'no';
+    else if (floor && p.value < floor) return 'no';
   }
   for (const key of c.amenities) if (!hasAmenity(s, key)) return 'no';
 
   const unitFilters = c.bhk.length || c.minSqft > 0 || c.maxSqft || c.room || c.roomArea;
-  if (!unitFilters) return 'match';
+  if (!unitFilters) return priced ? 'match' : 'unknown';
   const units = s.unit_types.filter((u) => !c.bhk.length || c.bhk.includes(u.bhk));
   if (!units.length) return s.unit_types.length ? 'no' : 'unknown';
   let best = 'no';
@@ -144,7 +148,8 @@ export function matchSociety(s, c) {
     if (RANK[r] > RANK[best]) best = r;
     if (best === 'match') break;
   }
-  return best;
+  // rooms can still rule a society out, but they cannot promise a budget nothing was measured against
+  return priced || best === 'no' ? best : 'unknown';
 }
 
 export function feetLabel(ft) {
