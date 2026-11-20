@@ -69,7 +69,7 @@ cd ../web && npm install && npm run dev
 
 Tests: `cd pipeline && uv run --with pytest pytest` and `cd web && npx vitest run --root .. cli web/src`.
 
-Cities live in `data/cities.json`. Gurugram is built; Bengaluru and Mumbai are configured and need the pipeline run (see the skill, Job 2).
+Cities live in `data/cities.json`. Gurugram, Mira Road–Bhayandar and Vasai–Virar are built; Bengaluru and Mumbai are configured and need the pipeline run (see the skill, Job 2). A city can also be a set of Magicbricks localities inside a bigger city: list their slugs in `magicbricks_localities` (Mira Road uses six Mumbai localities, about 1,500 projects, instead of all 26,000 in Mumbai). Projects outside `located_bbox` (default: `bbox`) are dropped, since locality pages also show cards from neighbouring areas.
 
 Press `/` to search for a society. The Streets button switches to a street map with road and sector names.
 
@@ -81,4 +81,4 @@ Verified rows live in `data/verified/<city>.json`. Each unit type lists its bedr
 
 ## Sources
 
-Magicbricks project pages (listing facts, live sale and rent listings, resident ratings and reviews), OpenStreetMap contributors (outlines, ODbL), Esri World Imagery (basemap), OpenFreeMap (roads and city buildings), HRERA Gurugram and builder brochures (verified rows).
+Magicbricks project pages (listing facts, live sale and rent listings, resident ratings and reviews), MahaRERA public project search (registration numbers and filing links for Maharashtra cities, `pipeline/maharera.py`; filing pages need a captcha, so their floor plans are read by hand, never automatically), OpenStreetMap contributors (outlines, ODbL), Esri World Imagery (basemap), OpenFreeMap (roads and city buildings), HRERA Gurugram and builder brochures (verified rows).

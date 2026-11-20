@@ -20,7 +20,10 @@ OUT = ROOT / "out"
 CITIES = json.loads((ROOT.parent / "data" / "cities.json").read_text())
 CITY = next((a for a in sys.argv[1:] if a in CITIES), "gurgaon")
 CFG = CITIES[CITY]
-LIST_URL = "https://www.magicbricks.com/residential-projects-in-" + CFG["magicbricks"] + "-nprid/page-{}"
+# a city is either a Magicbricks city, or a set of Magicbricks localities inside one (e.g. Mira Road in Mumbai)
+LIST_URLS = ["https://www.magicbricks.com/residential-projects-" + loc + "-in-" + CFG["magicbricks"] + "-nprid/page-{}"
+             for loc in CFG["magicbricks_localities"]] if CFG.get("magicbricks_localities") else \
+            ["https://www.magicbricks.com/residential-projects-in-" + CFG["magicbricks"] + "-nprid/page-{}"]
 OUT = OUT / CITY
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 DELAY = 1.0
@@ -45,17 +48,22 @@ def fetch(url):
 
 
 def crawl_list():
-    first = fetch(LIST_URL.format(1))
-    total = mb_parse.parse_total(first)
-    pages = -(-total // 20)
-    projects = {}
-    for n in range(1, pages + 1):
-        html = fetch(LIST_URL.format(n))
-        if not html:
+    projects, total = {}, 0
+    for list_url in LIST_URLS:
+        first = fetch(list_url.format(1))
+        n_here = mb_parse.parse_total(first) if first else None
+        if not n_here:
+            print("no projects listed at", list_url.format(1), flush=True)
             continue
-        for c in mb_parse.parse_list_page(html):
-            projects[c["psmid"]] = mb_parse.card_to_project(c)
-        print(f"list {n}/{pages}: {len(projects)} projects", flush=True)
+        total += n_here
+        pages = -(-n_here // 20)
+        for n in range(1, pages + 1):
+            html = fetch(list_url.format(n))
+            if not html:
+                continue
+            for c in mb_parse.parse_list_page(html):
+                projects[c["psmid"]] = mb_parse.card_to_project(c)
+            print(f"list {n}/{pages} {list_url.split('/')[3]}: {len(projects)} projects", flush=True)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "mb_index.json").write_text(json.dumps(list(projects.values()), indent=0))
     print("total reported", total, "collected", len(projects))

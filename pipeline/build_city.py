@@ -14,6 +14,7 @@ import statistics
 import urllib.parse
 
 import geo
+import maharera
 import pricing
 import rooms_model
 import verified
@@ -21,7 +22,7 @@ import verified
 ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "out"
 WEB = ROOT.parent / "web" / "public" / "data"
-GENERIC = {"the", "of", "at", "in", "sector", "gurgaon", "gurugram", "residency", "residences", "homes",
+GENERIC = {"the", "of", "at", "in", "sector", "gurgaon", "gurugram", "mumbai", "mira", "road", "bhayandar", "residency", "residences", "homes",
            "apartments", "apartment", "towers", "tower", "heights", "city", "phase", "park", "estate",
            "floors", "society", "cghs", "group", "housing", "and", "by", "new", "greens", "green", "plaza"}
 TOWER_H = 55.0  # visual default height (m) for generated apartment towers; shapes are not data
@@ -226,7 +227,18 @@ def main(city="gurgaon"):
     cfg = json.loads((ROOT.parent / "data" / "cities.json").read_text())[city]
     out = OUT / city
     raw = json.loads((out / "mb_projects.json").read_text())
-    located = [p for p in raw if p.get("lat") and p.get("lng") and 28.2 < p["lat"] < 28.7 and 76.7 < p["lng"] < 77.3]
+    # keep projects inside the city's located_bbox (default: its map bbox); portal pages also carry cards from neighbouring areas.
+    # Maharashtra: a portal pin outside the city (often a Mumbai placeholder) is replaced by the MahaRERA pin when one matches.
+    box = cfg.get("located_bbox") or cfg["bbox"]
+    south, west, north, east = box
+    regs, by_reg = maharera.load(city)
+    for p in raw:
+        if regs and not (p.get("lat") and p.get("lng") and south < p["lat"] < north and west < p["lng"] < east):
+            fix = maharera.relocate(p, regs, by_reg, box)
+            if fix:
+                p["lat"], p["lng"], p["location_source"] = fix
+    print("pins taken from MahaRERA:", sum(1 for p in raw if p.get("location_source")))
+    located = [p for p in raw if p.get("lat") and p.get("lng") and south < p["lat"] < north and west < p["lng"] < east]
     not_located = len(raw) - len(located)
     projects = dedupe(located)
     areas = json.loads((out / "osm_areas.geojson").read_text())["features"]
@@ -241,7 +253,7 @@ def main(city="gurgaon"):
     societies, shapes, events, used_areas = [], [], [], set()
     for i, p in enumerate(projects):
         s = {"id": f"s{p['mb_id']}", "name": p["name"], "developer": p.get("developer"), "locality": p.get("locality"),
-             "lat": round(p["lat"], 6), "lng": round(p["lng"], 6), "status": p.get("status"), "possession": p.get("possession"),
+             "lat": round(p["lat"], 6), "lng": round(p["lng"], 6), "location_source": p.get("location_source"), "status": p.get("status"), "possession": p.get("possession"),
              "rera_id": p.get("rera_id"), "units": p.get("units"), "towers": p.get("towers"), "acres": p.get("acres"),
              "price_min": p.get("price_min"), "price_max": p.get("price_max"), "kind": kind_of(p).rstrip("~"),
              "kind_inferred": kind_of(p).endswith("~"),
@@ -340,6 +352,21 @@ def main(city="gurgaon"):
                                         "bedrooms": [list(x) for x in beds], "rooms_complete": False, "confidence": "ocr",
                                         "checked_by": f"OCR of HRERA filing: {doc['doc'].title()[:60]}", "source": h["project"], "page": str(pg["page"])})
                 s["ai_read"] = True
+
+    # MahaRERA registrations (maharera.py): filing links for Maharashtra cities. Floor plans there sit behind a captcha,
+    # so this adds no room sizes; it confirms the registration and links the filing for a person to read (Job 3)
+    if regs:
+        for s in societies:
+            hits, how = maharera.match(s, regs, by_reg)
+            if not hits:
+                continue
+            s["maharera"] = [{"reg": r["reg"], "name": r["name"], "promoter": r["promoter"], "url": r["url"],
+                              "last_modified": r["last_modified"]} for r in hits]
+            s["maharera_match"] = how
+            if not s.get("rera_id"):
+                s["rera_id"] = " / ".join(r["reg"] for r in hits)
+        from collections import Counter
+        print("societies matched to MahaRERA:", dict(Counter(s.get("maharera_match") for s in societies)))
 
     # floor plans found on other sites by the plan finder, then OCR'd (found_ocr.py)
     fd_file = vdir / f"{city}-found.json"
