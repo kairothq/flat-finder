@@ -1,5 +1,6 @@
 {
-  "gurgaon": { "name": "Gurugram", "magicbricks": "gurgaon", "bbox": [28.33, 76.88, 28.55, 77.16], "center": [77.065, 28.425], "zoom": 12.4 },
+  "gurgaon": { "name": "Gurugram", "magicbricks": "gurgaon", "bbox": [28.33, 76.88, 28.55, 77.16], "keep_box": [28.2, 76.7, 28.7, 77.3], "center": [77.065, 28.425], "zoom": 12.4 },
   "bangalore": { "name": "Bengaluru", "magicbricks": "bangalore", "bbox": [12.80, 77.40, 13.20, 77.80], "center": [77.60, 12.97], "zoom": 11.4 },
-  "mumbai": { "name": "Mumbai", "magicbricks": "mumbai", "bbox": [18.89, 72.77, 19.30, 73.05], "center": [72.88, 19.08], "zoom": 11.4 }
+  "mumbai": { "name": "Mumbai", "magicbricks": "mumbai", "bbox": [18.89, 72.77, 19.30, 73.05], "center": [72.88, 19.08], "zoom": 11.4 },
+  "vadodara": { "name": "Vadodara", "gujrera_district": "Vadodara", "bbox": [22.20, 73.06, 22.42, 73.32], "center": [73.185, 22.31], "zoom": 11.8 }
 }

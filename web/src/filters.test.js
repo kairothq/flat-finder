@@ -138,3 +138,10 @@ describe('flagged prices', () => {
     expect(priceFor(s, 'rent', [3])).toMatchObject({ value: 90100, estimated: true });
   });
 });
+
+it('forRent keeps only societies with live rental listings', () => {
+  const c = { ...structuredClone(DEFAULT_CRITERIA), forRent: true };
+  expect(matchSociety(soc({ rent_count: 3 }), c)).not.toBe('no');
+  expect(matchSociety(soc({ rent_count: 0 }), c)).toBe('no');
+  expect(matchSociety(soc({}), c)).toBe('no');
+});

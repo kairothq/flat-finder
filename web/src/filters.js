@@ -20,6 +20,7 @@ export const DEFAULT_CRITERIA = {
   maxRent: null,    // rupees per month, renting
   amenities: [],    // amenity keys, see AMENITY_KEYS
   ready: false,     // only ready to move
+  forRent: false,   // only societies with live rental listings
 };
 
 // Amenity keys -> words that identify them in portal amenity names.
@@ -125,6 +126,7 @@ export function matchSociety(s, c) {
   if (c.kinds.length && !c.kinds.includes(s.kind)) return 'no';
   for (const key of c.near || []) if (!isNear(s, key)) return 'no';
   if (c.ready && !/ready/i.test(s.status || '')) return 'no';
+  if (c.forRent && !s.rent_count) return 'no';
   const budget = c.mode === 'rent' ? c.maxRent : c.maxPrice;
   const floor = c.mode === 'rent' ? c.minRent : c.minPrice;
   if (budget || floor) {

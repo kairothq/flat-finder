@@ -53,8 +53,11 @@ async function boot() {
 
   myList = params.get('list') ? params.get('list').split(',').filter((id) => byId.has(id)) : store.get(`ff-list-${cityId}`, []).filter((id) => byId.has(id));
   const c = city.counts, m = city.price_model || {}, rated = city.societies.filter((s) => s.rating).length;
-  $('note').textContent = `${c.on_map.toLocaleString()} societies · ${(c.for_sale || 0).toLocaleString()} homes for sale, ${(c.for_rent || 0).toLocaleString()} for rent on Magicbricks · ${c.verified} verified from brochures and HRERA plans`;
-  $('about-prices').innerHTML = `Prices and rents are medians of live Magicbricks listings. <b>⚠</b> marks a listing price our checks think is a typo (far from the same home nearby, or rent and price that cannot both be right): it is shown as listed but not used for filters. <b>~</b> marks our estimate: rent is about ${((m.city_yield || 0.025) * 100).toFixed(1)}% of the price per year here (measured on ${m.pairs || 0} society and BHK pairs, correlation ${m.log_price_rent_correlation ?? 'n/a'}). "Probably fits" uses a cautious bedroom size estimated from unit size (${city.room_model?.n || 0} verified unit types). Resident ratings exist for ${rated.toLocaleString()} societies.`;
+  $('note').textContent = city.city.source === 'GujRERA'
+    ? `${(c.on_map - (c.rental_only || 0)).toLocaleString()} GujRERA projects and ${(c.rental_only || 0).toLocaleString()} older societies on the map · ${(c.for_rent || 0).toLocaleString()} flats for rent in ${(c.with_rentals || 0).toLocaleString()} societies (Magicbricks) · no sale prices yet`
+    : `${c.on_map.toLocaleString()} societies · ${(c.for_sale || 0).toLocaleString()} homes for sale, ${(c.for_rent || 0).toLocaleString()} for rent on Magicbricks · ${c.verified} verified from brochures and HRERA plans`;
+  if (city.city.source === 'GujRERA') $('about-prices').innerHTML = `Societies come from GujRERA registrations, with locations and site boundaries as each promoter drew them on the GujRERA map. Rents are medians of live Magicbricks rental listings that name the society (${(c.for_rent || 0).toLocaleString()} flats in ${(c.with_rentals || 0).toLocaleString()} societies). Older societies that are not in GujRERA are placed from their listings. ${(c.rentals_unplaced || 0).toLocaleString()} rental listings name no society and are not shown. There are no sale prices for this city yet, and no estimates: the rent-to-price ratio has not been measured here.`;
+  else $('about-prices').innerHTML = `Prices and rents are medians of live Magicbricks listings. <b>⚠</b> marks a listing price our checks think is a typo (far from the same home nearby, or rent and price that cannot both be right): it is shown as listed but not used for filters. <b>~</b> marks our estimate: rent is about ${((m.city_yield || 0.025) * 100).toFixed(1)}% of the price per year here (measured on ${m.pairs || 0} society and BHK pairs, correlation ${m.log_price_rent_correlation ?? 'n/a'}). "Probably fits" uses a cautious bedroom size estimated from unit size (${city.room_model?.n || 0} verified unit types). Resident ratings exist for ${rated.toLocaleString()} societies.`;
   $('dl-all').href = `/data/${cityId}-societies.csv`;
   $('dl-units').href = `/data/${cityId}-units.csv`;
   $('dl-results').onclick = exportResults;
@@ -210,6 +213,7 @@ function buildFilters() {
       : { min: 0, max: 20, step: 0.25, fmt: (v, end) => (end === 'hi' && v >= 20 ? 'Any' : v ? formatINR(v * 1e7) : '₹0') });
     priceSlider.set(rent ? (crit.minRent || 0) / 1000 : (crit.minPrice || 0) / 1e7, rent ? (crit.maxRent ? crit.maxRent / 1000 : 500) : (crit.maxPrice ? crit.maxPrice / 1e7 : 20));
     $('f-ready').checked = crit.ready;
+    $('f-forrent').checked = !!crit.forRent;
     $('f-only').checked = !!crit.only;
     if (!$('amen-more').hidden) amenList();
     labels();
@@ -237,6 +241,7 @@ function buildFilters() {
   $('f-est').onchange = () => { crit.estimates = $('f-est').checked; applyFilters(); };
   $('amen-q').oninput = amenList;
   $('f-ready').onchange = () => { crit.ready = $('f-ready').checked; applyFilters(); };
+  $('f-forrent').onchange = () => { crit.forRent = $('f-forrent').checked; applyFilters(); };
   $('f-sort').onchange = () => { sortBy = $('f-sort').value; renderResults(); };
   $('preset-divy').onclick = () => useCriteria(DIVY);
   $('btn-replay').onclick = intro;
@@ -395,6 +400,10 @@ function renderCard(s) {
   const plans = Object.entries(s.plan_links || {}).map(([b, urls]) => urls.slice(0, 2).map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener">${b} BHK plan${urls.length > 1 ? ' ' + (i + 1) : ''}</a>`).join(' ')).join(' ');
   const issue = `${REPO}/issues/new?title=${encodeURIComponent('Research: ' + s.name)}&body=${encodeURIComponent(`Please verify room sizes and amenities for ${s.name} (${s.locality || ''}).\n\nPortal page: ${s.url}\n${s.brochure_url ? 'Brochure: ' + s.brochure_url : ''}`)}`;
   const facts2 = [s.towers && `${s.towers} towers`, s.units && `${Number(s.units).toLocaleString()} units`, s.acres && `${s.acres} acres`, s.status, s.possession && `possession ${s.possession}`].filter(Boolean).join(' · ');
+  const tally = (o) => Object.entries(o || {}).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${esc(k.toLowerCase())} ${n}`).join(', ');
+  const rentRow = (r) => `<li>${[r.bhk && `${r.bhk} BHK`, r.price && `<b>${formatINR(r.price)}/mo</b>`, r.sqft && `${Number(r.sqft).toLocaleString()} sq ft`, r.furnished && esc(r.furnished.toLowerCase())].filter(Boolean).join(' · ')}<br><span class="fine">${esc(r.posted_by || 'Posted')}${r.poster ? ': ' + esc(r.poster) : ''}${r.posted ? ' · ' + esc(r.posted) : ''}${r.tenants ? ' · wants ' + esc(r.tenants.toLowerCase()) : ''}</span>${r.url ? ` <a href="${esc(r.url)}" target="_blank" rel="noopener">Contact on Magicbricks →</a>` : ''}</li>`;
+  const rentList = d?.rentals?.length ? `<h4>Flats for rent now (${s.rent_count})</h4><ul class="rentals">${d.rentals.map(rentRow).join('')}</ul><div class="fine">Magicbricks shows the owner's or agent's phone number on its page after you sign in.${s.rent_count > d.rentals.length ? ` Showing the ${d.rentals.length} newest.` : ''}</div>` : '';
+  const rentNote = s.rent_count ? `<div class="fine">Tenants wanted: ${tally(s.rent_tenants) || 'not stated'} · posted by ${tally(s.rent_posted_by) || 'not stated'}</div>` : '';
   const counts = (s.sale_count || s.rent_count) ? `${(s.sale_count || 0).toLocaleString()} for sale · ${(s.rent_count || 0).toLocaleString()} for rent now` : 'No live listings';
   const parts = s.score_parts || {};
   const score = s.score != null ? `<div class="score"><div class="big">${s.score}<small>/10</small></div><div class="parts">
@@ -419,7 +428,7 @@ function renderCard(s) {
     <div class="meta">${esc(s.developer || '')}${s.locality ? ' · ' + esc(s.locality) : ''} · ${esc(s.config_text || s.kind)}${s.kind_inferred ? ' <span class="fine">(type inferred from name)</span>' : ''}</div>
     <div class="meta">${esc(facts2)}</div>
     ${score}
-    <div class="meta">${s.rating ? `<span class="stars">★ ${s.rating.toFixed(1)}</span> ${s.rating_count || 0} resident ratings · ${s.review_count || 0} reviews · ` : ''}${counts}</div>
+    <div class="meta">${s.rating ? `<span class="stars">★ ${s.rating.toFixed(1)}</span> ${s.rating_count || 0} resident ratings · ${s.review_count || 0} reviews · ` : ''}${counts}</div>${rentNote}
     ${s.note ? `<div class="fine">${esc(s.note)}</div>` : ''}
     <h4>Buy and rent</h4>
     ${priceRows ? `<table class="prices"><tr><th>Home</th><th>Buy</th><th>Rent</th></tr>${priceRows}</table>` : '<div class="fine">No price data.</div>'}
@@ -429,16 +438,21 @@ function renderCard(s) {
     ${nearRows ? `<h4>Nearby</h4><div class="near">${nearRows}</div>` : ''}
     ${ratingBars ? `<h4>What residents rate</h4>${ratingBars}` : ''}${reviews}
     ${facts || amen ? `<h4>Amenities (${s.amenities.length})</h4><div class="amen">${facts}${amen}</div>` : ''}
+    ${rentList}
     ${about}
     <div class="links">
       <a class="btnlink" href="${esc(s.gmaps)}" target="_blank" rel="noopener">Google Maps and reviews</a>
       <a class="btnlink" href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener">Directions</a>
-      <a href="${esc(s.url)}" target="_blank" rel="noopener">Magicbricks page</a>
+      ${s.contact?.phone ? `<a class="btnlink" href="tel:${esc(s.contact.phone.replace(/\s/g, ''))}">Call ${esc(s.contact.phone)}</a>` : ''}
+      ${s.contact?.email ? `<a class="btnlink" href="mailto:${esc(s.contact.email)}?subject=${encodeURIComponent(s.name + ' enquiry')}">Email developer</a>` : ''}
+      <a href="${esc(s.url)}" target="_blank" rel="noopener">${s.rental_only ? 'Magicbricks listing' : data.city.source === 'GujRERA' ? 'GujRERA filing (data)' : 'Magicbricks page'}</a>
       ${s.brochure_url ? `<a href="${esc(s.brochure_url)}" target="_blank" rel="noopener">Brochure</a>` : ''}
       ${plans}
       ${!s.verified ? `<a href="${esc(issue)}" target="_blank" rel="noopener">Request a room check →</a>` : ''}
     </div>
-    <div class="fine">${s.rera_id ? 'RERA ' + esc(s.rera_id) + ' · ' : ''}${s.shape === 'osm' ? 'Buildings from OpenStreetMap' : s.shape === 'osm-site' ? 'Boundary from OpenStreetMap, towers drawn approximately' : 'Approximate shape: towers drawn from the listed tower count'}</div>`;
+    ${s.rera ? `<div class="fine">GujRERA: ${[s.rera.rera_status && 'status ' + esc(s.rera.rera_status), s.rera.land_sqm && Math.round(s.rera.land_sqm).toLocaleString() + ' m² land', s.rera.carpet_sqm && Math.round(s.rera.carpet_sqm).toLocaleString() + ' m² carpet area', s.rera.tp_scheme && esc(s.rera.tp_scheme), s.rera.approved_on && 'registered ' + esc(s.rera.approved_on), s.rera.site_note && esc(s.rera.site_note)].filter(Boolean).join(' · ')}</div>` : ''}
+    ${s.contact ? `<div class="fine">Developer contact as listed on GujRERA${s.contact.email ? ': ' + esc(s.contact.email) : ''}</div>` : ''}
+    <div class="fine">${s.rera_id ? 'RERA ' + esc(s.rera_id) + ' · ' : ''}${{ osm: 'Buildings from OpenStreetMap', 'osm-site': 'Boundary from OpenStreetMap, towers drawn approximately', 'rera-osm': 'Boundary from the GujRERA site map, buildings from OpenStreetMap', 'rera-site': 'Boundary from the GujRERA site map, towers drawn approximately' }[s.shape] || 'Approximate shape: towers drawn from the listed tower count'}</div>`;
   $('card').hidden = false;
   $('c-close').onclick = () => { stopTour(); closeCard(); };
   $('c-star').onclick = () => { toggle(myList, s.id); saveList(); renderCard(s); renderResults(); };
