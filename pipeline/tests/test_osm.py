@@ -20,3 +20,10 @@ def test_height_of():
     assert osm_fetch.height_of({"height": "60 m"}) == 60
     assert osm_fetch.height_of({"building:levels": "10"}) == 32
     assert osm_fetch.height_of({}) is None
+
+
+def test_metro_needs_a_station_not_just_a_name():
+    import osm_fetch
+    assert osm_fetch.poi_kind({"amenity": "hospital", "name": "Metro Hospital And Research Institute"}) == "hospital"
+    assert osm_fetch.poi_kind({"railway": "station", "name": "Sikanderpur Rapid Metro"}) == "metro"
+    assert osm_fetch.poi_kind({"railway": "station", "name": "Vadodara Junction"}) == "rail"

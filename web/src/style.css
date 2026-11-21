@@ -303,3 +303,7 @@ body.has-card .maplibregl-ctrl-bottom-right { right: calc(var(--right-w) + var(-
 
 .prices .flagged { color: var(--muted); text-decoration: line-through dotted; }
 .flag-note { color: var(--likely); }
+
+.rentals { list-style: none; padding: 0; margin: 6px 0; display: grid; gap: 8px; }
+.rentals li { padding: 8px 10px; border-radius: 10px; background: var(--chip); line-height: 1.45; }
+.rentals a { white-space: nowrap; }

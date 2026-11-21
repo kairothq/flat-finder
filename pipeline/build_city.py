@@ -1,4 +1,4 @@
-"""Merge Magicbricks projects, OSM shapes and verified research into the web data files.
+"""Merge portal projects (Magicbricks, or GujRERA where Magicbricks has no city list), OSM shapes and verified research into the web data files.
 
 usage: python build_city.py <city>  -> web/public/data/<city>.json, <city>-shapes.geojson, cities.json
 """
@@ -15,6 +15,7 @@ import urllib.parse
 
 import geo
 import pricing
+import rent_match
 import rooms_model
 import verified
 
@@ -36,6 +37,8 @@ UNIT_KIND = {"10002": "apartment", "10021": "apartment", "10003": "builder floor
 
 
 def kind_of(p):
+    if p.get("kind"):  # the source states the project type outright (GujRERA)
+        return p["kind"]
     t = (p.get("config_text") or "").lower()
     if not t:
         codes = [u["kind"] for u in (p.get("configs") or {}).get("units", []) or p.get("card_units") or []] + (p.get("type_codes") or [])
@@ -155,17 +158,26 @@ def match_verified(v, projects, taken=()):
     return best
 
 
-def events_for(s):
+def events_for(s, city_name="Gurgaon"):
     ev = []
     sid = s["id"]
     src = s.get("url")
-    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or 'Gurgaon'} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
+    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or city_name} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
     bits = [f"{int(s['towers'])} towers" if s.get("towers") else None, f"{int(s['units']):,} units" if s.get("units") else None,
             f"{s['acres']} acres" if s.get("acres") else None]
     if any(bits):
         ev.append({"sid": sid, "step": "Project page read", "finding": " · ".join(b for b in bits if b), "url": src})
+    rera = s.get("rera") or {}
+    bits = [f"{rera['land_sqm']:,.0f} m² land" if rera.get("land_sqm") else None,
+            f"{rera['carpet_sqm']:,.0f} m² carpet area registered" if rera.get("carpet_sqm") else None, rera.get("tp_scheme")]
+    if any(bits):
+        ev.append({"sid": sid, "step": "GujRERA filing read", "finding": " · ".join(b for b in bits if b), "url": src})
     if s.get("rera_id"):
         ev.append({"sid": sid, "step": "RERA registration", "finding": s["rera_id"][:60], "url": src})
+    if s.get("rent_count"):
+        who = ", ".join(f"{n} {k.lower()}" for k, n in sorted((s.get("rent_tenants") or {}).items(), key=lambda x: -x[1]))
+        ev.append({"sid": sid, "step": f"{s['rent_count']} flats for rent on Magicbricks", "finding": f"tenants wanted: {who}" if who else "",
+                   "url": (s.get("rent_links") or [src])[0]})
     if s["amenities"]:
         ev.append({"sid": sid, "step": f"{len(s['amenities'])} amenities listed", "finding": ", ".join(s["amenities"][:4]), "url": src})
     for k, f in s.get("amen_facts", {}).items():
@@ -193,11 +205,12 @@ def events_for(s):
     return ev
 
 
-def shapes_for(s, area, bld_grid, sid_seed):
+def shapes_for(s, area, bld_grid, sid_seed, rera_ring=None):
     feats = []
     is_tall = s["kind"] == "apartment"
-    if area:
-        ring = area["geometry"]["coordinates"][0]
+    if rera_ring or area:
+        ring = rera_ring or area["geometry"]["coordinates"][0]
+        src = "rera" if rera_ring else "osm"
         feats.append({"type": "Feature", "properties": {"sid": s["id"], "role": "site"}, "geometry": {"type": "Polygon", "coordinates": [ring]}})
         x0, y0, x1, y1 = geo.bbox(ring)
         inside = [b for b in bld_grid.near(geo.centroid(ring), r=2)
@@ -206,8 +219,8 @@ def shapes_for(s, area, bld_grid, sid_seed):
             for b in inside:
                 h = b["properties"]["h"] or (TOWER_H if is_tall else 9.0)
                 feats.append({"type": "Feature", "properties": {"sid": s["id"], "role": "bld", "h": h, "shape": "osm"}, "geometry": b["geometry"]})
-            return feats, "osm"
-        site, shape = ring, "osm-site"
+            return feats, "osm" if src == "osm" else "rera-osm"
+        site, shape = ring, "osm-site" if src == "osm" else "rera-site"
     else:
         r = math.sqrt((s.get("acres") or 3) * 4047 / math.pi) if (s.get("acres") or 0) < 200 else 120
         site, shape = geo.circle((s["lng"], s["lat"]), max(40, min(r, 400))), "generated"
@@ -225,10 +238,23 @@ def shapes_for(s, area, bld_grid, sid_seed):
 def main(city="gurgaon"):
     cfg = json.loads((ROOT.parent / "data" / "cities.json").read_text())[city]
     out = OUT / city
-    raw = json.loads((out / "mb_projects.json").read_text())
-    located = [p for p in raw if p.get("lat") and p.get("lng") and 28.2 < p["lat"] < 28.7 and 76.7 < p["lng"] < 77.3]
+    gujrera = "gujrera_district" in cfg
+    raw = json.loads((out / ("projects.json" if gujrera else "mb_projects.json")).read_text())
+    # keep projects just outside the map box, drop ones geocoded to another city; keep_box overrides the 0.1 degree pad
+    south, west, north, east = cfg.get("keep_box") or [v + d for v, d in zip(cfg["bbox"], (-0.1, -0.1, 0.1, 0.1))]
+    located = [p for p in raw if p.get("lat") and p.get("lng") and south < p["lat"] < north and west < p["lng"] < east]
     not_located = len(raw) - len(located)
     projects = dedupe(located)
+    rent_counts = {}
+    rent_file = out / "mb_rent.json"
+    if gujrera and rent_file.exists():  # Magicbricks rental listings, tied to GujRERA projects or as rental-only societies
+        extra, rent_counts = rent_match.attach(projects, json.loads(rent_file.read_text()))
+        have = {p["mb_id"] for p in projects}
+        for p in extra:
+            if south < p["lat"] < north and west < p["lng"] < east and p["mb_id"] not in have:
+                have.add(p["mb_id"])
+                projects.append(p)
+        print("rental listings:", dict(rent_counts))
     areas = json.loads((out / "osm_areas.geojson").read_text())["features"]
     area_grid = Grid(areas, lambda a: geo.centroid(a["geometry"]["coordinates"][0]))
     blds = json.loads((out / "osm_buildings.geojson").read_text())["features"]
@@ -255,6 +281,15 @@ def main(city="gurgaon"):
              "trend": p.get("trend") or [], "description": p.get("description"),
              "gmaps": "https://www.google.com/maps/search/?api=1&query=" + urllib.parse.quote(f"{p['name']}, {p.get('locality') or ''}, {cfg['name']}"),
              "prices": pricing.listing_stats(p)}
+        if p.get("rent_count"):
+            s.update(rent_count=p["rent_count"], rent_tenants=p.get("rent_tenants"), rent_posted_by=p.get("rent_posted_by"),
+                     rent_links=p.get("rent_links"), rentals=p.get("rentals"))
+        if p.get("source") == "magicbricks-rent":
+            s["rental_only"] = True
+        if p.get("source") == "gujrera":
+            s["contact"] = p.get("contact")
+            s["rera"] = {k: p.get(k) for k in ("rera_status", "approved_on", "land_sqm", "carpet_sqm", "tp_scheme",
+                                                "approving_authority", "project_cost", "address", "site_note") if p.get(k)}
         if s["towers"] and s["towers"] > 60:  # portal typo (e.g. 1500 towers): not plausible, drop it
             s["towers"] = None
         p["_s"] = s
@@ -418,35 +453,44 @@ def main(city="gurgaon"):
                 sizes[u["bhk"]].append(size)
         own = [b["psf"] for b in s["prices"].values() if b.get("psf") and "buy" not in b.get("flags", {})]
         psf = statistics.median(own) if own else s.get("psf_now") or (statistics.median(loc_psf[s["locality"]]) if len(loc_psf[s["locality"]]) >= 3 else None)
-        if s["kind"] in ("apartment", "builder floor", "villa"):
+        if s["kind"] in ("apartment", "builder floor", "villa") and (model["pairs"] or not gujrera):  # no unmeasured yields
             pricing.add_estimates(s, model, {b: statistics.median(v) for b, v in sizes.items()}, psf)
         s["prices"] = {str(b): v for b, v in sorted(s["prices"].items())}
 
+    by_mb = {f"s{p['mb_id']}": p for p in projects}
     for i, s in enumerate(societies):
-        area = match_area(s, area_grid)
+        area = None if by_mb.get(s["id"], {}).get("site_ring") else match_area(s, area_grid)
         if area and area["properties"]["osm"] in used_areas:
             area = None  # another society already owns this boundary
         if area:
             used_areas.add(area["properties"]["osm"])
             s["osm_area"] = area["properties"]["osm"]
-        f, shape = shapes_for(s, area, bld_grid, i)
+        f, shape = shapes_for(s, area, bld_grid, i, by_mb.get(s["id"], {}).get("site_ring"))
         s["shape"] = shape
         shapes.extend(f)
-        events.extend(events_for(s))
+        events.extend(events_for(s, cfg["name"]))
 
     WEB.mkdir(parents=True, exist_ok=True)
-    doc = {"city": {"id": city, "name": cfg["name"], "center": cfg["center"], "zoom": cfg["zoom"]},
+    doc = {"city": {"id": city, "name": cfg["name"], "center": cfg["center"], "zoom": cfg["zoom"],
+                     "source": "GujRERA" if gujrera else "Magicbricks"},
             "price_model": model,
             "room_model": room_model,
             "counts": {"listed": len(raw), "on_map": len(societies), "not_located": not_located,
                        "ai_read": sum(1 for s in societies if s.get("ai_read")),
                        "for_sale": sum(s["sale_count"] or 0 for s in societies), "for_rent": sum(s["rent_count"] or 0 for s in societies),
-                       "verified": sum(s["verified"] for s in societies)},
-            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", "HRERA Gurugram", "Builder brochures (verified rows)"],
+                       "verified": sum(s["verified"] for s in societies),
+                       "with_rentals": sum(1 for s in societies if s.get("rent_count")),
+                       "rental_only": sum(1 for s in societies if s.get("rental_only")),
+                       "rentals_unplaced": sum(rent_counts.get(k, 0) for k in ("no society named", "ambiguous", "phase unclear"))},
+            "sources": (["GujRERA project registrations and site maps", "Magicbricks rental listings", "OpenStreetMap contributors",
+                         "Builder brochures (verified rows)"] if gujrera else
+                        ["Magicbricks project pages", "OpenStreetMap contributors", "HRERA Gurugram", "Builder brochures (verified rows)"]),
             "societies": societies, "events": events}
     details = {}
     for s in societies:  # heavy per-society text, loaded only when a card opens
         details[s["id"]] = {k: s.pop(k) for k in ("reviews", "description", "trend", "ratings", "images")}
+        if "rentals" in s:  # each live rental with who posted it and its Magicbricks page
+            details[s["id"]]["rentals"] = s.pop("rentals")
     (WEB / f"{city}.json").write_text(json.dumps(doc, separators=(",", ":")))
     (WEB / f"{city}-details.json").write_text(json.dumps(details, separators=(",", ":")))
     for s in societies:
@@ -470,7 +514,8 @@ def write_csv(soc_path, unit_path, societies):
             "listings_for_sale", "listings_for_rent", "price_range_min", "price_range_max", "price_per_sqft"]
     for b in range(1, 6):
         cols += [f"buy_{b}bhk_median", f"buy_{b}bhk_estimate", f"rent_{b}bhk_median", f"rent_{b}bhk_estimate", f"{b}bhk_price_flag"]
-    cols += ["rating", "rating_count", "review_count", "amenities", "verified", "smallest_bedroom_ft", "magicbricks_url", "google_maps_url"]
+    cols += ["rating", "rating_count", "review_count", "amenities", "verified", "smallest_bedroom_ft", "magicbricks_url", "google_maps_url",
+             "developer_phone", "developer_email"]
     with open(soc_path, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(cols)
@@ -485,7 +530,8 @@ def write_csv(soc_path, unit_path, societies):
                         (p.get("rent") or {}).get("median"), (p.get("rent_est") or {}).get("value"),
                         "; ".join(f"{k}: {v}" for k, v in (p.get("flags") or {}).items()) or None]
             row += [s["rating"], s["rating_count"], s["review_count"], "; ".join(s["amenities"]), s["verified"],
-                    f"{smallest[0]:.2f} x {smallest[1]:.2f}" if smallest else None, s["url"], s["gmaps"]]
+                    f"{smallest[0]:.2f} x {smallest[1]:.2f}" if smallest else None, s["url"], s["gmaps"],
+                    (s.get("contact") or {}).get("phone"), (s.get("contact") or {}).get("email")]
             w.writerow(row)
     with open(unit_path, "w", newline="") as f:
         w = csv.writer(f)

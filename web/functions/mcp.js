@@ -217,6 +217,7 @@ function detail(s, extra) {
     ratings_by_category: extra?.ratings || null,
     reviews: (extra?.reviews || []).slice(0, 8).map((r) => ({ title: r.title, text: r.text, date: r.date, by: r.by })),
     description: extra?.description || null,
+    developer_contact: s.contact || null, rera: s.rera || null,
     nearby: s.nearby, amenities: s.amenities, brochure: s.brochure_url, magicbricks: s.url, google_maps: s.gmaps, flat_finder: `${SITE}/?open=${s.id}`,
   };
 }

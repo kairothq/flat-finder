@@ -128,7 +128,8 @@ POI_QUERY = """[out:json][timeout:280];(
 def poi_kind(t):
     if t.get("leisure") == "park":
         return "park"
-    if t.get("station") == "subway" or "metro" in (t.get("name") or "").lower() or t.get("subway") == "yes":
+    is_station = t.get("railway") in ("station", "halt")
+    if t.get("station") == "subway" or t.get("subway") == "yes" or (is_station and "metro" in (t.get("name") or "").lower()):
         return "metro"
     if t.get("railway") in ("station", "halt"):
         return "rail"
