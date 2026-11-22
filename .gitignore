@@ -1,6 +1,8 @@
 pipeline/cache/
 pipeline/cache_*.log
 pipeline/out/*/osm_buildings.geojson
+# Pune crawl and build inputs are reproducible intermediates; deployable Pune assets live in web/public/data/.
+pipeline/out/pune/
 node_modules/
 web/dist/
 .DS_Store
