@@ -2,7 +2,7 @@
 
 Every housing society in a city on one night map. Set the smallest bedroom you can live with, size, BHK, amenities and budget, and watch the societies that fit light up. Every number links to where it came from.
 
-Gurugram is first: about 2,700 projects from Magicbricks, building outlines from OpenStreetMap, and a set of societies verified by reading builder brochures and HRERA plans.
+Gurugram and Pune are available. Pune residential projects come from Magicbricks pages with an exact name match to a mapped OpenStreetMap residential area; project details retain their Magicbricks URLs. This is a sourced matched subset, not a complete citywide portal inventory. Nearby parks, transit, schools, colleges, universities, hospitals, shopping, IT parks and offices come from OpenStreetMap. Named nearby places link to Google Maps searches and their OpenStreetMap records. Official references include the [Pune Government college directory](https://pune.gov.in/en/public-utility-category/colleges/), [Pune Metro](https://punemetrorail.org/route-map.aspx), [EON Free Zone](https://www.eonfreezone.com/about-us) and [Embassy TechZone](https://www.embassyofficeparks.com/portfolio/embassy-techzone/).
 
 ## What the colours mean
 
@@ -69,7 +69,19 @@ cd ../web && npm install && npm run dev
 
 Tests: `cd pipeline && uv run --with pytest pytest` and `cd web && npx vitest run --root .. cli web/src`.
 
-Cities live in `data/cities.json`. Gurugram is built; Bengaluru and Mumbai are configured and need the pipeline run (see the skill, Job 2).
+Cities live in `data/cities.json`. Gurugram and Pune have generated data; Bengaluru and Mumbai remain configured for later pipeline runs (see the skill, Job 2).
+
+To rebuild Pune, fetch its OSM residential areas and nearby places first, then fetch the Magicbricks index, select exact named-area matches, fetch their project pages and build the city files:
+
+```sh
+python pipeline/osm_fetch.py pune
+python pipeline/mb_crawl.py list pune
+python pipeline/mb_crawl.py mapped pune
+python pipeline/mb_crawl.py projects pune
+python pipeline/mb_crawl.py cached pune
+python pipeline/mb_crawl.py projects pune
+python pipeline/build_city.py pune
+```
 
 Press `/` to search for a society. The Streets button switches to a street map with road and sector names.
 

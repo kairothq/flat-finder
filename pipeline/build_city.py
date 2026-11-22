@@ -31,6 +31,20 @@ def tokens(name):
     return {t for t in re.findall(r"[a-z0-9]+", (name or "").lower()) if t not in GENERIC and len(t) > 2}
 
 
+def within_bbox(project, bbox):
+    south, west, north, east = bbox
+    lat, lng = project.get("lat"), project.get("lng")
+    return lat is not None and lng is not None and south <= lat <= north and west <= lng <= east
+
+
+def sources_for_city(city, cfg):
+    sources = ["Magicbricks project pages", "OpenStreetMap contributors"]
+    if city == "gurgaon":
+        sources.extend(["HRERA Gurugram", "Builder brochures (verified rows)"])
+    sources.extend(cfg.get("reference_sources", []))
+    return sources
+
+
 UNIT_KIND = {"10002": "apartment", "10021": "apartment", "10003": "builder floor", "10000": "plot", "10017": "villa",
              "10007": "commercial", "10008": "commercial", "10009": "commercial", "10022": "apartment"}
 
@@ -226,7 +240,7 @@ def main(city="gurgaon"):
     cfg = json.loads((ROOT.parent / "data" / "cities.json").read_text())[city]
     out = OUT / city
     raw = json.loads((out / "mb_projects.json").read_text())
-    located = [p for p in raw if p.get("lat") and p.get("lng") and 28.2 < p["lat"] < 28.7 and 76.7 < p["lng"] < 77.3]
+    located = [p for p in raw if within_bbox(p, cfg.get("project_bbox", cfg["bbox"]))]
     not_located = len(raw) - len(located)
     projects = dedupe(located)
     areas = json.loads((out / "osm_areas.geojson").read_text())["features"]
@@ -376,13 +390,14 @@ def main(city="gurgaon"):
     for s in societies:
         here = (s["lng"], s["lat"])
         near = {}
-        for q in poi_grid.near(here, r=3):
+        for q in poi_grid.near(here, r=11):
             d = geo.dist_m(here, (q["lng"], q["lat"]))
-            if d > 3000:
+            if d > 10000:
                 continue
             k = q["k"]
             if k not in near or d < near[k]["m"]:
-                near[k] = {"m": round(d, -1), "name": q["name"], "n": near.get(k, {}).get("n", 0)}
+                near[k] = {"m": round(d, -1), "name": q["name"], "n": near.get(k, {}).get("n", 0),
+                           "source": q.get("source"), "gmaps": q.get("gmaps")}
             if d <= 1000:
                 near[k]["n"] = near[k].get("n", 0) + 1
         s["nearby"] = near
@@ -429,6 +444,7 @@ def main(city="gurgaon"):
         if area:
             used_areas.add(area["properties"]["osm"])
             s["osm_area"] = area["properties"]["osm"]
+            s["osm_area_url"] = "https://www.openstreetmap.org/" + area["properties"]["osm"]
         f, shape = shapes_for(s, area, bld_grid, i)
         s["shape"] = shape
         shapes.extend(f)
@@ -442,7 +458,7 @@ def main(city="gurgaon"):
                        "ai_read": sum(1 for s in societies if s.get("ai_read")),
                        "for_sale": sum(s["sale_count"] or 0 for s in societies), "for_rent": sum(s["rent_count"] or 0 for s in societies),
                        "verified": sum(s["verified"] for s in societies)},
-            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", "HRERA Gurugram", "Builder brochures (verified rows)"],
+            "sources": sources_for_city(city, cfg),
             "societies": societies, "events": events}
     details = {}
     for s in societies:  # heavy per-society text, loaded only when a card opens
@@ -471,7 +487,7 @@ def write_csv(soc_path, unit_path, societies):
     for b in range(1, 6):
         cols += [f"buy_{b}bhk_median", f"buy_{b}bhk_estimate", f"rent_{b}bhk_median", f"rent_{b}bhk_estimate", f"{b}bhk_price_flag"]
     cols += ["rating", "rating_count", "review_count", "amenities", "verified", "smallest_bedroom_ft", "magicbricks_url", "google_maps_url"]
-    with open(soc_path, "w", newline="") as f:
+    with open(soc_path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(cols)
         for s in societies:
@@ -487,7 +503,7 @@ def write_csv(soc_path, unit_path, societies):
             row += [s["rating"], s["rating_count"], s["review_count"], "; ".join(s["amenities"]), s["verified"],
                     f"{smallest[0]:.2f} x {smallest[1]:.2f}" if smallest else None, s["url"], s["gmaps"]]
             w.writerow(row)
-    with open(unit_path, "w", newline="") as f:
+    with open(unit_path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(["society_id", "society", "unit", "bhk", "super_sqft", "carpet_sqft", "listed_sqft", "bedrooms_ft", "all_bedrooms_read",
                     "ai_narrowest_bedroom_ft", "ai_every_bedroom_long_side_at_least_ft", "ai_every_bedroom_area_at_least_sqft", "confidence", "source", "page"])

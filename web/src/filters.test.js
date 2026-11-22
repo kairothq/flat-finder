@@ -97,6 +97,11 @@ describe('room estimates, area mode, nearby, lists', () => {
     expect(matchSociety(s, crit({ q: 'heritage' }))).toBe('no');
     expect(matchSociety(s, crit({ only: ['y'] }))).toBe('no');
   });
+  it('filters by colleges, universities, IT parks and offices', () => {
+    const s = soc({ nearby: { college: { m: 2500 }, university: { m: 4500 }, it_park: { m: 9000 }, office: { m: 3500 } } });
+    for (const kind of ['college', 'university', 'it_park']) expect(matchSociety(s, crit({ near: [kind] }))).toBe('match');
+    expect(matchSociety(s, crit({ near: ['office'] }))).toBe('no'); // 3.5 km is beyond the 3 km office filter
+  });
   it('custom amenity names from the full list', () => {
     expect(matchSociety(soc({ amenities: ['Banquet Hall'] }), crit({ amenities: ['n:banquet hall'] }))).toBe('match');
   });

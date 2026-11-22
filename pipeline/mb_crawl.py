@@ -1,13 +1,16 @@
 """Polite, cached, resumable Magicbricks crawler.
 
-usage: python mb_crawl.py list <city>      # all list pages -> out/<city>/mb_index.json
-       python mb_crawl.py projects <city>  # every project page -> out/<city>/mb_projects.json
+usage: python mb_crawl.py list <city>          # all list pages -> out/<city>/mb_index.json
+       python mb_crawl.py mapped <city>        # exact OSM residential-area name matches -> mb_index.json
+       python mb_crawl.py cached <city>        # keep mapped project pages already available in the local source cache
+       python mb_crawl.py projects <city>      # mapped project pages -> out/<city>/mb_projects.json (after mapped)
 <city> is a key in data/cities.json (default gurgaon).
 """
 import gzip
 import hashlib
 import json
 import pathlib
+import re
 import sys
 import time
 import urllib.request
@@ -26,9 +29,13 @@ UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
 DELAY = 1.0
 
 
+def project_cache_path(url, cache_dir=CACHE):
+    return cache_dir / (hashlib.sha1(url.encode()).hexdigest() + ".html.gz")
+
+
 def fetch(url):
     CACHE.mkdir(parents=True, exist_ok=True)
-    f = CACHE / (hashlib.sha1(url.encode()).hexdigest() + ".html.gz")
+    f = project_cache_path(url)
     if f.exists() and f.stat().st_size > 2000:
         return gzip.decompress(f.read_bytes()).decode("utf-8", "ignore")
     for attempt in range(3):
@@ -56,13 +63,41 @@ def crawl_list():
         for c in mb_parse.parse_list_page(html):
             projects[c["psmid"]] = mb_parse.card_to_project(c)
         print(f"list {n}/{pages}: {len(projects)} projects", flush=True)
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "mb_index.json").write_text(json.dumps(list(projects.values()), indent=0))
+        if n % 20 == 0 or n == pages:
+            OUT.mkdir(parents=True, exist_ok=True)
+            (OUT / "mb_index.json").write_text(json.dumps(list(projects.values()), indent=0))
     print("total reported", total, "collected", len(projects))
 
 
-def crawl_projects():
-    index = json.loads((OUT / "mb_index.json").read_text())
+def normal_name(value):
+    return " ".join(re.findall(r"[a-z0-9]+", (value or "").lower()))
+
+
+def mapped_project_candidates(projects, areas):
+    """Keep portal projects with an exact named OSM residential-area match."""
+    area_names = {normal_name(a.get("properties", {}).get("name")) for a in areas}
+    area_names.discard("")
+    return [p for p in projects if normal_name(p.get("name")) in area_names]
+
+
+def select_mapped_projects():
+    index = json.loads((OUT / "mb_index.json").read_text(encoding="utf-8"))
+    areas_path = OUT / "osm_areas.geojson"
+    areas = json.loads(areas_path.read_text(encoding="utf-8"))["features"]
+    selected = mapped_project_candidates(index, areas)
+    (OUT / "mb_index.json").write_text(json.dumps(selected, separators=(",", ":")), encoding="utf-8")
+    print(f"mapped projects {len(selected)}/{len(index)} by exact OSM residential-area name", flush=True)
+
+
+def select_cached_projects():
+    index = json.loads((OUT / "mb_index.json").read_text(encoding="utf-8"))
+    selected = [p for p in index if project_cache_path(p["url"]).exists() and project_cache_path(p["url"]).stat().st_size > 2000]
+    (OUT / "mb_index.json").write_text(json.dumps(selected, separators=(",", ":")), encoding="utf-8")
+    print(f"cached project pages {len(selected)}/{len(index)}", flush=True)
+
+
+def crawl_projects(index_file="mb_index.json"):
+    index = json.loads((OUT / index_file).read_text(encoding="utf-8"))
     from concurrent.futures import ThreadPoolExecutor
 
     def one(p):
@@ -84,4 +119,5 @@ def crawl_projects():
 
 
 if __name__ == "__main__":
-    {"list": crawl_list, "projects": crawl_projects}[sys.argv[1]]()
+    {"list": crawl_list, "mapped": select_mapped_projects, "cached": select_cached_projects,
+     "projects": crawl_projects}[sys.argv[1]]()

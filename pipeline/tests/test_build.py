@@ -32,6 +32,20 @@ def test_kind_of():
     assert build_city.kind_of({"config_text": "4 BHK Villa"}) == "villa"
 
 
+def test_city_bounds_are_read_from_each_cities_config():
+    pune = {"lat": 18.5204, "lng": 73.8567}
+    gurugram = {"lat": 28.425, "lng": 77.065}
+    assert build_city.within_bbox(pune, [18.35, 73.67, 18.75, 74.05])
+    assert not build_city.within_bbox(gurugram, [18.35, 73.67, 18.75, 74.05])
+    assert not build_city.within_bbox({"lat": None, "lng": 73.9}, [18.35, 73.67, 18.75, 74.05])
+    assert build_city.within_bbox(gurugram, [28.2, 76.7, 28.7, 77.3])
+
+
+def test_city_sources_do_not_carry_gurugram_only_references_into_pune():
+    sources = build_city.sources_for_city("pune", {"reference_sources": ["Pune official source"]})
+    assert sources == ["Magicbricks project pages", "OpenStreetMap contributors", "Pune official source"]
+
+
 def test_neighbourhood_sized_area_is_not_a_society_site():
     big = area("DLF Phase 4", (77.08, 28.46), r=700)  # ~1.5 km2
     g = build_city.Grid([big], lambda a: geo.centroid(a["geometry"]["coordinates"][0]))

@@ -32,7 +32,7 @@ const FILTERS = {
   min_price_inr: { type: 'number' }, max_price_inr: { type: 'number', description: 'Buy budget in rupees' },
   min_rent_inr: { type: 'number' }, max_rent_inr: { type: 'number', description: 'Monthly rent budget in rupees' },
   amenities: { type: 'array', items: { type: 'string' }, description: 'All must be present: "squash","pool","gym","club","tennis","badminton","jogging","kids", or any exact amenity name' },
-  nearby: { type: 'array', items: { type: 'string', enum: Object.keys(NEAR) }, description: 'Default distances: park 500 m, metro 1.5 km, school 1 km, hospital 2 km, shopping 1.5 km' },
+  nearby: { type: 'array', items: { type: 'string', enum: Object.keys(NEAR) }, description: `Nearby place types and default distances: ${Object.entries(NEAR).map(([k, v]) => `${k} ${v.m} m`).join(', ')}` },
   nearby_within_m: { type: 'object', additionalProperties: { type: 'number' }, description: `Custom distances in metres, e.g. {"metro": 800, "school": 2000}. Keys: ${PLACES.join(', ')}` },
   min_rating: { type: 'number', description: 'Resident rating out of 5' },
   types: { type: 'array', items: { type: 'string', enum: KINDS }, default: ['apartment'], description: 'Use ["any"] for every type' },
