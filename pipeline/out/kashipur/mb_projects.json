@@ -1,0 +1,172 @@
+[
+{
+"mb_id": "5021418",
+"name": "Devasthali Premium Township",
+"developer": "JVPL Group",
+"locality": "NH-121",
+"city_name": "Kashipur",
+"pincode": "244713",
+"status": "Under Construction",
+"possession": null,
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/devasthali-premium-township-default01_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/devasthali-premium-township-default01.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/devasthali-premium-township-default02_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/devasthali-premium-township-default02.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/jvpl-real-estate-kashipur-default_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/jvpl-real-estate-kashipur-default.jpg"
+}
+],
+"type_codes": [],
+"url": "https://www.magicbricks.com/devasthali-premium-township-nh-121-kashipur-pdpid-4d4235303231343138",
+"lat": 30.1006665257886,
+"lng": 78.8876791133114,
+"amenities": [
+"Swimming Pool",
+"Club House",
+"Private Terrace/Garden",
+"Vaastu Compliant",
+"Power Back Up",
+"Security",
+"Park",
+"Reserved Parking",
+"Visitor Parking",
+"Intercom Facility",
+"Gymnasium",
+"RO Water System",
+"Internet/Wi-Fi Connectivity",
+"Lift",
+"Maintenance Staff",
+"Bank & ATM",
+"Indoor Games Room",
+"Kids Club"
+],
+"config_text": "2, 3, 5 BHK ",
+"configs": {
+"units": [
+{
+"bhk": null,
+"sqft": 597.0,
+"kind": "10017"
+},
+{
+"bhk": 2,
+"sqft": 842.0,
+"kind": "10017"
+},
+{
+"bhk": 2,
+"sqft": 1085.0,
+"kind": "10017"
+},
+{
+"bhk": 2,
+"sqft": 1312.0,
+"kind": "10017"
+},
+{
+"bhk": 3,
+"sqft": 1281.0,
+"kind": "10017"
+}
+],
+"by_bhk": {}
+},
+"rating": 4.6,
+"rating_count": 1,
+"review_count": 2,
+"ratings": {
+"water": 4,
+"power": 4,
+"power backup": 5,
+"security": 4,
+"maintenance": 5,
+"construction": 5,
+"parking": 4,
+"sports": 5,
+"green areas": 5,
+"shops nearby": 4,
+"staff": 5,
+"sewage": 5
+},
+"reviews": [
+{
+"title": "Secure Integrated Township Living",
+"text": "This is a massive, gated community that feels like its own little world. The roads and layout are planned out properly. Plus, being right off the highway makes it a big landmark for anyone living on this side of town.",
+"date": "27/10/2026",
+"by": "Owner",
+"rating": null
+},
+{
+"title": "Premium township in Kashipur...",
+"text": "The Project has a Premium township in Kashipur on Ramnagar road with 24x7 security, lush green parks, and wide roads.",
+"date": "21/06/2022",
+"by": "Owner",
+"rating": null
+}
+],
+"sale_count": 3,
+"rent_count": 2,
+"sale_listings": [
+{
+"bhk": 3,
+"price": 6500000.0,
+"sqft": 1433.0,
+"psf": 4536.0,
+"furnished": "Furnished",
+"floor": "3",
+"posted": "2026-10-09"
+},
+{
+"bhk": 5,
+"price": 7000000.0,
+"sqft": 2044.0,
+"psf": 3425.0,
+"furnished": "Unfurnished",
+"floor": null,
+"posted": "2026-10-21"
+},
+{
+"bhk": 2,
+"price": 4600000.0,
+"sqft": 1087.0,
+"psf": 4232.0,
+"furnished": "Semi-Furnished",
+"floor": "2",
+"posted": "2026-10-17"
+}
+],
+"rent_listings": [
+{
+"bhk": 5,
+"price": 25000.0,
+"sqft": 2150.0,
+"psf": 12.0,
+"furnished": "Semi-Furnished",
+"floor": null,
+"posted": "2026-11-13"
+},
+{
+"bhk": 2,
+"price": 14000.0,
+"sqft": 1200.0,
+"psf": 12.0,
+"furnished": "Unfurnished",
+"floor": "4",
+"posted": "2026-09-29"
+}
+],
+"locality_rating": 5.0,
+"description": "Devasthali Premium Township is a Under Construction project by JVPL Group in NH-121 Kashipur, offering Villa configuration. Below are the key details of Devasthali Premium Township. Property Types Villa Devasthali Premium Township Status Under Construction Strategically located in NH-121, Kashipur, Devasthali Premium Township offers property options within the price range of $priceRange. This premium project is developed by the highly trusted builder JVPL Group. The project is currently in the Under Construction phase. The beautiful Devasthali Premium Township's commencement certificate has\u2026"
+}
+]

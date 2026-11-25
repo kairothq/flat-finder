@@ -1,0 +1,636 @@
+[
+{
+"mb_id": "5250365",
+"name": "Solani Enclave in new Adarsh Nagar",
+"developer": null,
+"locality": "Adarsh nagar",
+"city_name": "Roorkee",
+"pincode": null,
+"status": "Ready To Move",
+"possession": null,
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [],
+"type_codes": [],
+"url": "https://www.magicbricks.com/solani-enclave-in-new-adarsh-nagar-adarsh-nagar-roorkee-pdpid-4d4235323530333635",
+"lat": 29.8751458,
+"lng": 77.8985703,
+"config_text": "3 BHK ",
+"configs": {
+"units": [],
+"by_bhk": {}
+},
+"rating_count": 0,
+"ratings": {},
+"sale_count": 2,
+"sale_listings": [
+{
+"bhk": 3,
+"price": 6000000.0,
+"sqft": null,
+"psf": null,
+"furnished": "Furnished",
+"floor": "2",
+"posted": "2026-08-18"
+},
+{
+"bhk": 3,
+"price": 6000000.0,
+"sqft": null,
+"psf": null,
+"furnished": "Furnished",
+"floor": "2",
+"posted": "2026-11-23"
+}
+],
+"locality_rating": 4.1,
+"description": "Solani Enclave in new Adarsh Nagar Status Ready To Move Solani Enclave in new Adarsh Nagar in Adarsh nagar, Roorkee, is a perfect option if you're looking for a premium property within the price range of $priceRange. At present, the project is in the Ready To Move stage. You can reach out to this project at Adarsh Nagar, Roorkee, Uttarakhand. As of today, 2 properties are listed for sale by owners and dealers, providing multiple options to explore."
+},
+{
+"mb_id": "5318539",
+"name": "Purshotam Residency",
+"developer": "Purshotam Industries Ltd.",
+"locality": "Ramnagar",
+"city_name": "Roorkee",
+"pincode": "247667",
+"status": "Ready To Move",
+"possession": "2022",
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2021/10/12/Project-Photo-1-Purshotam-Residency-Roorkee-5318539_345_1366_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2021/10/12/Project-Photo-1-Purshotam-Residency-Roorkee-5318539_345_1366.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2021/10/12/Project-Photo-6-Purshotam-Residency-Roorkee-5318539_600_800_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2021/10/12/Project-Photo-6-Purshotam-Residency-Roorkee-5318539_600_800.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2021/10/12/Project-Photo-5-Purshotam-Residency-Roorkee-5318539_600_800_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2021/10/12/Project-Photo-5-Purshotam-Residency-Roorkee-5318539_600_800.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVK4849ds0mGwp40SLEmawOl_oK7yG5/Photo_h600_w900/2026/Jul/27/85726647_3_PropertyImage403-70359241929896_600_900.jpg",
+"full": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVK4849ds0mGwp40SLEmawOl_oK7yG5/Photo_h600_w900/2026/Jul/27/85726647_3_PropertyImage403-70359241929896_600_900.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVK4849ds0mGwp40SLEmawOl_oK7yG5/Photo_h600_w900/2026/Jul/27/85726647_2_PropertyImage575-2862044243275_600_900.jpg",
+"full": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVK4849ds0mGwp40SLEmawOl_oK7yG5/Photo_h600_w900/2026/Jul/27/85726647_2_PropertyImage575-2862044243275_600_900.jpg"
+}
+],
+"type_codes": [],
+"url": "https://www.magicbricks.com/purshotam-residency-ramnagar-roorkee-pdpid-4d4235333138353339",
+"lat": 29.879112,
+"lng": 77.8656475,
+"rera_id": "UKREP07210000388",
+"units": 32.0,
+"amenities": [
+"Swimming Pool",
+"Jogging and Strolling Track",
+"Vaastu Compliant",
+"Private pool ",
+"Power Back Up",
+"Lift",
+"Security",
+"Park",
+"Reserved Parking",
+"Service/Goods Lift",
+"Visitor Parking",
+"Intercom Facility",
+"Maintenance Staff",
+"Gymnasium",
+"DTH Television Facility",
+"Piped Gas",
+"Rain Water Harvesting",
+"Water Storage",
+"Meditation Area",
+"Internet/Wi-Fi Connectivity",
+"Waste Disposal",
+"Earth quake resistant",
+"Theme based Architectures",
+"Large Open space",
+"Horticulture",
+"Concierge Services",
+"Kids play area",
+"Kids Play Pool With Water Slides",
+"Fire Fighting Equipment",
+"Club House",
+"Bank & ATM",
+"Indoor Games Room",
+"Kids Club"
+],
+"config_text": "3 BHK ",
+"configs": {
+"units": [
+{
+"bhk": null,
+"sqft": 1008.0,
+"kind": "10000"
+},
+{
+"bhk": 3,
+"sqft": 1264.0,
+"kind": "10017"
+},
+{
+"bhk": 3,
+"sqft": 1100.0,
+"kind": "10017"
+},
+{
+"bhk": 3,
+"sqft": 1008.0,
+"kind": "10017"
+}
+],
+"by_bhk": {
+"3": {
+"price_min": null,
+"price_max": null,
+"plan_images": [
+"https://img.staticmb.com/mbimages/project/2021/10/12/Floor-Plan-2-Purshotam-Residency-Roorkee-5318539_600_800.jpg",
+"https://img.staticmb.com/mbimages/project/2021/10/12/Floor-Plan-3-Purshotam-Residency-Roorkee-5318539_600_800.jpg",
+"https://img.staticmb.com/mbimages/project/2021/10/12/Floor-Plan-4-Purshotam-Residency-Roorkee-5318539_600_800.jpg"
+]
+}
+}
+},
+"rating_count": 0,
+"ratings": {},
+"sale_count": 1,
+"sale_listings": [
+{
+"bhk": 3,
+"price": 8500000.0,
+"sqft": 1450.0,
+"psf": 5862.0,
+"furnished": "Semi-Furnished",
+"floor": "1",
+"posted": "2026-11-06"
+}
+],
+"description": "Purshotam Residency is a Ready To Move project by Purshotam Industries Ltd. in Ramnagar Roorkee, offering Plot, Villa configuration. Below are the key details of Purshotam Residency. Property Types Plot, Villa Purshotam Residency Status Ready To Move Purshotam Residency Launch Date 01 August 2021 Purshotam Residency Possession Date 01 August 2022 Purshotam Residency is one of the premium projects in Ramnagar, Roorkee, offering well-planned properties priced between $priceRange. This premium project is developed by the renowned builder Purshotam Industries Ltd. . Presently, the project is in\u2026"
+},
+{
+"mb_id": "5021636",
+"name": "Ishaan Imperial Court",
+"developer": "Ishaan Group",
+"locality": "Haridwar Road Roorkee",
+"city_name": "Roorkee",
+"pincode": "247667",
+"status": "Ready To Move",
+"possession": null,
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/Ishaan%20Imperial%20Court-default_310_462.JPG",
+"full": "https://img.staticmb.com/mbimages/project/Ishaan%20Imperial%20Court-default.JPG"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/Ishaan%20Imperial%20Court-default%201_310_462.JPG",
+"full": "https://img.staticmb.com/mbimages/project/Ishaan%20Imperial%20Court-default%201.JPG"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/Ishaan%20Imperial%20Court_310_462.JPG",
+"full": "https://img.staticmb.com/mbimages/project/Ishaan%20Imperial%20Court.JPG"
+}
+],
+"type_codes": [],
+"url": "https://www.magicbricks.com/ishaan-imperial-court-haridwar-road-roorkee-roorkee-pdpid-4d4235303231363336",
+"lat": 29.8834322,
+"lng": 77.9306883,
+"amenities": [
+"Swimming Pool",
+"Club House",
+"Vaastu Compliant",
+"Power Back Up",
+"Lift",
+"Security",
+"Park",
+"Reserved Parking",
+"Service/Goods Lift",
+"Visitor Parking",
+"Intercom Facility",
+"Gymnasium",
+"RO Water System",
+"Internet/Wi-Fi Connectivity",
+"Maintenance Staff",
+"Bank & ATM",
+"Indoor Games Room",
+"Kids Club"
+],
+"config_text": "2 BHK ",
+"configs": {
+"units": [],
+"by_bhk": {}
+},
+"rating_count": 0,
+"ratings": {},
+"sale_count": 1,
+"sale_listings": [
+{
+"bhk": 2,
+"price": 4500000.0,
+"sqft": 1500.0,
+"psf": 3000.0,
+"furnished": "Semi-Furnished",
+"floor": "2",
+"posted": "2026-11-23"
+}
+],
+"locality_rating": 3.3,
+"description": "Ishaan Imperial Court Price Rs. 45.0 Lac - 45.6 Lac Ishaan Imperial Court Status Ready To Move Ishaan Imperial Court is one of the well-known project in Haridwar Road Roorkee, Roorkee, which offers property options starting from Rs. 45.0 Lac - 45.6 Lac. This premium project is developed by the renowned builder Ishaan Group. Presently, the project is in the Ready To Move phase. Ishaan Imperial Court's commencement certificate has not been granted. Its pincode is 247667. The units are equipped with Intercom Facility, Internet/Wi-Fi Connectivity, RO Water System, Vaastu Compliant facilities. Key\u2026"
+},
+{
+"mb_id": "5462751",
+"name": "RNG Swastik Kunj",
+"developer": "RNG Homes",
+"locality": "Dehradun Highway",
+"city_name": "Roorkee",
+"pincode": null,
+"status": "Under Construction",
+"possession": "2027",
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2026/11/19/Project-Photo-11-Swastik-Kunj-Roorkee-5462751_1086_1448_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2026/11/19/Project-Photo-11-Swastik-Kunj-Roorkee-5462751_1086_1448.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2026/11/19/Project-Photo-10-Swastik-Kunj-Roorkee-5462751_1600_1200_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2026/11/19/Project-Photo-10-Swastik-Kunj-Roorkee-5462751_1600_1200.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2026/11/19/Project-Photo-9-Swastik-Kunj-Roorkee-5462751_800_600_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2026/11/19/Project-Photo-9-Swastik-Kunj-Roorkee-5462751_800_600.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2026/11/19/Project-Photo-8-Swastik-Kunj-Roorkee-5462751_770_1275_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2026/11/19/Project-Photo-8-Swastik-Kunj-Roorkee-5462751_770_1275.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2026/11/19/Project-Photo-7-Swastik-Kunj-Roorkee-5462751_1117_1000_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2026/11/19/Project-Photo-7-Swastik-Kunj-Roorkee-5462751_1117_1000.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2026/11/19/Project-Photo-6-Swastik-Kunj-Roorkee-5462751_772_1275_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2026/11/19/Project-Photo-6-Swastik-Kunj-Roorkee-5462751_772_1275.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2026/11/19/Project-Photo-5-Swastik-Kunj-Roorkee-5462751_728_1290_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2026/11/19/Project-Photo-5-Swastik-Kunj-Roorkee-5462751_728_1290.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2026/11/19/Project-Photo-4-Swastik-Kunj-Roorkee-5462751_851_1308_310_462.jpg",
+"full": "https://img.staticmb.com/mbimages/project/2026/11/19/Project-Photo-4-Swastik-Kunj-Roorkee-5462751_851_1308.jpg"
+}
+],
+"type_codes": [],
+"url": "https://www.magicbricks.com/rng-swastik-kunj-dehradun-highway-roorkee-pdpid-4d4235343632373531",
+"lat": 29.8542626,
+"lng": 77.8880002,
+"amenities": [
+"Park",
+"Meditation Area",
+"Kids play area",
+"Aesthetically designed landscape garden",
+"Power Back Up",
+"Swimming Pool",
+"Club House",
+"Lift",
+"Security",
+"Reserved Parking",
+"Visitor Parking",
+"Intercom Facility",
+"Maintenance Staff",
+"Bank & ATM",
+"Gymnasium",
+"Indoor Games Room",
+"Kids Club"
+],
+"configs": {
+"units": [],
+"by_bhk": {}
+},
+"rating_count": 0,
+"ratings": {},
+"locality_rating": 4.0,
+"description": "Swastik Kunj Status Ready To Move Swastik Kunj is a renowned project in Dehradun Highway, Roorkee, which offers homes within the price range of $priceRange. The current construction status of the project is Ready To Move."
+},
+{
+"mb_id": "5021637",
+"name": "Ishaan Avenues",
+"developer": "Ishaan Group",
+"locality": "Delhi Road",
+"city_name": "Roorkee",
+"pincode": "247667",
+"status": "Ready To Move",
+"possession": null,
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/Ishaan%20Imperial%20Court-default_310_462.JPG",
+"full": "https://img.staticmb.com/mbimages/project/Ishaan%20Imperial%20Court-default.JPG"
+}
+],
+"type_codes": [],
+"url": "https://www.magicbricks.com/ishaan-avenues-delhi-road-roorkee-pdpid-4d4235303231363337",
+"lat": 29.8518011,
+"lng": 77.8875775,
+"amenities": [
+"Vaastu Compliant",
+"Power Back Up",
+"Lift",
+"Security",
+"Visitor Parking",
+"RO Water System",
+"Swimming Pool",
+"Club House",
+"Reserved Parking",
+"Intercom Facility",
+"Maintenance Staff",
+"Bank & ATM",
+"Gymnasium",
+"Indoor Games Room",
+"Kids Club"
+],
+"config_text": "3 BHK ",
+"configs": {
+"units": [],
+"by_bhk": {}
+},
+"rating_count": 0,
+"ratings": {},
+"sale_count": 1,
+"sale_listings": [
+{
+"bhk": 3,
+"price": 1490000.0,
+"sqft": 1600.0,
+"psf": 931.0,
+"furnished": "Unfurnished",
+"floor": "3",
+"posted": "2026-10-04"
+}
+],
+"trend": [
+[
+"2021",
+3622
+],
+[
+"2022",
+3622
+],
+[
+"2023",
+3622
+],
+[
+"2024",
+3622
+],
+[
+"2025",
+3622
+]
+],
+"description": "Ishaan Avenues Status Ready To Move Ishaan Avenues is a renowned project in Delhi Road, Roorkee, which offers homes within the price range of $priceRange. The project is developed by Ishaan Group, a highly trusted name in the real estate industry. The current status of the project is Ready To Move. The grand Ishaan Avenues project's commencement certificate has not been granted. The project falls under the pincode 247667. The project provides Vaastu Compliant, RO Water System facilities in every apartment. Among the key amenities are Security, Visitor Parking, Lift, Power Back Up and more.\u2026"
+},
+{
+"mb_id": "5140489",
+"name": "Rama Shree Garden Extension",
+"developer": "Sri Rama Developers",
+"locality": "Haridwar Road Roorkee",
+"city_name": "Roorkee",
+"pincode": "247667",
+"status": "Ready To Move",
+"possession": null,
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [],
+"type_codes": [],
+"url": "https://www.magicbricks.com/rama-shree-garden-extension-haridwar-road-roorkee-roorkee-pdpid-4d4235313430343839",
+"lat": 29.8855057,
+"lng": 77.9588905,
+"configs": {
+"units": [],
+"by_bhk": {}
+},
+"rating_count": 0,
+"ratings": {},
+"sale_count": 1,
+"sale_listings": [
+{
+"bhk": null,
+"price": 4750000.0,
+"sqft": null,
+"psf": 3519.0,
+"furnished": null,
+"floor": null,
+"posted": "2026-08-15"
+}
+],
+"description": "Rama Shree Garden Extension Price Rs. 45.0 Lac - 45.6 Lac Rama Shree Garden Extension Status Ready To Move If you are searching for a premium home in Haridwar Road Roorkee, Roorkee, Rama Shree Garden Extension offers well designed properties in the price range of Rs. 45.0 Lac - 45.6 Lac. The project is developed by Sri Rama Developers, a highly trusted name in the real estate industry. At present, the project is in the Ready To Move stage. The pincode for this project is 247667.As of today, 1 properties are listed for sale by owners and dealers, providing multiple options to explore."
+},
+{
+"mb_id": "5222181",
+"name": "Gangotri Puram",
+"developer": null,
+"locality": "Haridwar Road Roorkee",
+"city_name": "Roorkee",
+"pincode": "247667",
+"status": "Ready To Move",
+"possession": null,
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [],
+"type_codes": [],
+"url": "https://www.magicbricks.com/gangotri-puram-haridwar-road-roorkee-roorkee-pdpid-4d4235323232313831",
+"lat": 29.8789415,
+"lng": 77.9159688,
+"configs": {
+"units": [],
+"by_bhk": {}
+},
+"rating_count": 0,
+"ratings": {},
+"description": "Gangotri Puram Price Rs. 45.0 Lac - 45.6 Lac Gangotri Puram Status Ready To Move Gangotri Puram in Haridwar Road Roorkee offers luxurious and thoughtfully designed multi-storey apartments in Roorkee, with prices ranging from Rs. 45.0 Lac - 45.6 Lac. The project is currently at the Ready To Move stage. The address of this smartly planned project is Haridwar Rd Near Vedanta Resort, adjacent Shanidev mandir, Roorkee, Uttarakhand. The project's pin code is 247667."
+},
+{
+"mb_id": "5021634",
+"name": "Ishaan Executive Floor",
+"developer": "Ishaan Group",
+"locality": "Delhi Road",
+"city_name": "Roorkee",
+"pincode": "247667",
+"status": "Ready To Move",
+"possession": null,
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/Ishaan%20Imperial%20Court-default%201_310_462.JPG",
+"full": "https://img.staticmb.com/mbimages/project/Ishaan%20Imperial%20Court-default%201.JPG"
+}
+],
+"type_codes": [],
+"url": "https://www.magicbricks.com/ishaan-executive-floor-delhi-road-roorkee-pdpid-4d4235303231363334",
+"lat": 29.8518011,
+"lng": 77.8875775,
+"amenities": [
+"Vaastu Compliant",
+"Security",
+"Visitor Parking",
+"Power Back Up",
+"Swimming Pool",
+"Club House",
+"Lift",
+"Reserved Parking",
+"Intercom Facility",
+"Maintenance Staff",
+"Bank & ATM",
+"Gymnasium",
+"Indoor Games Room",
+"Kids Club"
+],
+"configs": {
+"units": [],
+"by_bhk": {}
+},
+"rating_count": 0,
+"ratings": {},
+"description": "Ishaan Executive Floor Status Ready To Move Ishaan Executive Floor in Delhi Road, Roorkee, is a perfect option if you're looking for a premium property within the price range of $priceRange. Ishaan Executive Floor has been developed by the well-known builder Ishaan Group. At present, the project is in the Ready To Move stage. Ishaan Executive Floor's commencement certificate has not been granted. This project comes under the pincode of 247667. Vaastu Compliant facilities are provided in all units. The project offers key amenities such as Security, Visitor Parking and more. The development\u2026"
+},
+{
+"mb_id": "5021635",
+"name": "Ishaan Residency",
+"developer": "Ishaan Group",
+"locality": "Delhi Road",
+"city_name": "Roorkee",
+"pincode": "247667",
+"status": "Under Construction",
+"possession": null,
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [
+{
+"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/Ishaan%20Imperial%20Court-default_310_462.JPG",
+"full": "https://img.staticmb.com/mbimages/project/Ishaan%20Imperial%20Court-default.JPG"
+},
+{
+"thumb": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmTVO-dQ9dckLJ9geTk7nvxEDgzjJUWgx/Photo_h600_w900/2022/Nov/13/60842753_2_MG-20221102-WA0004_600_900.jpg",
+"full": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmTVO-dQ9dckLJ9geTk7nvxEDgzjJUWgx/Photo_h600_w900/2022/Nov/13/60842753_2_MG-20221102-WA0004_600_900.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmTVO-dQ9dckLJ9geTk7nvxEDgzjJUWgx/Photo_h600_w900/2022/Nov/13/60842753_3_MG-20221102-WA0003_600_900.jpg",
+"full": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmTVO-dQ9dckLJ9geTk7nvxEDgzjJUWgx/Photo_h600_w900/2022/Nov/13/60842753_3_MG-20221102-WA0003_600_900.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmTVO-dQ9dckLJ9geTk7nvxEDgzjJUWgx/Photo_h600_w900/2022/Nov/13/60842753_4_MG-20221102-WA0002_600_900.jpg",
+"full": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmTVO-dQ9dckLJ9geTk7nvxEDgzjJUWgx/Photo_h600_w900/2022/Nov/13/60842753_4_MG-20221102-WA0002_600_900.jpg"
+},
+{
+"thumb": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmDVP9dY9dMuwQkCPyXmuP5jn7w09xFF0/Photo_h600_w900/2023/Oct/01/60842753_5_f6a22119-2295-4203-b2bf-50160e0b2aca_600_900.jpeg",
+"full": "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmDVP9dY9dMuwQkCPyXmuP5jn7w09xFF0/Photo_h600_w900/2023/Oct/01/60842753_5_f6a22119-2295-4203-b2bf-50160e0b2aca_600_900.jpeg"
+}
+],
+"type_codes": [],
+"url": "https://www.magicbricks.com/ishaan-residency-delhi-road-roorkee-pdpid-4d4235303231363335",
+"lat": 29.8518011,
+"lng": 77.8875775,
+"amenities": [
+"Vaastu Compliant",
+"Security",
+"Visitor Parking",
+"Power Back Up",
+"Swimming Pool",
+"Club House",
+"Lift",
+"Reserved Parking",
+"Intercom Facility",
+"Maintenance Staff",
+"Bank & ATM",
+"Gymnasium",
+"Indoor Games Room",
+"Kids Club"
+],
+"configs": {
+"units": [],
+"by_bhk": {}
+},
+"rating_count": 0,
+"ratings": {},
+"rent_count": 1,
+"rent_listings": [
+{
+"bhk": null,
+"price": 60000.0,
+"sqft": 2100.0,
+"psf": 29.0,
+"furnished": "Unfurnished",
+"floor": "1",
+"posted": "2026-09-28"
+}
+],
+"description": "Ishaan Residency Status Under Construction Strategically located in Delhi Road, Roorkee, Ishaan Residency offers property options within the price range of $priceRange. This premium project is developed by the renowned builder Ishaan Group. The current status of the project is Under Construction. The commencement certificate of Ishaan Residency has not been granted. The pin code of this masterpiece project is 247667. The project provides Vaastu Compliant facilities in every apartment. Key amenities include Visitor Parking, Security and more. Additional facilities include, among others. You\u2026"
+},
+{
+"mb_id": "5219205",
+"name": "Navrachna Paradise",
+"developer": null,
+"locality": "Delhi Road",
+"city_name": "Roorkee",
+"pincode": "247667",
+"status": "Ready To Move",
+"possession": "2015",
+"price_min": null,
+"price_max": null,
+"prop_types": "10350",
+"brochure_url": null,
+"card_units": [],
+"images": [],
+"type_codes": [],
+"url": "https://www.magicbricks.com/navrachna-paradise-delhi-road-roorkee-pdpid-4d4235323139323035",
+"lat": 29.8328821,
+"lng": 77.8860067999999,
+"configs": {
+"units": [],
+"by_bhk": {}
+},
+"rating_count": 0,
+"ratings": {},
+"description": "Navrachna Paradise Status Ready To Move Navrachna Paradise Possession Date 01 June 2015 Navrachna Paradise is one of the premium projects in Delhi Road, Roorkee, offering well-planned properties priced between $priceRange. The current construction status of the project is Ready To Move. The site's complete address is Colonel Enclave, Mission Rd, Akashdeep Enclave, Roorkee, Uttarakhand. The required pincode of the project is 247667. Navrachna Paradise Floor Plan Floor plans tell you exactly how big or small the rooms or spaces in a house are, and so are the perfect way to get an understanding\u2026"
+}
+]

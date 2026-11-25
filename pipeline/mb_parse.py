@@ -86,6 +86,47 @@ def card_to_project(c):
     }
 
 
+def page_to_project(html, url):
+    """The card_to_project fields, read from a project page itself (for cities with no project index page)."""
+    state = _json_after(html, "window.SERVER_PRELOADED_STATE_") or {}
+    mob = (state.get("projectDetailData") or {}).get("prjMobileBean") or {}
+    info, det = mob.get("infoBean") or {}, mob.get("detailBean") or {}
+    if not mob.get("psmId") or not info.get("projectName"):
+        return None
+    poss = re.search(r"(19|20)\d\d", det.get("possessionByDate") or det.get("possdateStr") or "")
+    images = []
+    for im in (mob.get("projectImages") or [])[:8]:
+        src = im.get("src") or ""
+        if src and "Floor-Plan" not in src:
+            images.append({"thumb": src, "full": src.replace("Photo_h310_w462/", "").replace("_310_462.", ".")})
+    return {
+        "mb_id": str(mob["psmId"]),
+        "name": info["projectName"].strip(),
+        "developer": info.get("devName"),
+        "locality": info.get("lmtDName") or info.get("localityName"),
+        "city_name": info.get("cityName"),
+        "pincode": det.get("pincode"),
+        "status": det.get("status"),
+        "possession": poss.group(0) if poss else None,
+        "price_min": _num(info.get("minPrice")),
+        "price_max": _num(info.get("maxPrice")),
+        "prop_types": info.get("psmCndPropTypes"),
+        "brochure_url": None,
+        "card_units": [],
+        "images": images,
+        "type_codes": [det["propertyTypeCode"]] if det.get("propertyTypeCode") else [],
+        "url": url,
+    }
+
+
+def pdp_links(html, city_slug):
+    """Project page links on any Magicbricks page, keyed by their pdpid (one project can have several slugs)."""
+    out = {}
+    for path in re.findall(r"([a-z0-9\-]+-" + re.escape(city_slug) + r"-pdpid-[0-9a-f]+)", html):
+        out.setdefault(path.rsplit("-pdpid-", 1)[1], "https://www.magicbricks.com/" + path)
+    return out
+
+
 def parse_project_page(html):
     """Return details from a project page: coordinates, RERA, amenities, towers, unit configs."""
     state = _json_after(html, "window.SERVER_PRELOADED_STATE_") or {}

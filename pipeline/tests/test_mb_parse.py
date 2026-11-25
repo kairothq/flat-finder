@@ -61,3 +61,21 @@ def test_photo_links_skip_floor_plans():
     links = mb_parse.photo_links("2025/09/18/Project-Photo-9-X-5021659_410_1440.jpg,2025/07/01/Floor-Plan-36-X_505_661.jpg")
     assert links == [{"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2025/09/18/Project-Photo-9-X-5021659_410_1440_310_462.jpg",
                       "full": "https://img.staticmb.com/mbimages/project/2025/09/18/Project-Photo-9-X-5021659_410_1440.jpg"}]
+
+
+def test_page_to_project():
+    # a project page carries the same fields a list card does: cities with no index page are crawled this way
+    url = "https://www.magicbricks.com/x-pdpid-1"
+    p = mb_parse.page_to_project(read("mb_project_flat.html"), url)
+    assert p["mb_id"] and p["name"] and p["url"] == url
+    assert p["locality"]
+    assert mb_parse.page_to_project("<html>no state here</html>", url) is None
+
+
+def test_pdp_links_keyed_by_pdpid():
+    html = ('<a href="/best-oriana-mussoorie-rd-dehradun-pdpid-4d42353333363032">'
+            '<a href="https://www.magicbricks.com/best-oriana-mussoorie-road-dehradun-pdpid-4d42353333363032">'
+            '<a href="/dlf-park-place-sector-54-gurgaon-pdpid-4d4231">')
+    links = mb_parse.pdp_links(html, "dehradun")
+    assert list(links) == ["4d42353333363032"]  # one project, two slugs; another city's project is left out
+    assert links["4d42353333363032"].endswith("mussoorie-rd-dehradun-pdpid-4d42353333363032")

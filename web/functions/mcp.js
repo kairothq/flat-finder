@@ -4,8 +4,22 @@ import { DEFAULT_CRITERIA, NEAR, feetLabel, formatINR, hasAmenity, matchSociety,
 import { searchSocieties } from '../src/search.js';
 
 const PROTOCOL = '2025-06-18';
-const SITE = 'https://flat-finder.pages.dev';
+let SITE = 'https://flat-finder.pages.dev';
 const cache = new Map();
+
+async function asset(env, origin, path) {
+  const key = 'asset:' + path;
+  if (!cache.has(key)) {
+    const res = await env.ASSETS.fetch(new Request(`${origin}${path}`));
+    cache.set(key, res.ok ? await res.json() : null);
+  }
+  return cache.get(key);
+}
+
+// an edition (one city on its own domain) ships /data/edition.json naming its city
+async function defaultCity(env, origin) {
+  return (await asset(env, origin, '/data/edition.json'))?.city || 'gurgaon';
+}
 
 async function city(env, origin, id) {
   if (!cache.has(id)) {
@@ -19,7 +33,7 @@ async function city(env, origin, id) {
 const KINDS = ['apartment', 'builder floor', 'villa', 'plot', 'commercial', 'other'];
 const PLACES = ['park', 'metro', 'rail', 'school', 'hospital', 'shopping'];
 const FILTERS = {
-  city: { type: 'string', description: 'City id, e.g. "gurgaon"', default: 'gurgaon' },
+  city: { type: 'string', description: 'City id, e.g. "gurgaon" or "dehradun". Leave out for the city this site serves.' },
   mode: { type: 'string', enum: ['buy', 'rent'], default: 'buy', description: 'Which price the budget and price sorting use' },
   localities: { type: 'array', items: { type: 'string' }, description: 'Sectors or localities, e.g. ["Sector 56", "Golf Course Road"] or ["56", "57"]. Matches the locality exactly, or as its start ("Sohna" also matches "Sohna Road"). Use list_localities to see names.' },
   name_contains: { type: 'string', description: 'Words that must appear in the society name, developer or locality, e.g. "DLF" or "Ireo"' },
@@ -60,17 +74,17 @@ const TOOLS = [
   {
     name: 'list_localities',
     description: 'Every sector or locality in a city with its number of societies and its centre point. Use to find the exact locality names.',
-    inputSchema: { type: 'object', properties: { city: { type: 'string', default: 'gurgaon' }, contains: { type: 'string' } } },
+    inputSchema: { type: 'object', properties: { city: { type: 'string' }, contains: { type: 'string' } } },
   },
   {
     name: 'get_society',
     description: 'Full details for one society by name: unit types and bedroom sizes with sources, buy and rent prices per BHK, resident ratings by category, review snippets, description, nearby places, amenities and links.',
-    inputSchema: { type: 'object', properties: { city: { type: 'string', default: 'gurgaon' }, name: { type: 'string' } }, required: ['name'] },
+    inputSchema: { type: 'object', properties: { city: { type: 'string' }, name: { type: 'string' } }, required: ['name'] },
   },
   {
     name: 'compare_societies',
     description: 'Side-by-side comparison of up to 10 societies by name: per-BHK prices, rents, sizes, smallest bedrooms, score, rating, nearby, amenities.',
-    inputSchema: { type: 'object', properties: { city: { type: 'string', default: 'gurgaon' }, mode: { type: 'string', enum: ['buy', 'rent'], default: 'buy' }, names: { type: 'array', items: { type: 'string' }, maxItems: 10 } }, required: ['names'] },
+    inputSchema: { type: 'object', properties: { city: { type: 'string' }, mode: { type: 'string', enum: ['buy', 'rent'], default: 'buy' }, names: { type: 'array', items: { type: 'string' }, maxItems: 10 } }, required: ['names'] },
   },
 ];
 
@@ -222,7 +236,7 @@ function detail(s, extra) {
 }
 
 async function callTool(name, args, env, origin) {
-  const id = args.city || 'gurgaon';
+  const id = args.city || await defaultCity(env, origin);
   const data = await city(env, origin, id);
   if (name === 'search_societies' || name === 'breakdown') {
     const crit = criteria(args);
@@ -275,7 +289,11 @@ async function callTool(name, args, env, origin) {
   const find = (n) => searchSocieties(data.societies, n, 1)[0];
   if (name === 'get_society') {
     const s = find(args.name);
-    return s ? detail(s, await details(env, origin, id, s.id)) : { error: `No society found for "${args.name}"` };
+    if (!s) return { error: `No society found for "${args.name}"` };
+    const layer = await asset(env, origin, `/data/${id}-registered.json`); // optional land-records layer
+    const reg = layer?.societies?.[s.id];
+    return { ...detail(s, await details(env, origin, id, s.id)),
+      ...(layer ? { registered_sales: reg ? { ...reg, source: layer.source, as_of: layer.as_of, caveat: layer.caveat } : 'none matched' } : {}) };
   }
   if (name === 'compare_societies') {
     const crit = { ...structuredClone(DEFAULT_CRITERIA), mode: args.mode || 'buy' };
@@ -290,6 +308,7 @@ export async function onRequest({ request, env }) {
   if (request.method === 'OPTIONS') return new Response(null, { headers: { 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': 'POST, GET, OPTIONS' } });
   if (request.method === 'GET') return json({ name: 'Flat Finder', mcp: 'POST JSON-RPC here', tools: TOOLS.map((t) => t.name) });
   const origin = new URL(request.url).origin;
+  if (!origin.includes('localhost')) SITE = origin; // links point at whichever domain serves this copy
   const msg = await request.json().catch(() => null);
   if (!msg) return json({ jsonrpc: '2.0', id: null, error: { code: -32700, message: 'Parse error' } }, 400);
   const reply = (result) => json({ jsonrpc: '2.0', id: msg.id, result });

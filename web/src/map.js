@@ -61,7 +61,7 @@ export function addSocietyLayers(map, shapes, points) {
       'line-opacity': ['match', ['feature-state', 'st'], 'match', 0.9, 'likely', 0.7, 'probable', 0.7, 'unknown', 0.5, 'no', 0.05, 0.5] } });
   map.addLayer({ id: 'glow', type: 'circle', source: 'pts', maxzoom: 15.5,
     paint: { 'circle-color': stateColor(COLORS.match), 'circle-blur': 1,
-      'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 2, 12, 6, 15, 24],
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 6, 3, 9, 3, 12, 6, 15, 24],
       'circle-opacity': ['match', ['feature-state', 'st'], 'match', 0.5, 'likely', 0.35, 'probable', 0.35, 'unknown', 0.14, 'no', 0, 0.25] } });
   map.addLayer({ id: 'bld', type: 'fill-extrusion', source: 'shapes', minzoom: 11.5, filter: ['==', ['get', 'role'], 'bld'],
     paint: { 'fill-extrusion-color': stateColor(COLORS.match), 'fill-extrusion-height': ['get', 'h'], 'fill-extrusion-opacity': 0.95,
@@ -79,7 +79,7 @@ export function startPulse(map) {
   setInterval(() => {
     if (!map.getLayer('glow')) return;
     const k = 1 + 0.35 * Math.sin(performance.now() / 420);
-    map.setPaintProperty('glow', 'circle-radius', ['interpolate', ['linear'], ['zoom'], 9, 2 * k, 12, 6 * k, 15, 24 * k]);
+    map.setPaintProperty('glow', 'circle-radius', ['interpolate', ['linear'], ['zoom'], 6, 3 * k, 9, 3 * k, 12, 6 * k, 15, 24 * k]);
   }, 80);
 }
 
@@ -190,4 +190,38 @@ export function setHighlights(map, { glow = true, bounds = true, labels = true }
   map.setLayoutProperty('site-fill', 'visibility', bounds ? 'visible' : 'none');
   map.setLayoutProperty('site-line', 'visibility', bounds ? 'visible' : 'none');
   map.setLayoutProperty('labels', 'visibility', labels ? 'visible' : 'none');
+}
+
+// ---------- branded editions: the brand's colours on the map, and a price pill per match ----------
+// over = { palettes: { light: {...}, streets: {...} }, light: { 'st-bg': {...} }, dark: {...} }: merged over the defaults above.
+export function tintMap(over = {}) {
+  for (const [mode, c] of Object.entries(over.palettes || {})) Object.assign(PALETTES[mode], c);
+  for (const [id, props] of Object.entries(over.light || {})) Object.assign(LIGHT[id], props);
+  for (const [id, props] of Object.entries(over.dark || {})) Object.assign(DARK[id], props);
+}
+
+function pillImage(fill, stroke) {
+  const r = 2, w = 44 * r, h = 30 * r, c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const g = c.getContext('2d');
+  g.shadowColor = 'rgba(0,0,0,.3)'; g.shadowBlur = 3 * r; g.shadowOffsetY = r;
+  g.fillStyle = fill;
+  g.beginPath(); g.roundRect(4 * r, 3 * r, 36 * r, 22 * r, 11 * r); g.fill();
+  g.shadowColor = 'transparent'; g.strokeStyle = stroke; g.lineWidth = r; g.stroke();
+  return [g.getImageData(0, 0, w, h), { pixelRatio: r, stretchX: [[16 * r, 28 * r]], stretchY: [[13 * r, 15 * r]], content: [12 * r, 7 * r, 32 * r, 21 * r] }];
+}
+
+// A white pill with the price on it for each match, the selected one filled in the brand colour. Added last, so pills win over map labels.
+export function addPills(map, { ink = '#1f2933', on = '#0d2b45' } = {}) {
+  map.addImage('pill', ...pillImage('#ffffff', 'rgba(0,0,0,.16)'));
+  map.addImage('pill-on', ...pillImage(on, on));
+  map.addSource('pills', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+  map.addLayer({ id: 'pill', type: 'symbol', source: 'pills', minzoom: 7,
+    layout: { 'text-field': ['get', 'label'], 'text-font': ['Noto Sans Bold'], 'text-size': 11.5, 'icon-image': ['case', ['==', ['get', 'sel'], 1], 'pill-on', 'pill'],
+      'icon-text-fit': 'both', 'text-offset': [0, 0.9], 'symbol-sort-key': ['get', 'rank'] }, // sits just under the society's name
+    paint: { 'text-color': ['case', ['==', ['get', 'sel'], 1], '#ffffff', ink] } });
+}
+
+export function setPills(map, features) {
+  map.getSource('pills')?.setData({ type: 'FeatureCollection', features });
 }

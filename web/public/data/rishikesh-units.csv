@@ -1,0 +1,5 @@
+society_id,society,unit,bhk,super_sqft,carpet_sqft,listed_sqft,bedrooms_ft,all_bedrooms_read,ai_narrowest_bedroom_ft,ai_every_bedroom_long_side_at_least_ft,ai_every_bedroom_area_at_least_sqft,confidence,source,page
+s5333429,The Vasudeva Hills,"3 BHK 2,700 sq ft",3,,,2700.0,,False,,,,portal,https://www.magicbricks.com/the-vasudeva-hills-narendra-nagar-rishikesh-pdpid-4d4235333333343239,
+s5333429,The Vasudeva Hills,"3 BHK 3,200 sq ft",3,,,3200.0,,False,,,,portal,https://www.magicbricks.com/the-vasudeva-hills-narendra-nagar-rishikesh-pdpid-4d4235333333343239,
+s5333429,The Vasudeva Hills,"4 BHK 4,500 sq ft",4,,,4500.0,,False,,,,portal,https://www.magicbricks.com/the-vasudeva-hills-narendra-nagar-rishikesh-pdpid-4d4235333333343239,
+s5095133,Platinum Cottages,1 BHK 550 sq ft,1,,,550.0,,False,,,,portal,https://www.magicbricks.com/platinum-cottages-kund-rishikesh-lansedowne-road-rishikesh-pdpid-4d4235303935313333,
