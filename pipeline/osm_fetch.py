@@ -4,8 +4,10 @@ usage: python osm_fetch.py <city>  -> out/<city>/osm_areas.geojson, out/<city>/o
 """
 import json
 import pathlib
+import subprocess
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -32,8 +34,15 @@ def overpass(query, name):
     body = urllib.parse.urlencode({"data": query}).encode()
     for url in MIRRORS * 2:
         try:
-            req = urllib.request.Request(url, data=body, headers={"User-Agent": "flat-finder/0.1"})
-            raw = urllib.request.urlopen(req, timeout=300).read()
+            try:
+                req = urllib.request.Request(url, data=body, headers={"User-Agent": "flat-finder/0.1"})
+                raw = urllib.request.urlopen(req, timeout=300).read()
+            except urllib.error.URLError as e:
+                if "SSL" not in str(e):
+                    raise
+                # curl uses the macOS trust store and a newer TLS stack (older Pythons fail the handshake)
+                raw = subprocess.run(["curl", "-sf", "-m", "300", "-A", "flat-finder/0.1", "--data-binary", "@-", url],
+                                     input=body, capture_output=True, check=True).stdout
             data = json.loads(raw)
             f.write_bytes(raw)
             return data
@@ -102,9 +111,21 @@ def main():
     (OUT / "osm_areas.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": feats}))
     print("areas", len(feats))
 
-    blds = overpass(f'[out:json][timeout:280];way["building"]{bb};out geom;', "buildings")
+    k = CITIES[CITY].get("osm_tiles", 1)  # split the building query into k x k tiles where one query times out
+    if k == 1:
+        elements = overpass(f'[out:json][timeout:280];way["building"]{bb};out geom;', "buildings")["elements"]
+    else:
+        elements, seen = [], set()
+        for i in range(k):
+            for j in range(k):
+                tb = f"({s + (n - s) * i / k},{w + (e - w) * j / k},{s + (n - s) * (i + 1) / k},{w + (e - w) * (j + 1) / k})"
+                for el in overpass(f'[out:json][timeout:280];way["building"]{tb};out geom;', f"buildings_{k}x{k}_{i}_{j}")["elements"]:
+                    if el["id"] not in seen:  # a way crossing a tile edge comes back from both tiles
+                        seen.add(el["id"])
+                        elements.append(el)
+                print(f"buildings tile {i * k + j + 1}/{k * k}: {len(elements)}", flush=True)
     bf = []
-    for el in blds["elements"]:
+    for el in elements:
         if "geometry" not in el:
             continue
         r = _pts(el["geometry"])

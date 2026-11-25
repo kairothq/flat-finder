@@ -28,7 +28,7 @@ Explain the verdicts: **match** (every bedroom read and passes), **likely** (roo
 
 ## Job 2: add a city
 
-1. Add the city to `data/cities.json`: `name`, Magicbricks city slug (`magicbricks`, as in `magicbricks.com/residential-projects-in-<slug>-nprid`), `bbox` as [south, west, north, east], `center` [lng, lat], `zoom`.
+1. Add the city to `data/cities.json`: `name`, Magicbricks city slug (`magicbricks`, as in `magicbricks.com/residential-projects-in-<slug>-nprid`), `bbox` as [south, west, north, east], `center` [lng, lat], `zoom`. Optional: `rera` (the authority's name, shown in sources only once its filings are read), `exclude_localities` (portal locality names to leave out, matched as substrings) and `exclude_box` [south, west, north, east] (an area to leave out; Noida uses both to drop Noida Extension), `located_box` (pins outside it count as not located; default bbox plus 0.15°), `osm_tiles` (split the building fetch k x k when Overpass times out).
 2. Run the pipeline (python 3.9+, no dependencies):
    ```bash
    cd pipeline

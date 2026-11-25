@@ -61,3 +61,21 @@ def test_photo_links_skip_floor_plans():
     links = mb_parse.photo_links("2025/09/18/Project-Photo-9-X-5021659_410_1440.jpg,2025/07/01/Floor-Plan-36-X_505_661.jpg")
     assert links == [{"thumb": "https://img.staticmb.com/mbimages/project/Photo_h310_w462/2025/09/18/Project-Photo-9-X-5021659_410_1440_310_462.jpg",
                       "full": "https://img.staticmb.com/mbimages/project/2025/09/18/Project-Photo-9-X-5021659_410_1440.jpg"}]
+
+
+def test_excluded_localities():
+    cfg = {"exclude_localities": ["Noida Extension", "Greater Noida West"]}
+    assert mb_parse.excluded({"locality": "Noida Extension"}, cfg)
+    assert mb_parse.excluded({"locality": "Taj Expressway, Greater Noida West"}, cfg)
+    assert not mb_parse.excluded({"locality": "Noida Greater Noida Expressway"}, cfg)
+    assert not mb_parse.excluded({"locality": "Sector 150, Pusta Road"}, cfg)
+    assert not mb_parse.excluded({"locality": None}, cfg)
+    assert not mb_parse.excluded({"locality": "Noida Extension"}, {})
+
+
+def test_excluded_box():
+    cfg = {"exclude_box": [28.565, 77.415, 28.70, 77.55]}
+    assert mb_parse.excluded({"locality": "Sector 16", "lat": 28.6207, "lng": 77.4258}, cfg)  # Gaur City 10th Avenue
+    assert not mb_parse.excluded({"locality": "Sector 121", "lat": 28.6085, "lng": 77.3840}, cfg)
+    assert not mb_parse.excluded({"locality": "Sector 150", "lat": 28.4400, "lng": 77.4800}, cfg)
+    assert not mb_parse.excluded({"locality": "Sector 16"}, cfg)  # no coordinates yet: kept for the crawl

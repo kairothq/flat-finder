@@ -62,7 +62,7 @@ def crawl_list():
 
 
 def crawl_projects():
-    index = json.loads((OUT / "mb_index.json").read_text())
+    index = [p for p in json.loads((OUT / "mb_index.json").read_text()) if not mb_parse.excluded(p, CFG)]
     from concurrent.futures import ThreadPoolExecutor
 
     def one(p):

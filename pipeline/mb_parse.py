@@ -213,3 +213,13 @@ def parse_extras(html):
         "locality_rating": _num(loc.get("ratingAvgCount")),
         "description": _text((mob.get("projectDescription") or {}).get("fullDesc"), 600),
     }
+
+
+def excluded(project, cfg):
+    """True when the city config leaves this project out: by portal locality name, or, once the project page gave
+    coordinates, by an exclude_box [south, west, north, east] (Noida Extension projects listed under other names)."""
+    loc = (project.get("locality") or "").lower()
+    if any(x.lower() in loc for x in cfg.get("exclude_localities") or []):
+        return True
+    box, lat, lng = cfg.get("exclude_box"), project.get("lat"), project.get("lng")
+    return bool(box and lat and lng and box[0] <= lat <= box[2] and box[1] <= lng <= box[3])
