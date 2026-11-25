@@ -1,0 +1,4 @@
+society_id,society,unit,bhk,super_sqft,carpet_sqft,listed_sqft,bedrooms_ft,all_bedrooms_read,ai_narrowest_bedroom_ft,ai_every_bedroom_long_side_at_least_ft,ai_every_bedroom_area_at_least_sqft,confidence,source,page
+s5461649,KR Panorama Homes,"3 BHK 1,661 sq ft",3,,,1661.0,,False,,,,portal,https://www.magicbricks.com/kr-panorama-homes-kathgodam-haldwani-pdpid-4d4235343631363439,
+s5461649,KR Panorama Homes,"4 BHK 2,307 sq ft",4,,,2307.0,,False,,,,portal,https://www.magicbricks.com/kr-panorama-homes-kathgodam-haldwani-pdpid-4d4235343631363439,
+s5460945,VP Shri Shyam Apartments,"2 BHK 1,080 sq ft",2,,,1080.0,,False,,,,portal,https://www.magicbricks.com/vp-shri-shyam-apartments-heera-nagar-haldwani-pdpid-4d4235343630393435,

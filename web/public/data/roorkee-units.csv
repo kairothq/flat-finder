@@ -1,0 +1,5 @@
+society_id,society,unit,bhk,super_sqft,carpet_sqft,listed_sqft,bedrooms_ft,all_bedrooms_read,ai_narrowest_bedroom_ft,ai_every_bedroom_long_side_at_least_ft,ai_every_bedroom_area_at_least_sqft,confidence,source,page
+s5318539,Purshotam Residency,"1,008 sq ft",,,,1008.0,,False,,,,portal,https://www.magicbricks.com/purshotam-residency-ramnagar-roorkee-pdpid-4d4235333138353339,
+s5318539,Purshotam Residency,"3 BHK 1,264 sq ft",3,,,1264.0,,False,,,,portal,https://www.magicbricks.com/purshotam-residency-ramnagar-roorkee-pdpid-4d4235333138353339,
+s5318539,Purshotam Residency,"3 BHK 1,100 sq ft",3,,,1100.0,,False,,,,portal,https://www.magicbricks.com/purshotam-residency-ramnagar-roorkee-pdpid-4d4235333138353339,
+s5318539,Purshotam Residency,"3 BHK 1,008 sq ft",3,,,1008.0,,False,,,,portal,https://www.magicbricks.com/purshotam-residency-ramnagar-roorkee-pdpid-4d4235333138353339,

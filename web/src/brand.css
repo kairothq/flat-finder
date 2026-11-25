@@ -1,0 +1,151 @@
+/* A branded edition (body.brand): the host's colours, a top bar with its logo, and a calmer, card-based layout.
+   Tokens first, as in style.css; everything else restyles existing parts. */
+body.brand {
+  --navy: #0d2b45; --saffron: #f28c28; --forest: #2e6b4e; --cream: #f7f5f0; --bar: 64px;
+  --bg: #081a2b; --glass: rgba(13, 43, 69, .94); --glass-strong: #0f3050; --line: rgba(255, 255, 255, .12);
+  --text: #f7f5f0; --muted: #a9b4bf; --accent: #f28c28; --accent-ink: #0d2b45; --likely: #e0a45f; --probable: #b89970; --fail: #ff9b8a;
+  --chip: rgba(255, 255, 255, .06); --chip-line: rgba(255, 255, 255, .2); --shadow: 0 6px 24px rgba(0, 0, 0, .3);
+  --on: #f7f5f0; --on-ink: #0d2b45; --head: Lora, Georgia, 'Times New Roman', serif;
+}
+body.brand[data-base=light] {
+  --bg: #f7f5f0; --glass: #fff; --glass-strong: #fff; --line: #e2ddd3;
+  --text: #1f2933; --muted: #6b7280; --accent: #b4570a; --accent-ink: #fff; --likely: #b8750f; --probable: #a98a5c; --fail: #b3261e;
+  --chip: #faf8f4; --chip-line: #cfc8ba; --shadow: 0 6px 20px rgba(13, 43, 69, .1);
+  --on: #0d2b45; --on-ink: #fff;
+}
+
+/* top bar: the host's navy, logo left, search in the middle */
+.bar { position: absolute; z-index: 6; top: 0; left: 0; right: 0; height: var(--bar); padding: 0 20px; display: grid; grid-template-columns: 1fr minmax(240px, 480px) 1fr; align-items: center; gap: 16px;
+  background: var(--navy); color: #fff; box-shadow: 0 1px 0 rgba(255, 255, 255, .08), 0 4px 16px rgba(0, 0, 0, .18); }
+.bar-l { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.bar-r { display: flex; align-items: center; justify-content: flex-end; gap: 8px; min-width: 0; }
+.logo { display: inline-flex; align-items: center; gap: 9px; color: #fff; text-decoration: none !important; flex: none; }
+.logo img { display: block; }
+.logo .word { font-family: var(--head); font-weight: 700; font-size: 19px; letter-spacing: -.01em; }
+.logo .word b { color: var(--saffron); font-weight: 700; }
+.prod { font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, .78); padding-left: 14px; border-left: 1px solid rgba(255, 255, 255, .22); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar .search input { background: #fff; color: #1f2933; border: 1px solid transparent; border-radius: 24px; padding: 11px 40px 11px 18px; font-size: 14px; box-shadow: 0 1px 2px rgba(0, 0, 0, .2); }
+.bar .search input::placeholder { color: #6b7280; }
+.bar .search input:focus { border-color: var(--saffron); box-shadow: 0 0 0 3px rgba(242, 140, 40, .35); }
+.bar .search kbd { top: 11px; right: 14px; color: #6b7280; border-color: #e2ddd3; }
+.bar .search ol { top: calc(100% + 8px); border-radius: 16px; padding: 6px; background: var(--glass-strong); color: var(--text); }
+.bar #city-pick { background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .28); border-radius: 20px; padding: 7px 10px; font-size: 12.5px; font-weight: 500; letter-spacing: 0; text-transform: none; color: #fff; }
+.bar #city-pick option { background: #fff; color: #1f2933; }
+.bar .topbar { position: static; transform: none; }
+.bar .topbar button, .bar-r > button { background: none; border-color: rgba(255, 255, 255, .28); color: #fff; box-shadow: none; backdrop-filter: none; }
+.bar .topbar button:hover, .bar-r > button:hover { border-color: var(--saffron); color: var(--saffron); }
+.bar-r > button { border: 1px solid rgba(255, 255, 255, .28); border-radius: 50%; width: 38px; height: 38px; display: grid; place-items: center; color: #fff; cursor: pointer; }
+.bar .topbar button.live { border-color: var(--saffron); color: var(--saffron); }
+/* recording tools and the research log are for the open-source site, not a buyer */
+body.brand #btn-replay, body.brand #btn-hide, body.brand #btn-log { display: none; }
+
+/* panels: solid cards under the bar */
+body.brand .panel, body.brand .card { backdrop-filter: none; -webkit-backdrop-filter: none; border-radius: 20px; border-color: var(--line); }
+body.brand .card { background: var(--glass-strong); }
+@media (min-width: 701px) {
+  body.brand .panel, body.brand .card { top: calc(var(--bar) + var(--gap)); }
+  body.brand { --panel-w: 372px; --right-w: 420px; }
+}
+body.brand .left { gap: 18px; padding: 22px; }
+body.brand .left > .k:first-child { display: none; } /* the bar carries the name and the city */
+body.brand .ttl, body.brand .card h2, body.brand .sheet h3 { font-family: var(--head); font-weight: 600; letter-spacing: -.01em; }
+body.brand .ttl { font-size: 25px; line-height: 1.15; }
+body.brand .card h2 { font-size: 22px; }
+body.brand .left section { gap: 10px; padding-top: 16px; border-top: 1px solid var(--line); }
+body.brand .left section > .k { font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--text); }
+body.brand .hint, body.brand .fine { font-size: 11.5px; }
+
+/* controls: larger targets, the brand's navy when chosen */
+body.brand .chip { font-size: 13px; padding: 7px 14px; background: var(--glass-strong); }
+body.brand .chip:hover, body.brand .tile:hover { border-color: var(--on); }
+body.brand .chip.on, body.brand .seg button.on { background: var(--on); color: var(--on-ink); border-color: var(--on); }
+body.brand .more-chip { background: none; }
+body.brand .tiles { gap: 8px; }
+body.brand .tile { padding: 12px 4px 10px; border-radius: 14px; font-size: 11.5px; background: var(--glass-strong); }
+body.brand .tile svg { width: 24px; height: 24px; }
+body.brand .tile.on { border-color: var(--on); box-shadow: inset 0 0 0 1px var(--on); background: var(--chip); color: var(--text); }
+body.brand .tile.soon em { background: color-mix(in srgb, var(--saffron) 20%, transparent); color: var(--accent); }
+body.brand .seg { padding: 4px; background: var(--chip); }
+body.brand .seg button { padding: 7px 20px; font-size: 13px; }
+body.brand .seg.small button { padding: 4px 11px; font-size: 11.5px; }
+body.brand .sw { font-size: 13px; }
+body.brand input[type=checkbox] { accent-color: var(--on); width: 15px; height: 15px; }
+body.brand .dual .track i, body.brand .dual input[type=range]::-webkit-slider-thumb { background: var(--saffron); }
+body.brand .dual input[type=range]::-moz-range-thumb { background: var(--saffron); }
+body.brand .primary { background: var(--saffron); color: var(--navy); border-radius: 14px; padding: 10px 20px; }
+body.brand .ghost { border-radius: 14px; padding: 10px 18px; }
+body.brand .preset { border-radius: 14px; }
+
+/* results: a count line, then one card per society */
+body.brand .count { display: grid; grid-template-columns: auto 1fr; align-items: baseline; column-gap: 8px; padding-top: 16px; border-top: 1px solid var(--line); }
+body.brand .count .n { grid-row: 1; grid-column: 1; font-family: var(--head); font-size: 30px; font-weight: 600; letter-spacing: -.01em; }
+body.brand .count .k { grid-row: 1; grid-column: 2; font-size: 14px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--text); }
+body.brand .count .sub { grid-column: 1 / -1; font-size: 12px; }
+body.brand .left > .k.row { font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--text); }
+body.brand #f-sort { font-weight: 400; font-size: 12.5px; padding: 6px 8px; border-radius: 10px; background: var(--glass-strong); border-color: var(--chip-line); }
+body.brand .results { gap: 8px; }
+body.brand .results li { align-items: center; gap: 10px; padding: 12px 12px 12px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--glass-strong); font-size: 14px; font-weight: 600; transition: box-shadow .15s, transform .15s, border-color .15s; }
+body.brand .results li:hover { background: var(--glass-strong); border-color: var(--chip-line); box-shadow: var(--shadow); transform: translateY(-1px); }
+body.brand .results .nm { flex: 1; min-width: 0; gap: 2px; }
+body.brand .results small { font-size: 12px; font-weight: 400; }
+body.brand .results .nm small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+body.brand .results .tag { font-size: 14px; font-weight: 600; color: var(--text); gap: 2px; }
+body.brand .results .tag.likely, body.brand .results .tag.probable { color: var(--text); }
+.heart { flex: none; width: 32px; height: 32px; display: grid; place-items: center; border: none; background: none; border-radius: 50%; cursor: pointer; color: var(--muted); }
+.heart svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.heart:hover { background: var(--chip); color: var(--text); }
+.heart.on { color: #d7263d; }
+.heart.on svg { fill: currentColor; }
+body.brand .group { font-size: 12.5px; margin: 10px 0 2px; }
+
+/* society details */
+body.brand .card { padding: 22px; gap: 12px; font-size: 13px; }
+body.brand .card h4 { font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--text); margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+body.brand .card th { font-size: 11px; letter-spacing: .04em; }
+body.brand .photos img { height: 132px; min-height: 132px; min-width: 190px; border-radius: 14px; }
+body.brand .photos { min-height: 136px; }
+body.brand .btnlink { border-radius: 14px; padding: 8px 14px; border-color: var(--chip-line); color: var(--text); font-weight: 500; }
+body.brand .btnlink:hover { border-color: var(--on); text-decoration: none; }
+body.brand .badge { letter-spacing: .02em; text-transform: none; font-size: 11.5px; padding: 4px 10px; }
+body.brand .score, body.brand .dl { border-radius: 14px; }
+body.brand .dl { background: var(--glass-strong); }
+body.brand .star.on { color: #d7263d; border-color: #d7263d; }
+body.brand #c-close { border-radius: 50%; }
+body.brand #c-close:hover { background: var(--on); color: var(--on-ink); }
+
+/* map buttons, sheets */
+body.brand .controls > button, body.brand .zoom, body.brand .layers-btn { backdrop-filter: none; background: var(--glass-strong); border-radius: 12px; }
+body.brand .controls button:hover { color: var(--accent); }
+body.brand .sheet { border-radius: 24px; padding: 28px; }
+body.brand .steps i.on, body.brand .lg.match { background: var(--saffron); }
+body.brand .toast { border-color: var(--line); background: var(--navy); color: #fff; border-radius: 14px; }
+body.brand .note { bottom: 6px; }
+body.brand[data-base=light] .note { color: #4b5563; text-shadow: 0 0 4px #fff, 0 0 4px #fff; }
+
+/* phone: a slimmer bar with the badge, the search box and the city */
+@media (max-width: 700px) {
+  body.brand { --bar: 56px; }
+  .bar { grid-template-columns: auto 1fr auto; padding: 0 10px; gap: 8px; }
+  .logo .word, .prod { display: none; }
+  .bar .search input { padding: 9px 14px; }
+  .bar #city-pick { max-width: 104px; padding: 8px 6px; }
+  body.brand .left { padding: 16px; gap: 14px; }
+  body.brand .ttl { font-size: 21px; }
+  body.brand .results li { padding: 11px 10px 11px 12px; }
+  body.brand .topbar { display: none !important; }
+  body.brand .mtabs button { background: var(--glass-strong); }
+  body.brand .mtabs button:disabled { opacity: 1; color: var(--chip-line); }
+}
+
+/* "Show 177 societies": stays at the foot of the filters until the results are in view */
+.jump { position: sticky; bottom: 0; z-index: 3; flex: none; margin-top: -4px; padding: 13px 18px; border: none; border-radius: 14px; background: var(--saffron); color: var(--navy); font-weight: 600; font-size: 14px; cursor: pointer;
+  box-shadow: 0 -10px 18px 6px var(--glass-strong), 0 4px 14px rgba(0, 0, 0, .18); transition: opacity .2s, transform .2s; }
+.jump:hover { filter: brightness(1.05); }
+.jump.gone { opacity: 0; pointer-events: none; transform: translateY(8px); height: 0; padding: 0; margin: 0; }
+
+/* RERA edition: the district, registration and data groups read as sections of their own */
+body.brand #f-rera { gap: 16px; }
+body.brand #f-rera > div { display: flex; flex-direction: column; gap: 10px; }
+body.brand #f-rera > div + div { padding-top: 16px; border-top: 1px solid var(--line); }
+body.brand #f-rera .k { font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--text); }
+body.brand .results .tag { text-align: right; white-space: normal; max-width: 46%; }

@@ -53,6 +53,9 @@ section { display: flex; flex-direction: column; gap: 7px; }
 .tile svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; opacity: .8; }
 .tile:hover { border-color: var(--accent); }
 .tile.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.tile.soon { position: relative; cursor: default; opacity: .55; }
+.tile.soon:hover { border-color: var(--chip-line); }
+.tile.soon em { font-style: normal; font-size: 8px; letter-spacing: .02em; white-space: nowrap; text-transform: uppercase; padding: 1px 5px; border-radius: 6px; background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
 .seg { display: inline-flex; padding: 3px; border-radius: 20px; background: var(--chip); border: 1px solid var(--line); }
 .seg button { border: none; background: none; padding: 6px 16px; border-radius: 16px; font-size: 12.5px; font-weight: 500; color: var(--muted); cursor: pointer; }
 .seg button.on { background: var(--text); color: var(--bg); }
@@ -303,3 +306,11 @@ body.has-card .maplibregl-ctrl-bottom-right { right: calc(var(--right-w) + var(-
 
 .prices .flagged { color: var(--muted); text-decoration: line-through dotted; }
 .flag-note { color: var(--likely); }
+
+/* registered sales (an edition's land-records layer) */
+.reg td:nth-child(2) { white-space: nowrap; }
+.credit { color: var(--accent); text-decoration: none; }
+.lapsed{color:#e8a33b}
+.rera td:first-child{white-space:nowrap;color:var(--muted,#9a968e)}
+.web td:first-child{white-space:nowrap;color:var(--muted,#9a968e)}
+.web a.fine{margin-left:4px}

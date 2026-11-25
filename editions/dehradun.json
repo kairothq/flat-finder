@@ -1,0 +1,15 @@
+{
+  "city": "dehradun",
+  "city_name": "Dehradun",
+  "title": "Dehradun Flat Finder: every society, asking and registered prices",
+  "description": "Every Dehradun housing society on one map: live asking prices and rents from Magicbricks, and the prices registered on sale deeds, from Uttarakhand Hub.",
+  "kicker": "Dehradun Flat Finder",
+  "credit": {
+    "text": "Registered prices: Uttarakhand Hub",
+    "url": "https://uttarakhandhub.com"
+  },
+  "repo": "https://github.com/martinnaithani/flat-finder",
+  "noindex": true,
+  "brand": "uttarakhandhub",
+  "product": "Dehradun Flat Finder"
+}

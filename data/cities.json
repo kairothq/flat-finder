@@ -1,5 +1,152 @@
 {
-  "gurgaon": { "name": "Gurugram", "magicbricks": "gurgaon", "bbox": [28.33, 76.88, 28.55, 77.16], "center": [77.065, 28.425], "zoom": 12.4 },
-  "bangalore": { "name": "Bengaluru", "magicbricks": "bangalore", "bbox": [12.80, 77.40, 13.20, 77.80], "center": [77.60, 12.97], "zoom": 11.4 },
-  "mumbai": { "name": "Mumbai", "magicbricks": "mumbai", "bbox": [18.89, 72.77, 19.30, 73.05], "center": [72.88, 19.08], "zoom": 11.4 }
+  "gurgaon": {
+    "name": "Gurugram",
+    "magicbricks": "gurgaon",
+    "bbox": [
+      28.33,
+      76.88,
+      28.55,
+      77.16
+    ],
+    "center": [
+      77.065,
+      28.425
+    ],
+    "zoom": 12.4
+  },
+  "bangalore": {
+    "name": "Bengaluru",
+    "magicbricks": "bangalore",
+    "bbox": [
+      12.8,
+      77.4,
+      13.2,
+      77.8
+    ],
+    "center": [
+      77.6,
+      12.97
+    ],
+    "zoom": 11.4
+  },
+  "mumbai": {
+    "name": "Mumbai",
+    "magicbricks": "mumbai",
+    "bbox": [
+      18.89,
+      72.77,
+      19.3,
+      73.05
+    ],
+    "center": [
+      72.88,
+      19.08
+    ],
+    "zoom": 11.4
+  },
+  "dehradun": {
+    "name": "Dehradun",
+    "magicbricks": "dehradun",
+    "bbox": [
+      30.22,
+      77.86,
+      30.46,
+      78.22
+    ],
+    "center": [
+      78.032,
+      30.3165
+    ],
+    "zoom": 12.2
+  },
+  "haridwar": {
+    "name": "Haridwar",
+    "magicbricks": "haridwar",
+    "bbox": [
+      29.8,
+      77.95,
+      30.05,
+      78.25
+    ],
+    "center": [
+      78.16,
+      29.95
+    ],
+    "zoom": 12.5
+  },
+  "rishikesh": {
+    "name": "Rishikesh",
+    "magicbricks": "rishikesh",
+    "bbox": [
+      30.04,
+      78.22,
+      30.17,
+      78.36
+    ],
+    "center": [
+      78.29,
+      30.1
+    ],
+    "zoom": 12.5
+  },
+  "roorkee": {
+    "name": "Roorkee",
+    "magicbricks": "roorkee",
+    "bbox": [
+      29.8,
+      77.82,
+      29.93,
+      77.97
+    ],
+    "center": [
+      77.89,
+      29.87
+    ],
+    "zoom": 12.5
+  },
+  "rudrapur": {
+    "name": "Rudrapur",
+    "magicbricks": "rudrapur",
+    "bbox": [
+      28.9,
+      79.3,
+      29.06,
+      79.5
+    ],
+    "center": [
+      79.4,
+      28.98
+    ],
+    "zoom": 12.5
+  },
+  "haldwani": {
+    "name": "Haldwani",
+    "magicbricks": "haldwani",
+    "bbox": [
+      29.13,
+      79.45,
+      29.32,
+      79.6
+    ],
+    "center": [
+      79.52,
+      29.22
+    ],
+    "zoom": 12.5
+  },
+  "kashipur": {
+    "name": "Kashipur",
+    "magicbricks": "kashipur",
+    "bbox": [
+      29.14,
+      78.88,
+      29.3,
+      79.05
+    ],
+    "center": [
+      78.96,
+      29.21
+    ],
+    "zoom": 12.5
+  }
 }

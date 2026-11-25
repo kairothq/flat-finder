@@ -25,13 +25,13 @@
 
   <aside class="panel left" id="filters">
     <div class="k">Flat Finder · <select id="city-pick" aria-label="City"></select></div>
-    <h1 class="ttl">Find the flat that fits.</h1>
+    <h1 class="ttl" id="ttl">Find the flat that fits.</h1>
     <div class="search">
       <input id="q" type="search" placeholder="Search a society, developer or sector" autocomplete="off" aria-label="Search societies">
       <kbd>/</kbd>
       <ol id="q-results" hidden></ol>
     </div>
-    <div class="row-between">
+    <div class="row-between ff-flat">
       <div class="seg" id="f-mode"><button data-m="buy">Buy</button><button data-m="rent">Rent</button></div>
       <button class="preset" id="preset-divy">Load Divy's search</button>
     </div>
@@ -41,11 +41,11 @@
       <div class="k">Type</div>
       <div class="tiles" id="f-kind"></div>
     </section>
-    <section>
+    <section class="ff-flat">
       <div class="k">BHK</div>
       <div class="chips" id="f-bhk"></div>
     </section>
-    <section>
+    <section class="ff-flat">
       <div class="k row">Smallest bedroom <span class="seg small" id="f-room-mode"><button data-r="off">Any</button><button data-r="area">Area</button></span></div>
       <div id="f-area">
         <div class="k row"><span class="seg small" id="f-area-unit"><button data-u="gaj">Gaj</button><button data-u="sqft">Sq ft</button></span><span class="val" id="v-area"></span></div>
@@ -54,15 +54,15 @@
       <div class="hint" id="room-hint">Every bedroom must clear it.</div>
       <label class="sw"><input type="checkbox" id="f-est" checked> Include "probably fits" (estimated from unit size)</label>
     </section>
-    <section>
+    <section class="ff-flat">
       <div class="k row">Home size <span class="val" id="v-size">Any</span></div>
       <div id="f-size"></div>
     </section>
-    <section>
+    <section class="ff-flat">
       <div class="k row"><span id="l-price">Budget</span> <span class="val" id="v-price">Any</span></div>
       <div id="f-price"></div>
     </section>
-    <section>
+    <section class="ff-flat">
       <div class="k">Amenities</div>
       <div class="chips" id="f-amen"></div>
       <div class="more" id="amen-more" hidden>
@@ -70,13 +70,14 @@
         <div class="checklist" id="amen-list"></div>
       </div>
     </section>
-    <section>
+    <section class="ff-flat">
       <div class="k">Nearby</div>
       <div class="chips" id="f-near"></div>
     </section>
-    <section>
+    <section class="ff-flat">
       <label class="sw"><input type="checkbox" id="f-ready"> Ready to move only</label>
     </section>
+    <section class="ff-rera" id="f-rera" hidden></section>
     <section class="mylist">
       <div class="k row">My list <span class="val" id="v-list">empty</span></div>
       <div class="row-gap">
@@ -87,7 +88,7 @@
     </section>
 
     <div class="count">
-      <div class="k">Matching societies</div>
+      <div class="k" id="count-k">Matching societies</div>
       <div class="n" id="count">0</div>
       <div class="sub" id="count-sub"></div>
     </div>
@@ -100,7 +101,7 @@
       <div class="k">Download</div>
       <button class="dl" id="dl-results"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg><span><b>These results</b><small>CSV of what your filters match</small></span></button>
       <a class="dl" id="dl-all" download><svg viewBox="0 0 24 24"><path d="M4 5h16M4 10h16M4 15h16M4 20h10"/></svg><span><b>All societies</b><small>Every society, prices, ratings, links</small></span></a>
-      <a class="dl" id="dl-units" download><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 12h16M12 4v16"/></svg><span><b>Unit types and bedrooms</b><small>Every unit with room sizes and sources</small></span></a>
+      <a class="dl ff-flat" id="dl-units" download><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 12h16M12 4v16"/></svg><span><b>Unit types and bedrooms</b><small>Every unit with room sizes and sources</small></span></a>
     </div>
     <p class="fine about" id="about-prices"></p>
   </aside>

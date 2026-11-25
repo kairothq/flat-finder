@@ -1,0 +1,21 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="badge"><circle cx="32" cy="32" r="30"/></clipPath>
+  </defs>
+  <!-- circular institutional badge -->
+  <circle cx="32" cy="32" r="30" fill="#0D2B45"/>
+  <g clip-path="url(#badge)">
+    <!-- rising sun -->
+    <circle cx="24" cy="27" r="7" fill="#F28C28"/>
+    <!-- forest-green peak -->
+    <path d="M-4 54 L24 22 L46 54 Z" fill="#2E6B4E"/>
+    <!-- snow-white peak -->
+    <path d="M28 54 L48 30 L70 54 Z" fill="#F7F5F0"/>
+    <!-- snow cap -->
+    <path d="M18.5 30.5 L24 24 L29.5 30.5 Z" fill="#F7F5F0"/>
+    <!-- valley base -->
+    <rect x="0" y="52" width="64" height="14" fill="#1C4230"/>
+  </g>
+  <!-- saffron rim -->
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#F28C28" stroke-width="2.5"/>
+</svg>

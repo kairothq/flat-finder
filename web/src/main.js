@@ -1,14 +1,17 @@
 import './style.css';
 import maplibregl from 'maplibre-gl';
-import { addBaseLayers, addSocietyLayers, BASE_MODES, createMap, OVERVIEW, setBaseMode, setHighlights, setSelected, setStates, startPulse } from './map.js';
+import { addBaseLayers, addPills, addSocietyLayers, BASE_MODES, createMap, OVERVIEW, setBaseMode, setHighlights, setPills, setSelected, setStates, startPulse, tintMap } from './map.js';
+import { applyBrand, brandOf, setJump } from './brand.js';
 import { searchSocieties } from './search.js';
 import { createFeed } from './feed.js';
+import { loadRegistered, registeredBlock } from './registered.js';
+import { RERA_DEFAULT, RERA_KINDS, listingsBlock, webBlock, reraBlock, reraFilters, reraMatch, reraNote, reraSteps, reraTag } from './rera.js';
 import { AMENITY_KEYS, DEFAULT_CRITERIA, NEAR, RANK, feetLabel, formatINR, matchSociety, matchUnit, priceFor, roomPasses } from './filters.js';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const mobile = matchMedia('(max-width: 700px)').matches;
-const REPO = 'https://github.com/kairothq/flat-finder';
+let REPO = 'https://github.com/kairothq/flat-finder';
 const params = new URLSearchParams(location.search);
 const store = { // localStorage can be missing or blocked: never let it break the page
   get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
@@ -27,19 +30,36 @@ const DIVY = { // Divy's own Gurugram search, shown as the example
 const STATE_LABEL = { match: 'Matches your search', likely: 'Likely match', probable: 'Probably fits (estimated)', unknown: 'Not checked yet', no: 'Does not match' };
 
 let crit = structuredClone(DEFAULT_CRITERIA);
-let baseMode = BASE_MODES.includes(params.get('map')) ? params.get('map') : 'streets';
+let defaultBase = 'streets', brand = null; // a branded edition opens on the day map
+let baseMode = BASE_MODES.includes(params.get('map')) ? params.get('map') : defaultBase;
 let roomMode = 'off', areaUnit = 'gaj', sortBy = 'best';
 let data, byId, map, feed, selected = null, states = new Map(), tourTimer = null, cityId = 'gurgaon', details = null;
-let myList = [], allAmenities = [];
+let myList = [], allAmenities = [], registered = null;
+let profile = null, rc = structuredClone(RERA_DEFAULT); // profile 'rera': an edition of RERA projects, not portal societies
+const isRera = () => profile === 'rera';
 const highlights = { glow: true, bounds: true, labels: true, ...store.get('ff-highlights', {}) };
 
 async function boot() {
   const cities = await fetch('/data/cities.json').then((r) => r.json()).catch(() => ({ gurgaon: { name: 'Gurugram' } }));
-  cityId = cities[params.get('city')] ? params.get('city') : 'gurgaon';
-  const [city, shapes] = await Promise.all([
+  // an edition (one city on its own domain) ships /data/edition.json; the main site has none
+  const edition = await fetch('/data/edition.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  cityId = cities[params.get('city')] ? params.get('city') : cities[edition?.city] ? edition.city : cities.gurgaon ? 'gurgaon' : Object.keys(cities)[0];
+  const [city, shapes, layer] = await Promise.all([
     fetch(`/data/${cityId}.json`).then((r) => r.json()),
     fetch(`/data/${cityId}-shapes.geojson`).then((r) => r.json()),
+    loadRegistered(cityId),
   ]);
+  registered = layer;
+  profile = edition?.profile || null;
+  if (isRera()) { document.body.classList.add('p-rera'); crit.kinds = []; sortBy = 'deeds'; }
+  brand = brandOf(edition);
+  if (brand) {
+    defaultBase = 'light';
+    if (!params.get('map')) baseMode = defaultBase;
+    tintMap(brand.map);
+  }
+  if (edition) applyEdition(edition, Object.keys(cities).length);
+  if (cityId !== 'gurgaon') $('preset-divy').hidden = true; // Divy's example search is a Gurugram one
   data = city;
   OVERVIEW.center = city.city.center;
   OVERVIEW.zoom = city.city.zoom || OVERVIEW.zoom;
@@ -53,8 +73,11 @@ async function boot() {
 
   myList = params.get('list') ? params.get('list').split(',').filter((id) => byId.has(id)) : store.get(`ff-list-${cityId}`, []).filter((id) => byId.has(id));
   const c = city.counts, m = city.price_model || {}, rated = city.societies.filter((s) => s.rating).length;
-  $('note').textContent = `${c.on_map.toLocaleString()} societies · ${(c.for_sale || 0).toLocaleString()} homes for sale, ${(c.for_rent || 0).toLocaleString()} for rent on Magicbricks · ${c.verified} verified from brochures and HRERA plans`;
-  $('about-prices').innerHTML = `Prices and rents are medians of live Magicbricks listings. <b>⚠</b> marks a listing price our checks think is a typo (far from the same home nearby, or rent and price that cannot both be right): it is shown as listed but not used for filters. <b>~</b> marks our estimate: rent is about ${((m.city_yield || 0.025) * 100).toFixed(1)}% of the price per year here (measured on ${m.pairs || 0} society and BHK pairs, correlation ${m.log_price_rent_correlation ?? 'n/a'}). "Probably fits" uses a cautious bedroom size estimated from unit size (${city.room_model?.n || 0} verified unit types). Resident ratings exist for ${rated.toLocaleString()} societies.`;
+  $('note').textContent = isRera() ? reraNote(city, registered) : `${c.on_map.toLocaleString()} societies · ${(c.for_sale || 0).toLocaleString()} homes for sale, ${(c.for_rent || 0).toLocaleString()} for rent on Magicbricks`
+    + (c.verified ? ` · ${c.verified} verified from brochures and plans` : '')
+    + (registered ? ` · registered sales for ${Object.keys(registered.societies || {}).length} from ${registered.source?.name || 'land records'}` : '');
+  if (isRera()) $('about-prices').textContent = `Projects and their facts are as filed on the RERA register; a registration past its validity date may have an extension the register copy does not show. Map points come from the address filed, usually a village or town, so they are approximate. Registered sales are deeds matched to each project by its name, its promoter, or the khasras its address states${registered ? `, up to ${registered.as_of}` : ''}.`;
+  else $('about-prices').innerHTML = `Prices and rents are medians of live Magicbricks listings. <b>⚠</b> marks a listing price our checks think is a typo (far from the same home nearby, or rent and price that cannot both be right): it is shown as listed but not used for filters. <b>~</b> marks our estimate: rent is about ${((m.city_yield || 0.025) * 100).toFixed(1)}% of the price per year here (measured on ${m.pairs || 0} society and BHK pairs, correlation ${m.log_price_rent_correlation ?? 'n/a'}). "Probably fits" uses a cautious bedroom size estimated from unit size (${city.room_model?.n || 0} verified unit types). Resident ratings exist for ${rated.toLocaleString()} societies.`;
   $('dl-all').href = `/data/${cityId}-societies.csv`;
   $('dl-units').href = `/data/${cityId}-units.csv`;
   $('dl-results').onclick = exportResults;
@@ -83,10 +106,11 @@ async function boot() {
     addBaseLayers(map);
     setBaseMode(map, baseMode);
     setHighlights(map, highlights);
+    if (brand) { addPills(map, brand.pills); refreshPills(); }
     startPulse(map);
     // any hand on the map stops a running tour
     for (const ev of ['dragstart', 'wheel', 'touchstart']) map.on(ev, (e) => { if (e.originalEvent) stopTour(); });
-    for (const l of ['bld', 'site-fill', 'glow']) {
+    for (const l of ['bld', 'site-fill', 'glow', ...(brand ? ['pill'] : [])]) {
       map.on('click', l, (e) => { stopTour(); openSociety(e.features[0].properties.sid); });
       map.on('mouseenter', l, () => (map.getCanvas().style.cursor = 'pointer'));
       map.on('mouseleave', l, () => (map.getCanvas().style.cursor = ''));
@@ -187,7 +211,17 @@ function buildFilters() {
     labels(); applyFilters();
   } });
   redrawFilters = () => {
-    $('f-kind').replaceChildren(...KINDS.map(([k, l, icon]) => chip(`<svg viewBox="0 0 24 24">${icon}</svg><span>${l}</span>`, crit.kinds.includes(k), () => { toggle(crit.kinds, k); redrawFilters(); applyFilters(); }, 'tile')));
+    if (isRera()) reraFilters($('f-rera'), data, rc, chip, () => { redrawFilters(); applyFilters(); });
+    const held = new Set(data.societies.map((s) => s.kind)); // a type this city has no projects of yet is shown as coming soon
+    crit.kinds = crit.kinds.filter((k) => isRera() || held.has(k));
+    $('f-kind').replaceChildren(...(isRera() ? RERA_KINDS : KINDS).map(([k, l, icon]) => {
+      if (!isRera() && !held.has(k)) {
+        const b = chip(`<svg viewBox="0 0 24 24">${icon}</svg><span>${l}</span><em>Coming soon</em>`, false, null, 'tile soon');
+        b.disabled = true; b.title = `${l} are not in this city's data yet`;
+        return b;
+      }
+      return chip(`<svg viewBox="0 0 24 24">${icon}</svg><span>${l}</span>`, crit.kinds.includes(k), () => { toggle(crit.kinds, k); redrawFilters(); applyFilters(); }, 'tile');
+    }));
     $('f-bhk').replaceChildren(...[1, 2, 3, 4, 5].map((n) => chip(n === 5 ? '5+' : String(n), crit.bhk.includes(n), () => {
       toggle(crit.bhk, n); if (n === 5) toggle(crit.bhk, 6); redrawFilters(); applyFilters(); })));
     const custom = crit.amenities.filter((k) => k.startsWith('n:'));
@@ -256,7 +290,7 @@ function toggleLog(show = document.body.classList.contains('nolog')) {
 // ---------- apply and results ----------
 let waveTimer = null;
 function applyFilters(wave = false) {
-  const next = new Map(data.societies.map((s) => [s.id, matchSociety(s, crit)]));
+  const next = new Map(data.societies.map((s) => [s.id, stateOf(s)]));
   const changed = [...next].filter(([id, st]) => states.get(id) !== st);
   states = next;
   clearInterval(waveTimer);
@@ -268,7 +302,30 @@ function applyFilters(wave = false) {
     waveTimer = setInterval(() => { setStates(map, changed.slice(i, i + per)); i += per; if (i >= changed.length) clearInterval(waveTimer); }, 50);
   } else if (map?.getSource?.('shapes')) setStates(map, changed);
   renderResults();
+  refreshPills();
   if (selected) renderCard(byId.get(selected));
+}
+
+// Branded editions: a pill on the map for each match, carrying the figure the results list shows.
+function pillLabel(s) {
+  if (isRera()) {
+    const from = Math.min(...(s.listings || []).map((x) => x.price_min).filter(Boolean));
+    const n = registered?.societies?.[s.id]?.sales;
+    return Number.isFinite(from) ? `${formatINR(from)}+` : n ? `${n} sales` : null;
+  }
+  const p = priceFor(s, crit.mode, crit.bhk);
+  return p ? `${p.estimated ? '~' : ''}${formatINR(p.value)}${crit.mode === 'rent' ? '/mo' : ''}` : null;
+}
+function refreshPills() {
+  if (!brand || !map?.getSource?.('pills')) return;
+  const busy = (s) => (s.sale_count || 0) + (s.rent_count || 0) + (registered?.societies?.[s.id]?.sales || 0);
+  setPills(map, data.societies.filter((s) => ['match', 'likely', 'probable'].includes(states.get(s.id))).map((s) => [s, pillLabel(s)]).filter(([, label]) => label)
+    .map(([s, label]) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [s.lng, s.lat] },
+      properties: { sid: s.id, label, sel: s.id === selected ? 1 : 0, rank: s.id === selected ? -1e9 : -busy(s) } })));
+}
+function stateOf(s) {
+  const st = matchSociety(s, crit);
+  return isRera() && st !== 'no' && !reraMatch(s, rc, registered) ? 'no' : st;
 }
 const dist = (s, c) => (s.lng - c[0]) ** 2 + (s.lat - c[1]) ** 2;
 
@@ -280,6 +337,9 @@ function sorted(list) {
     rating: (a, b) => (b.rating || 0) - (a.rating || 0) || (b.rating_count || 0) - (a.rating_count || 0),
     price: (a, b) => price(a) - price(b),
     listings: (a, b) => ((b.sale_count || 0) + (b.rent_count || 0)) - ((a.sale_count || 0) + (a.rent_count || 0)),
+    deeds: (a, b) => (registered?.societies?.[b.id]?.sales || 0) - (registered?.societies?.[a.id]?.sales || 0),
+    newest: (a, b) => (b.rera?.reg_date || '').localeCompare(a.rera?.reg_date || ''),
+    name: (a, b) => a.name.localeCompare(b.name),
   }[sortBy];
   return list.sort(by);
 }
@@ -293,6 +353,7 @@ function renderResults() {
   const counts = { match: 0, likely: 0, probable: 0, unknown: 0 };
   for (const st of states.values()) if (st in counts) counts[st]++;
   animateNumber($('count'), counts.match + counts.likely + counts.probable);
+  setJump(counts.match + counts.likely + counts.probable, isRera() ? 'projects' : 'societies');
   const rooms = crit.room || crit.roomArea;
   const bits = [];
   if (rooms) bits.push(`${counts.match} verified`, `${counts.likely} likely`, `${counts.probable} probably fit`);
@@ -323,9 +384,28 @@ function resultItem(s) {
   const p = priceFor(s, crit.mode, crit.bhk);
   const money = p ? `${p.estimated ? '~' : ''}${formatINR(p.value)}${crit.mode === 'rent' ? '/mo' : ''}` : '';
   const how = s.verified ? ' · checked by hand' : s.ai_read ? ' · AI-read plans' : '';
-  li.innerHTML = `<span class="nm">${myList.includes(s.id) ? '★ ' : ''}${esc(s.name)}<small>${esc(s.locality || '')}${how}</small></span>
-    <span class="tag ${st}">${money}${s.score != null ? `<small>score ${s.score}</small>` : ''}</span>`;
+  if (isRera()) {
+    const n = registered?.societies?.[s.id]?.sales;
+    li.innerHTML = `<span class="nm">${myList.includes(s.id) && !brand ? '★ ' : ''}${esc(s.name)}<small>${esc(s.developer || '')} · ${esc(s.locality || '')}</small></span>
+      <span class="tag ${st}">${reraTag(s)}${n ? `<small>${n} deeds</small>` : ''}</span>`;
+    li.onclick = () => { stopTour(); openSociety(s.id); };
+    return withHeart(li, s);
+  }
+  li.innerHTML = `<span class="nm">${myList.includes(s.id) && !brand ? '★ ' : ''}${esc(s.name)}<small>${esc(s.locality || '')}${how}</small></span>
+    <span class="tag ${st}">${money}${brand && s.rating ? `<small>★ ${s.rating}</small>` : s.score != null ? `<small>score ${s.score}</small>` : ''}</span>`;
   li.onclick = () => { stopTour(); openSociety(s.id); };
+  return withHeart(li, s);
+}
+
+// Branded editions save to the list from the result itself, with a heart.
+function withHeart(li, s) {
+  if (!brand) return li;
+  const on = myList.includes(s.id);
+  const b = chip('<svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>', on,
+    (e) => { e.stopPropagation(); toggle(myList, s.id); saveList(); renderResults(); if (selected === s.id) renderCard(s); }, 'heart');
+  b.title = on ? 'Remove from my list' : 'Save to my list';
+  b.setAttribute('aria-label', b.title);
+  li.append(b);
   return li;
 }
 
@@ -350,6 +430,7 @@ function openSociety(sid, { fly = true } = {}) {
     offset: mobile ? [0, -80] : [-180, 0] });
   document.body.classList.add('has-card');
   if (mobile) showMobile('society');
+  refreshPills();
   renderCard(s);
   feed.play(sid);
 }
@@ -360,12 +441,39 @@ function closeCard() {
   if (mobile) showMobile('search');
   if (map && selected) setSelected(map, null, selected);
   selected = null;
+  refreshPills();
   feed?.ambient();
 }
 
 const metres = (m) => (m >= 1000 ? `${(m / 1000).toFixed(1)} km` : `${Math.round(m / 10) * 10} m`);
 
+function applyEdition(ed, cityCount) {
+  if (ed.title) document.title = ed.title;
+  if (ed.heading) $('ttl').textContent = ed.heading;
+  if (ed.search_placeholder) $('q').placeholder = ed.search_placeholder;
+  if (ed.count_label) $('count-k').textContent = ed.count_label;
+  if (isRera()) {
+    for (const el of document.querySelectorAll('.ff-flat')) el.hidden = true;
+    $('f-rera').hidden = false;
+    $('mt-society').textContent = 'Project';
+    $('f-sort').replaceChildren(...[['deeds', 'Most registered sales'], ['newest', 'Newest registration'], ['name', 'Name']].map(([v, l]) => new Option(l, v, false, v === sortBy)));
+    $('dl-all').querySelector('b').textContent = 'All projects';
+    $('dl-all').querySelector('small').textContent = 'Every project, its register entry and deed count';
+  }
+  if (ed.repo) REPO = ed.repo;
+  if (ed.detail_label) detailLabel = ed.detail_label;
+  if (cityCount < 2) $('city-pick').hidden = true; // one city: nothing to pick
+  const k = document.querySelector('.panel.left .k');
+  if (k && ed.kicker) k.firstChild.textContent = ed.kicker + (cityCount < 2 ? '' : ' · ');
+  if (ed.credit) {
+    const a = Object.assign(document.createElement('a'), { href: ed.credit.url, target: '_blank', rel: 'noopener', textContent: ed.credit.text, className: 'credit' });
+    k?.append(' · ', a);
+  }
+  if (brand) applyBrand(ed, brand, { mobile });
+}
+
 function renderCard(s) {
+  if (isRera()) return renderReraCard(s);
   const st = states.get(s.id);
   const rooms = crit.room || crit.roomArea;
   const unitRows = s.unit_types.filter((u) => !crit.bhk.length || crit.bhk.includes(u.bhk)).slice(0, 14).map((u) => {
@@ -424,6 +532,7 @@ function renderCard(s) {
     <h4>Buy and rent</h4>
     ${priceRows ? `<table class="prices"><tr><th>Home</th><th>Buy</th><th>Rent</th></tr>${priceRows}</table>` : '<div class="fine">No price data.</div>'}
     ${trend}
+    ${registeredBlock(registered, s)}
     <h4>Bedrooms</h4>
     ${unitRows ? `<table><tr><th>Unit</th><th>Bedrooms</th><th></th><th>Source</th></tr>${unitRows}</table>` : '<div class="fine">No unit types listed.</div>'}
     ${nearRows ? `<h4>Nearby</h4><div class="near">${nearRows}</div>` : ''}
@@ -444,6 +553,32 @@ function renderCard(s) {
   $('c-star').onclick = () => { toggle(myList, s.id); saveList(); renderCard(s); renderResults(); };
   if (!details) loadDetails().then(() => { if (selected === s.id) renderCard(s); });
 }
+
+const RERA_KIND_LABEL = Object.fromEntries(RERA_KINDS.map(([k, l]) => [k, l]));
+function renderReraCard(s) {
+  const st = states.get(s.id), inList = myList.includes(s.id);
+  const facts = [s.units && `${Number(s.units).toLocaleString()} units`, s.acres && `${s.acres} acres`, s.status].filter(Boolean).join(' · ');
+  $('card').innerHTML = `
+    <div class="card-head">
+      <div><span class="badge ${st}">${STATE_LABEL[st]}</span></div>
+      <div class="row-gap"><button class="iconbtn star ${inList ? 'on' : ''}" id="c-star" title="${inList ? 'Remove from my list' : 'Add to my list'}">${inList ? '★' : '☆'}</button><button class="iconbtn" id="c-close" aria-label="Close">×</button></div>
+    </div>
+    <h2>${esc(s.name)}</h2>
+    <div class="meta">${esc(s.developer || '')} · ${esc(s.locality || '')} · ${esc(RERA_KIND_LABEL[s.kind] || s.kind)}${s.kind_inferred ? ' <span class="fine">(type read from the name)</span>' : ''}</div>
+    ${facts ? `<div class="meta">${esc(facts)}</div>` : ''}
+    ${reraBlock(s)}
+    ${listingsBlock(s)}
+    ${webBlock(s)}
+    ${registeredBlock(registered, s)}
+    <div class="links">
+      <a class="btnlink" href="${esc(s.gmaps)}" target="_blank" rel="noopener">Google Maps${s.rera?.pinned ? '' : ' (approximate point)'}</a>
+      ${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(detailLabel)}</a>` : ''}
+    </div>`;
+  $('card').hidden = false;
+  $('c-close').onclick = () => { stopTour(); closeCard(); };
+  $('c-star').onclick = () => { toggle(myList, s.id); saveList(); renderCard(s); renderResults(); };
+}
+let detailLabel = 'Project deep dive';
 
 let detailsPromise = null;
 function loadDetails() {
@@ -539,6 +674,7 @@ function toast(msg) {
 
 // ---------- CSV export of the current results ----------
 function exportResults() {
+  if (isRera()) return exportRera();
   const cols = ['name', 'locality', 'verdict', 'type', crit.mode === 'rent' ? 'rent_from' : 'price_from', 'estimated', 'for_sale', 'for_rent', 'flat_finder_score', 'resident_rating', 'towers', 'units', 'nearest_park_m', 'nearest_metro_m', 'magicbricks_url', 'google_maps_url', 'flat_finder_url'];
   const q = (v) => (v == null ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
   const rows = ranked().map((s) => {
@@ -553,6 +689,18 @@ function exportResults() {
   toast(`Downloaded ${rows.length} societies.`);
 }
 
+function exportRera() {
+  const cols = ['name', 'promoter', 'rera_no', 'district', 'locality', 'type', 'registered', 'valid_to', 'registration', 'units', 'land_sqm', 'registered_sales', 'details_url', 'finder_url'];
+  const q = (v) => (v == null ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
+  const rows = ranked().map((s) => [s.name, s.developer, s.rera_id, s.rera?.district, s.locality, s.rera?.type, s.rera?.reg_date, s.rera?.valid_to, s.rera?.validity,
+    s.units, s.rera?.land_sqm, registered?.societies?.[s.id]?.sales || 0, s.url, `${location.origin}/?open=${s.id}`]);
+  const blob = new Blob([[cols, ...rows].map((r) => r.map(q).join(',')).join('\n')], { type: 'text/csv' });
+  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: `${cityId}-results.csv` });
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast(`Downloaded ${rows.length} projects.`);
+}
+
 // ---------- map buttons and theme ----------
 let is3d = true, youMarker = null;
 const SUN = '<svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.8"/></svg>';
@@ -565,7 +713,7 @@ function setBase(mode) {
   $('btn-theme').innerHTML = mode === 'light' ? MOON : SUN;
   $('btn-theme').title = mode === 'light' ? 'Dark mode' : 'Light mode';
   const q = new URLSearchParams(location.search);
-  mode === 'streets' ? q.delete('map') : q.set('map', mode);
+  mode === defaultBase ? q.delete('map') : q.set('map', mode);
   history.replaceState(null, '', q.toString() ? `?${q}` : location.pathname);
 }
 
@@ -593,14 +741,14 @@ function buildControls() {
     box.checked = highlights[k];
     box.onchange = () => { highlights[k] = box.checked; store.set('ff-highlights', highlights); if (map) setHighlights(map, highlights); };
   }
-  if (store.get('ff-log', true) === false) toggleLog(false);
+  if (store.get('ff-log', !brand) === false) toggleLog(false); // a branded edition keeps the research log closed unless asked
   setBase(baseMode);
 }
 
 // ---------- onboarding ----------
 function buildOnboarding() {
   const c = data.counts;
-  const steps = [
+  const steps = isRera() ? reraSteps(data) : [
     ['Every society in ' + data.city.name + ', on one map', `${c.on_map.toLocaleString()} housing societies, ${(c.for_sale || 0).toLocaleString()} homes for sale and ${(c.for_rent || 0).toLocaleString()} for rent. Each one has its prices, rents, resident ratings, what is nearby, and links to Google Maps.`],
     ['Start with what you cannot live without', 'Pick Buy or Rent and your budget. Then set the smallest bedroom you can live with, by both sides or by area in gaj or sq ft. Add amenities and what you want nearby, like a park within 500 m.'],
     ['How to read the map', '<span class="lg match"></span> Verified: every bedroom read from builder plans and passes.<br><span class="lg likely"></span> Likely: the rooms read so far pass.<br><span class="lg probable"></span> Probably fits: plans not read yet, estimated from unit size.<br><span class="lg unknown"></span> Not checked yet: no room data, so neither pass nor fail.'],
@@ -609,7 +757,7 @@ function buildOnboarding() {
   let i = 0;
   const show = () => {
     $('ob-steps').innerHTML = steps.map((_, j) => `<i class="${j === i ? 'on' : ''}"></i>`).join('');
-    $('ob-body').innerHTML = `<h3>${steps[i][0]}</h3><p>${steps[i][1]}</p>${i === 1 ? '<button class="preset" id="ob-divy">Try an example search</button>' : ''}`;
+    $('ob-body').innerHTML = `<h3>${steps[i][0]}</h3><p>${steps[i][1]}</p>${i === 1 && !isRera() ? '<button class="preset" id="ob-divy">Try an example search</button>' : ''}`;
     $('ob-back').hidden = i === 0;
     $('ob-next').textContent = i === steps.length - 1 ? 'Start exploring' : 'Next';
     $('ob-divy')?.addEventListener('click', () => { useCriteria(DIVY); done(); });

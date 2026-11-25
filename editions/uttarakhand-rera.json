@@ -1,0 +1,20 @@
+{
+  "city": "uttarakhand-rera",
+  "city_name": "Uttarakhand",
+  "profile": "rera",
+  "title": "Uttarakhand RERA Projects: every registered project on one map",
+  "description": "Every project on the Uttarakhand RERA register on one map: promoter, registration and validity dates, units, land, and the sale deeds each project registered.",
+  "kicker": "RERA Project Finder",
+  "heading": "Every RERA project, on one map.",
+  "search_placeholder": "Search a project, promoter or place",
+  "count_label": "Matching projects",
+  "detail_label": "Full deep dive on Uttarakhand Hub",
+  "credit": {
+    "text": "Data: Uttarakhand Hub",
+    "url": "https://uttarakhandhub.com"
+  },
+  "repo": "https://github.com/martinnaithani/flat-finder",
+  "noindex": true,
+  "brand": "uttarakhandhub",
+  "product": "RERA Project Finder"
+}

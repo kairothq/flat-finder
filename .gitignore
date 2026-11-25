@@ -10,3 +10,6 @@ __pycache__/
 
 pipeline/cache_*.log
 data/verified/*-ai.json.bak
+web/dist-editions/
+# registered-sales layers come from the partner at build time and are not kept here
+web/public/data/*-registered.json

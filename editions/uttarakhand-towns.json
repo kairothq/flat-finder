@@ -1,0 +1,21 @@
+{
+  "city": "haridwar",
+  "cities": {
+    "haridwar": "Haridwar",
+    "roorkee": "Roorkee",
+    "rishikesh": "Rishikesh",
+    "haldwani": "Haldwani",
+    "rudrapur": "Rudrapur"
+  },
+  "title": "Uttarakhand Flat Finder: Haridwar, Roorkee, Rishikesh, Haldwani, Rudrapur",
+  "description": "Every housing society in Uttarakhand's growing towns on one map: live asking prices and rents from Magicbricks, and the prices registered on sale deeds, from Uttarakhand Hub.",
+  "kicker": "Uttarakhand Flat Finder",
+  "credit": {
+    "text": "Registered prices: Uttarakhand Hub",
+    "url": "https://uttarakhandhub.com"
+  },
+  "repo": "https://github.com/martinnaithani/flat-finder",
+  "noindex": true,
+  "brand": "uttarakhandhub",
+  "product": "Flat Finder"
+}
