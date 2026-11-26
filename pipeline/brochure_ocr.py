@@ -2,6 +2,7 @@
 
 usage: uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python brochure_ocr.py gurgaon
        -> data/verified/<city>-brochures.json
+       add --only "mahagun mywoods,s5017513" to read just those societies (names or ids) now
 
 A page counts as a unit plan when it has bedroom labels with sizes. Its BHK comes from text printed on the
 page ("3 BHK", "4 BED ROOM"); when the number of bedrooms found equals it, the reading is complete.
@@ -82,6 +83,13 @@ def main(city="gurgaon"):
     pool = [s for s in data["societies"] if s["kind"] in ("apartment", "builder floor")
             and (s.get("brochure_url") or "").lower().endswith(".pdf") and s["id"] not in done]
     pool = [s for s in pool if not has_rooms(s)] if "--all" not in sys.argv else pool
+    if "--only" in sys.argv:  # read the brochures of chosen societies now (ids or name words), even if read before
+        want = [w.lower() for w in sys.argv[sys.argv.index("--only") + 1].split(",")]
+        pick = lambda s: s["id"] in want or any(w in s["name"].lower() for w in want)
+        pool = [s for s in data["societies"] if pick(s) and (s.get("brochure_url") or "").lower().endswith(".pdf")]
+        missing = [s["name"] for s in data["societies"] if pick(s) and not (s.get("brochure_url") or "").lower().endswith(".pdf")]
+        if missing:
+            print("no brochure PDF on Magicbricks for:", ", ".join(missing[:10]), flush=True)
     pool.sort(key=lambda s: (has_rooms(s), -((s.get("sale_count") or 0) + (s.get("rent_count") or 0))))  # unread societies first
     jobs = [(s["id"], s["brochure_url"]) for s in pool]
     print("brochures to read", len(jobs), flush=True)

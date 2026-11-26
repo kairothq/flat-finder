@@ -3,7 +3,7 @@ import maplibregl from 'maplibre-gl';
 import { addBaseLayers, addSocietyLayers, BASE_MODES, createMap, OVERVIEW, setBaseMode, setHighlights, setSelected, setStates, startPulse } from './map.js';
 import { searchSocieties } from './search.js';
 import { createFeed } from './feed.js';
-import { AMENITY_KEYS, DEFAULT_CRITERIA, NEAR, RANK, feetLabel, formatINR, matchSociety, matchUnit, priceFor, roomPasses } from './filters.js';
+import { AMENITY_KEYS, DEFAULT_CRITERIA, NEAR, RANK, commuteKm, commuteWorst, feetLabel, formatINR, matchSociety, matchUnit, priceFor, roomPasses } from './filters.js';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -53,7 +53,7 @@ async function boot() {
 
   myList = params.get('list') ? params.get('list').split(',').filter((id) => byId.has(id)) : store.get(`ff-list-${cityId}`, []).filter((id) => byId.has(id));
   const c = city.counts, m = city.price_model || {}, rated = city.societies.filter((s) => s.rating).length;
-  $('note').textContent = `${c.on_map.toLocaleString()} societies · ${(c.for_sale || 0).toLocaleString()} homes for sale, ${(c.for_rent || 0).toLocaleString()} for rent on Magicbricks · ${c.verified} verified from brochures and HRERA plans`;
+  $('note').textContent = `${c.on_map.toLocaleString()} societies · ${(c.for_sale || 0).toLocaleString()} homes for sale, ${(c.for_rent || 0).toLocaleString()} for rent on Magicbricks · ${c.verified} verified from brochures and ${city.city.rera || 'HRERA'} plans`;
   $('about-prices').innerHTML = `Prices and rents are medians of live Magicbricks listings. <b>⚠</b> marks a listing price our checks think is a typo (far from the same home nearby, or rent and price that cannot both be right): it is shown as listed but not used for filters. <b>~</b> marks our estimate: rent is about ${((m.city_yield || 0.025) * 100).toFixed(1)}% of the price per year here (measured on ${m.pairs || 0} society and BHK pairs, correlation ${m.log_price_rent_correlation ?? 'n/a'}). "Probably fits" uses a cautious bedroom size estimated from unit size (${city.room_model?.n || 0} verified unit types). Resident ratings exist for ${rated.toLocaleString()} societies.`;
   $('dl-all').href = `/data/${cityId}-societies.csv`;
   $('dl-units').href = `/data/${cityId}-units.csv`;
@@ -196,6 +196,21 @@ function buildFilters() {
       ...custom.map((k) => chip(`${esc(allAmenities.find((a) => a.name.toLowerCase() === k.slice(2))?.name || k.slice(2))} ×`, true, () => { toggle(crit.amenities, k); redrawFilters(); applyFilters(); })),
       chip($('amen-more').hidden ? `More (${allAmenities.length})` : 'Fewer', false, () => { $('amen-more').hidden = !$('amen-more').hidden; redrawFilters(); if (!$('amen-more').hidden) { amenList(); $('amen-q').focus(); } }, 'chip more-chip'));
     $('f-near').replaceChildren(...Object.entries(NEAR).map(([k, n]) => chip(`${n.label} <small>${n.m >= 1000 ? n.m / 1000 + ' km' : n.m + ' m'}</small>`, crit.near.includes(k), () => { toggle(crit.near, k); redrawFilters(); applyFilters(); })));
+    const office = data.city.commute;
+    $('commute-sec').hidden = !office;
+    $('sort-commute').hidden = !office;
+    if (office) {
+      $('commute-k').textContent = `Drive to ${office.name}`;
+      if (office.peak) {
+        $('f-commute').replaceChildren(...[20, 30, 45, 60].map((n) => chip(`${n} min <small>at peak</small>`, crit.maxCommute === n, () => {
+          crit.maxCommute = crit.maxCommute === n ? null : n; redrawFilters(); applyFilters(); })));
+        $('commute-note').textContent = 'Slower of a 9 AM drive there and a 6 PM drive back, on a weekday, as predicted by Google Maps.';
+      } else {
+        $('f-commute').replaceChildren(...[5, 10, 15, 20].map((n) => chip(`${n} km <small>by road</small>`, crit.maxCommuteKm === n, () => {
+          crit.maxCommuteKm = crit.maxCommuteKm === n ? null : n; redrawFilters(); applyFilters(); })));
+        $('commute-note').textContent = 'Road distance from OpenStreetMap. Peak-hour (9 AM, 6 PM) times are not looked up yet.';
+      }
+    }
     document.querySelectorAll('#f-mode button').forEach((b) => b.classList.toggle('on', b.dataset.m === crit.mode));
     document.querySelectorAll('#f-room-mode button').forEach((b) => b.classList.toggle('on', b.dataset.r === roomMode));
     document.querySelectorAll('#f-area-unit button').forEach((b) => b.classList.toggle('on', b.dataset.u === areaUnit));
@@ -280,6 +295,7 @@ function sorted(list) {
     rating: (a, b) => (b.rating || 0) - (a.rating || 0) || (b.rating_count || 0) - (a.rating_count || 0),
     price: (a, b) => price(a) - price(b),
     listings: (a, b) => ((b.sale_count || 0) + (b.rent_count || 0)) - ((a.sale_count || 0) + (a.rent_count || 0)),
+    commute: (a, b) => (commuteWorst(a) ?? Infinity) - (commuteWorst(b) ?? Infinity) || (commuteKm(a) ?? Infinity) - (commuteKm(b) ?? Infinity),
   }[sortBy];
   return list.sort(by);
 }
@@ -403,6 +419,19 @@ function renderCard(s) {
   const near = s.nearby || {};
   const nearRows = [['park', 'Park'], ['metro', 'Metro'], ['rail', 'Rail station'], ['school', 'School'], ['hospital', 'Hospital'], ['shopping', 'Mall or supermarket']]
     .filter(([k]) => near[k]).map(([k, l]) => `<div><span>${l}</span><b>${metres(near[k].m)}</b><small>${esc(near[k].name || '')}${near[k].n > 1 ? ` · ${near[k].n} within 1 km` : ''}</small></div>`).join('');
+  const office = data.city.commute, cm = s.commute;
+  const when = (iso) => new Date(iso).toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' });
+  const route = `<a href="https://www.google.com/maps/dir/?api=1&origin=${s.lat},${s.lng}&destination=${office?.lat},${office?.lng}&travelmode=driving" target="_blank" rel="noopener">Route and live traffic on Google Maps</a>`;
+  const commuteBlock = !office ? '' : cm && cm.am_min == null ? `<h4>Drive to ${esc(office.name)}</h4><div class="near">
+      <div><span>Home to office</span><b>${cm.km} km</b><small>${Math.round(cm.free_min)} min with no traffic</small></div>
+      ${cm.back_km != null ? `<div><span>Office to home</span><b>${cm.back_km} km</b><small>${Math.round(cm.back_free_min)} min with no traffic</small></div>` : ''}</div>
+      <div class="fine">Road distance from OpenStreetMap routing. 9 AM and 6 PM peak times are not looked up yet, so expect longer. ${route}</div>`
+    : cm ? `<h4>Drive to ${esc(office.name)}</h4><div class="near">
+      <div><span>9 AM, home to office</span><b>${Math.round(cm.am_min)} min</b><small>${cm.am_km} km</small></div>
+      <div><span>6 PM, office to home</span><b>${Math.round(cm.pm_min)} min</b><small>${cm.pm_km} km</small></div>
+      ${cm.free_min != null ? `<div><span>Same drive, no traffic</span><b>${Math.round(cm.free_min)} min</b><small></small></div>` : ''}</div>
+      <div class="fine">Google Maps prediction for ${esc(when(office.am_departure))} and ${esc(when(office.pm_departure))}, driving. <a href="https://www.google.com/maps/dir/?api=1&origin=${s.lat},${s.lng}&destination=${office.lat},${office.lng}&travelmode=driving" target="_blank" rel="noopener">Route on Google Maps</a></div>`
+    : `<h4>Drive to ${esc(office.name)}</h4><div class="fine">${s.pin_doubt ? 'Not shown: this society\'s map pin looks wrong (see above), so a drive from it would be too.' : 'Not looked up yet.'}</div>`;
   const ratingBars = d && Object.keys(d.ratings || {}).length ? `<div class="bars">${Object.entries(d.ratings).map(([k, v]) => `<div><span>${esc(k)}</span><i style="--w:${(v / 5) * 100}%"></i><b>${v}</b></div>`).join('')}</div>` : '';
   const reviews = d?.reviews?.length ? `<div class="reviews">${d.reviews.slice(0, 3).map((r) => `<blockquote>${esc(r.text)}<cite>${esc(r.by || 'Resident')}${r.date ? ' · ' + esc(r.date) : ''}</cite></blockquote>`).join('')}</div>` : '';
   const trend = d?.trend?.length > 1 ? sparkline(d.trend) : '';
@@ -421,11 +450,13 @@ function renderCard(s) {
     ${score}
     <div class="meta">${s.rating ? `<span class="stars">★ ${s.rating.toFixed(1)}</span> ${s.rating_count || 0} resident ratings · ${s.review_count || 0} reviews · ` : ''}${counts}</div>
     ${s.note ? `<div class="fine">${esc(s.note)}</div>` : ''}
+    ${s.pin_doubt ? `<div class="fine flag-note">⚠ Map pin may be wrong: Magicbricks puts it ${esc(s.pin_doubt)}.</div>` : ''}
     <h4>Buy and rent</h4>
     ${priceRows ? `<table class="prices"><tr><th>Home</th><th>Buy</th><th>Rent</th></tr>${priceRows}</table>` : '<div class="fine">No price data.</div>'}
     ${trend}
     <h4>Bedrooms</h4>
     ${unitRows ? `<table><tr><th>Unit</th><th>Bedrooms</th><th></th><th>Source</th></tr>${unitRows}</table>` : '<div class="fine">No unit types listed.</div>'}
+    ${commuteBlock}
     ${nearRows ? `<h4>Nearby</h4><div class="near">${nearRows}</div>` : ''}
     ${ratingBars ? `<h4>What residents rate</h4>${ratingBars}` : ''}${reviews}
     ${facts || amen ? `<h4>Amenities (${s.amenities.length})</h4><div class="amen">${facts}${amen}</div>` : ''}
@@ -539,12 +570,12 @@ function toast(msg) {
 
 // ---------- CSV export of the current results ----------
 function exportResults() {
-  const cols = ['name', 'locality', 'verdict', 'type', crit.mode === 'rent' ? 'rent_from' : 'price_from', 'estimated', 'for_sale', 'for_rent', 'flat_finder_score', 'resident_rating', 'towers', 'units', 'nearest_park_m', 'nearest_metro_m', 'magicbricks_url', 'google_maps_url', 'flat_finder_url'];
+  const cols = ['name', 'locality', 'verdict', 'type', crit.mode === 'rent' ? 'rent_from' : 'price_from', 'estimated', 'for_sale', 'for_rent', 'flat_finder_score', 'resident_rating', 'towers', 'units', 'nearest_park_m', 'nearest_metro_m', 'commute_9am_min', 'commute_6pm_min', 'commute_km', 'commute_no_traffic_min', 'magicbricks_url', 'google_maps_url', 'flat_finder_url'];
   const q = (v) => (v == null ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
   const rows = ranked().map((s) => {
     const p = priceFor(s, crit.mode, crit.bhk);
     return [s.name, s.locality, states.get(s.id), s.kind, p?.value, p ? p.estimated : '', s.sale_count, s.rent_count, s.score, s.rating, s.towers, s.units,
-      s.nearby?.park?.m, s.nearby?.metro?.m, s.url, s.gmaps, `${location.origin}/?city=${cityId}&open=${s.id}`];
+      s.nearby?.park?.m, s.nearby?.metro?.m, s.commute?.am_min, s.commute?.pm_min, commuteKm(s), s.commute?.free_min, s.url, s.gmaps, `${location.origin}/?city=${cityId}&open=${s.id}`];
   });
   const blob = new Blob([[cols, ...rows].map((r) => r.map(q).join(',')).join('\n')], { type: 'text/csv' });
   const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: `flat-finder-${cityId}-${crit.mode}-results.csv` });

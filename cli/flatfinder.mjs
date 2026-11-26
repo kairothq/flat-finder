@@ -2,7 +2,7 @@
 // flatfinder: search the Flat Finder data from a terminal. Same filter logic as the website.
 import { readFile, realpath } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { DEFAULT_CRITERIA, feetLabel, formatINR, matchSociety, priceFor } from '../web/src/filters.js';
+import { DEFAULT_CRITERIA, commuteKm, commuteWorst, feetLabel, formatINR, matchSociety, priceFor } from '../web/src/filters.js';
 
 const SITE = 'https://flat-finder.pages.dev';
 
@@ -10,7 +10,7 @@ const HELP = `flatfinder: find housing societies that fit
 
   npx github:kairothq/flat-finder [options]
 
-  --city <id>            gurgaon (default), more as they are added
+  --city <id>            gurgaon (default) or noida
   --bhk 3,4              BHK types
   --min-bedroom 11'3x12'3   every bedroom must clear both sides (also 11.25x12.25)
   --min-sqft 1620        minimum unit size (super area where known)
@@ -20,6 +20,8 @@ const HELP = `flatfinder: find housing societies that fit
   --amenity squash,pool  squash pool gym club tennis badminton jogging kids
   --type apartment       apartment, "builder floor", villa, plot (comma separated)
   --ready                ready to move only
+  --max-commute 30       minutes: slower of the 9 AM and 6 PM drive to the city's office (noida: GAIL, Sector 1)
+  --max-km 10            km by road to that office
   --likely               also show "likely" (rooms read so far pass)
   --limit 30             rows to print
   --json                 print JSON
@@ -53,6 +55,8 @@ export function parseArgs(argv) {
     else if (a === '--amenity') o.crit.amenities = v().split(',');
     else if (a === '--type') o.crit.kinds = v().split(',');
     else if (a === '--ready') o.crit.ready = true;
+    else if (a === '--max-commute') o.crit.maxCommute = +v();
+    else if (a === '--max-km') o.crit.maxCommuteKm = +v();
     else if (a === '--likely') o.likely = true;
     else if (a === '--limit') o.limit = +v();
     else if (a === '--json') o.json = true;
@@ -89,10 +93,14 @@ async function main() {
   console.log(`${rows.length} societies in ${city.city.name}${o.likely ? ' (including likely)' : ''}\n`);
   const table = rows.slice(0, o.limit).map(({ s, v }) => ({
     society: s.name.slice(0, 32), area: (s.locality || '').slice(0, 22), verdict: v + (s.verified ? '*' : ''),
-    'smallest bedroom': smallestRoom(s), [o.crit.mode === 'rent' ? 'rent from' : 'price from']: money(priceFor(s, o.crit.mode, o.crit.bhk), o.crit.mode), link: `${SITE}/?city=${o.city}&open=${s.id}`,
+    'smallest bedroom': smallestRoom(s),
+    ...(city.city.commute ? { [`to ${city.city.commute.name.split(',')[0]}`]: !s.commute ? '' : s.commute.am_min != null
+      ? `${Math.round(s.commute.am_min)}/${Math.round(s.commute.pm_min)} min peak` : `${commuteKm(s)} km` } : {}), [o.crit.mode === 'rent' ? 'rent from' : 'price from']: money(priceFor(s, o.crit.mode, o.crit.bhk), o.crit.mode), link: `${SITE}/?city=${o.city}&open=${s.id}`,
   }));
   console.table(table);
   console.log('~ = our estimate from the rent-to-price ratio, not a listing.');
+  if (city.city.commute) console.log(city.city.commute.peak ? `peak = 9 AM there / 6 PM back to ${city.city.commute.name}, Google Maps prediction.`
+    : `km = road distance to ${city.city.commute.name} (OpenStreetMap). Peak-hour times not looked up yet.`);
   console.log('* verified from brochures or HRERA plans. Unit rows without room sizes are "not checked yet" and never shown as matches.');
 }
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_CRITERIA, feetLabel, matchSociety, roomPasses } from './filters.js';
+import { DEFAULT_CRITERIA, commuteKm, feetLabel, matchSociety, roomPasses } from './filters.js';
 
 const ROOM = { a: 11.25, b: 12.25 }; // 11'3" x 12'3"
 const soc = (over = {}) => ({ kind: 'apartment', status: 'Ready To Move', amenities: [], amen_facts: {}, unit_types: [], ...over });
@@ -136,5 +136,27 @@ describe('flagged prices', () => {
     const { priceFor } = await import('./filters.js');
     const s = { prices: { 3: { rent: { median: 960000, n: 1 }, rent_est: { value: 90100, basis: 'yield' }, flags: { rent: 'typo' } } } };
     expect(priceFor(s, 'rent', [3])).toMatchObject({ value: 90100, estimated: true });
+  });
+});
+
+describe('commute', () => {
+  const c = (am, pm) => soc({ commute: { am_min: am, pm_min: pm, am_km: 10, pm_km: 10 } });
+  it('uses the slower of the morning and evening drive', () => {
+    expect(matchSociety(c(25, 40), crit({ maxCommute: 30 }))).toBe('no');
+    expect(matchSociety(c(25, 28), crit({ maxCommute: 30 }))).toBe('match');
+  });
+  it('a society with no looked-up commute is not shown when the filter is on', () => {
+    expect(matchSociety(soc(), crit({ maxCommute: 60 }))).toBe('no');
+    expect(matchSociety(soc(), crit())).toBe('match');
+  });
+});
+
+describe('commute distance (no traffic data)', () => {
+  it('filters by road distance from either lookup', () => {
+    const far = soc({ commute: { km: 18.2, free_min: 24 } }), near = soc({ commute: { km: 7.5, free_min: 12 } });
+    expect(commuteKm(far)).toBe(18.2);
+    expect(matchSociety(far, crit({ maxCommuteKm: 10 }))).toBe('no');
+    expect(matchSociety(near, crit({ maxCommuteKm: 10 }))).toBe('match');
+    expect(matchSociety(near, crit({ maxCommute: 30 }))).toBe('no'); // a peak-time filter never uses traffic-free times
   });
 });
