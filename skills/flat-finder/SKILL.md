@@ -49,6 +49,7 @@ cd pipeline
 OCR="uv run --with pyobjc-framework-Vision --with pyobjc-framework-Quartz python"
 $OCR plan_ocr.py <city>       # Magicbricks floor plan images (needs jev_reader.py run first for the cross-check, optional)
 $OCR brochure_ocr.py <city>   # brochure PDFs: quick scan for plan pages, then 300 dpi tiled OCR
+$OCR brochure_ocr.py <city> --only "society name,s5018478"   # just these societies, now (~20 s each)
 $OCR hrera.py <city>          # Haryana only for now: matches HRERA filings, reads approved building plans
 python3 build_city.py <city>
 ```

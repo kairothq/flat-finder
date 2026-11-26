@@ -10124,6 +10124,80 @@
 "url": "https://img.staticmb.com/mbimages/project/1747911649777Brochure_compressed.pdf",
 "status": "no unit plans found",
 "pages": []
+},
+"s5018478": {
+"url": "https://img.staticmb.com/mbimages/project/1548311502358bb.pdf",
+"status": "read",
+"pages": [
+{
+"page": 1,
+"bhk": 4,
+"bedrooms": [
+{
+"label": "BEDROOM",
+"ft": [
+10.0,
+12.417
+]
+},
+{
+"label": "M.BED ROOM",
+"ft": [
+11.0,
+13.5
+]
+},
+{
+"label": "BED ROOM",
+"ft": [
+10.0,
+12.0
+]
+},
+{
+"label": "BEDROOM",
+"ft": [
+11.0,
+14.0
+]
+}
+]
+},
+{
+"page": 2,
+"bhk": 2,
+"bedrooms": [
+{
+"label": "BEDROOM",
+"ft": [
+10.0,
+12.0
+]
+},
+{
+"label": "BEDROOM",
+"ft": [
+10.0,
+11.0
+]
+},
+{
+"label": "BED ROOM",
+"ft": [
+10.0,
+12.0
+]
+},
+{
+"label": "BED ROOM",
+"ft": [
+10.0,
+12.0
+]
+}
+]
+}
+]
 }
 }
 }
