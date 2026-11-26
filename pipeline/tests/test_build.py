@@ -30,6 +30,8 @@ def test_kind_of():
     assert build_city.kind_of({"config_text": "2, 3, 4 BHK Multistorey Apartments"}) == "apartment"
     assert build_city.kind_of({"config_text": "Residential Plot"}) == "plot"
     assert build_city.kind_of({"config_text": "4 BHK Villa"}) == "villa"
+    assert build_city.kind_of({"config_text": "Commercial Office Spaces"}) == "commercial"
+    assert build_city.kind_of({"config_text": "Commercial Shops"}) == "commercial"
 
 
 def test_neighbourhood_sized_area_is_not_a_society_site():
@@ -65,3 +67,32 @@ def test_match_verified_needs_whole_name_and_sector():
     assert build_city.match_verified({"match": ["M3M Heights"], "sector": "65"}, ps)["mb_id"] == 2
     assert build_city.match_verified({"match": ["M3M St Andrews"], "sector": "65"}, ps)["mb_id"] == 4
     assert build_city.match_verified({"match": ["M3M Heights"], "sector": "65"}, ps, taken={2}) is None
+
+
+def test_in_bbox_city_agnostic():
+    jaipur_bbox = [26.68, 75.55, 27.10, 76.00]
+    assert build_city.in_bbox({"lat": 26.9064, "lng": 75.7360}, jaipur_bbox) is True
+    assert build_city.in_bbox({"lat": 28.4169, "lng": 76.9096}, jaipur_bbox) is False
+    assert build_city.in_bbox({"lat": None, "lng": 75.7360}, jaipur_bbox) is False
+    assert build_city.normalize_coords({"lat": 75.689, "lng": 26.910}, jaipur_bbox)["lat"] == 26.910
+    assert build_city.normalize_coords({"lat": 28.4169, "lng": 76.9096}, jaipur_bbox) is None
+    assert "jaipur" not in build_city.tokens("The Crest Jaipur")
+
+
+def test_build_context_features_simplifies_and_dedupes():
+    pts = [[75.7000, 26.8000], [75.7050, 26.80001], [75.7100, 26.8000]]
+    simp = build_city.simplify_line(pts)
+    assert len(simp) == 2
+    cfg = {"name": "Jaipur"}
+    ctx = {"ways": [{"kind": "road", "cls": "trunk", "name": "Tonk Road", "pts": pts}],
+           "places": [{"name": "Vaishali Nagar", "cls": "suburb", "lng": 75.736, "lat": 26.906}]}
+    socs = [{"locality": "Vaishali Nagar", "lng": 75.736, "lat": 26.906} for _ in range(5)] + [
+        {"locality": "Jagatpura", "lng": 75.835, "lat": 26.828} for _ in range(4)]
+    pois = [{"k": "metro", "name": "Mansarovar Metro", "lng": 75.75, "lat": 26.879},
+            {"k": "park", "name": "Park", "lng": 75.76, "lat": 26.88}]  # generic "Park" skipped
+    feats = build_city.build_context_features("jaipur", cfg, socs, ctx, pois)
+    areas = [f["properties"]["name"] for f in feats if f["properties"]["fk"] == "area"]
+    poi_names = [f["properties"]["name"] for f in feats if f["properties"]["fk"] == "poi"]
+    assert "Vaishali Nagar" in areas and areas.count("Vaishali Nagar") == 1
+    assert "Jagatpura" in areas
+    assert poi_names == ["Mansarovar Metro"]
