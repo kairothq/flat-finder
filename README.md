@@ -33,6 +33,15 @@ Every society shows buy prices and monthly rents per BHK: medians, ranges and co
 
 Cards also show resident ratings by category, review snippets, the 5-year price per sq ft trend, and links to Google Maps (with Google reviews) and directions.
 
+## Commute to an office
+
+A city can name one office in `data/cities.json` (`commute`). Noida uses GAIL India Ltd, Jubilee Tower, Sector 1. Every society card then shows the drive there and back, and the search panel gets a commute filter.
+
+- **Peak hours (needs a key):** `python3 pipeline/commute.py noida` asks Google's Routes API for a weekday 9 AM drive to the office and 6 PM drive home (Google's traffic prediction). Put `GOOGLE_MAPS_KEY=...` in `~/.claude/.env` (Routes API enabled). About 2,600 lookups for Noida, inside Google's free monthly usage for this API at the time of writing.
+- **Free, no key:** `python3 pipeline/commute.py noida --osrm` gets road distance and drive time with no traffic from OpenStreetMap routing. The site labels these as traffic-free and filters by kilometres until peak times exist.
+
+Rebuild with `build_city.py` afterwards. Societies whose Magicbricks pin sits far from the rest of their own locality are marked "map pin may be wrong" on the card, and get no commute rather than a wrong one.
+
 ## Download the data
 
 - `/data/gurgaon-societies.csv`: one row per society (location, type, listings, buy and rent medians and estimates per BHK, ratings, amenities, links).
@@ -69,7 +78,7 @@ cd ../web && npm install && npm run dev
 
 Tests: `cd pipeline && uv run --with pytest pytest` and `cd web && npx vitest run --root .. cli web/src`.
 
-Cities live in `data/cities.json`. Gurugram is built; Bengaluru and Mumbai are configured and need the pipeline run (see the skill, Job 2).
+Cities live in `data/cities.json`. Gurugram and Noida (including Noida Extension, about 1,300 societies) are built; Bengaluru and Mumbai are configured and need the pipeline run (see the skill, Job 2).
 
 Press `/` to search for a society. The Streets button switches to a street map with road and sector names.
 

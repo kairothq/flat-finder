@@ -21,7 +21,7 @@ import verified
 ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "out"
 WEB = ROOT.parent / "web" / "public" / "data"
-GENERIC = {"the", "of", "at", "in", "sector", "gurgaon", "gurugram", "residency", "residences", "homes",
+GENERIC = {"the", "of", "at", "in", "sector", "gurgaon", "gurugram", "noida", "greater", "extension", "residency", "residences", "homes",
            "apartments", "apartment", "towers", "tower", "heights", "city", "phase", "park", "estate",
            "floors", "society", "cghs", "group", "housing", "and", "by", "new", "greens", "green", "plaza"}
 TOWER_H = 55.0  # visual default height (m) for generated apartment towers; shapes are not data
@@ -159,7 +159,7 @@ def events_for(s):
     ev = []
     sid = s["id"]
     src = s.get("url")
-    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or 'Gurgaon'} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
+    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or ''} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
     bits = [f"{int(s['towers'])} towers" if s.get("towers") else None, f"{int(s['units']):,} units" if s.get("units") else None,
             f"{s['acres']} acres" if s.get("acres") else None]
     if any(bits):
@@ -226,7 +226,9 @@ def main(city="gurgaon"):
     cfg = json.loads((ROOT.parent / "data" / "cities.json").read_text())[city]
     out = OUT / city
     raw = json.loads((out / "mb_projects.json").read_text())
-    located = [p for p in raw if p.get("lat") and p.get("lng") and 28.2 < p["lat"] < 28.7 and 76.7 < p["lng"] < 77.3]
+    south, west, north, east = cfg["bbox"]
+    pad = cfg.get("pad", 0.15)  # margin for portal pins just outside the bbox; 0 where a neighbouring city (Delhi) sits right at the edge
+    located = [p for p in raw if p.get("lat") and p.get("lng") and south - pad < p["lat"] < north + pad and west - pad < p["lng"] < east + pad]
     not_located = len(raw) - len(located)
     projects = dedupe(located)
     areas = json.loads((out / "osm_areas.geojson").read_text())["features"]
@@ -387,6 +389,36 @@ def main(city="gurgaon"):
                 near[k]["n"] = near[k].get("n", 0) + 1
         s["nearby"] = near
 
+    # portal pins far from the rest of their own locality (often a shared fallback point): flag, never move them
+    by_loc = defaultdict(list)
+    for s in societies:
+        by_loc[s["locality"]].append(s)
+    for loc, group in by_loc.items():
+        if not loc or len(group) < 4:
+            continue
+        mid = (statistics.median(x["lng"] for x in group), statistics.median(x["lat"] for x in group))
+        ds = [geo.dist_m(mid, (x["lng"], x["lat"])) for x in group]
+        spread = statistics.median(ds)
+        for x, d in zip(group, ds):
+            if d > max(3000, 3 * spread):
+                x["pin_doubt"] = f"{d / 1000:.1f} km from the middle of the other {len(group) - 1} {loc} societies on Magicbricks"
+
+    # peak-hour drive to the city's commute office (Google Routes API, see commute.py); absent until it has run
+    office = cfg.get("commute")
+    cm_file = ROOT.parent / "data" / "commute" / f"{city}-{office['key']}.json" if office else None
+    commute = json.loads(cm_file.read_text()) if cm_file and cm_file.exists() else None
+    os_file = ROOT.parent / "data" / "commute" / f"{city}-{office['key']}-osrm.json" if office else None
+    roads = json.loads(os_file.read_text()) if os_file and os_file.exists() else None  # free fallback: distance, no traffic
+    for s in societies:
+        r = (commute or {}).get("societies", {}).get(s["id"])
+        o = (roads or {}).get("societies", {}).get(s["id"])
+        c = {}
+        if r and r.get("am_min") is not None:
+            c = {k: r[k] for k in ("am_min", "pm_min", "am_km", "pm_km", "free_min")}
+        elif o:
+            c = {"km": o["km"], "free_min": o["free_min"], "back_km": o.get("back_km"), "back_free_min": o.get("back_free_min")}
+        s["commute"] = None if s.get("pin_doubt") else (c or None)  # a doubtful pin would give a wrong commute
+
     # Flat Finder score (0-10): residents' rating, what is nearby, amenities. Shown with its parts.
     for s in societies:
         parts = {}
@@ -435,14 +467,18 @@ def main(city="gurgaon"):
         events.extend(events_for(s))
 
     WEB.mkdir(parents=True, exist_ok=True)
-    doc = {"city": {"id": city, "name": cfg["name"], "center": cfg["center"], "zoom": cfg["zoom"]},
+    doc = {"city": {"id": city, "name": cfg["name"], "center": cfg["center"], "zoom": cfg["zoom"], "rera": cfg.get("rera", "HRERA"),
+                     "commute": None if not (commute or roads) else {
+                         "name": office["name"], "lat": office["lat"], "lng": office["lng"], "peak": bool(commute),
+                         "am_departure": commute["am_departure"] if commute else None, "pm_departure": commute["pm_departure"] if commute else None,
+                         "source": (commute or roads)["source"]}},
             "price_model": model,
             "room_model": room_model,
             "counts": {"listed": len(raw), "on_map": len(societies), "not_located": not_located,
                        "ai_read": sum(1 for s in societies if s.get("ai_read")),
                        "for_sale": sum(s["sale_count"] or 0 for s in societies), "for_rent": sum(s["rent_count"] or 0 for s in societies),
-                       "verified": sum(s["verified"] for s in societies)},
-            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", "HRERA Gurugram", "Builder brochures (verified rows)"],
+                       "verified": sum(s["verified"] for s in societies), "pin_doubt": sum(1 for s in societies if s.get("pin_doubt"))},
+            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", cfg.get("rera", "HRERA Gurugram"), "Builder brochures (verified rows)"],
             "societies": societies, "events": events}
     details = {}
     for s in societies:  # heavy per-society text, loaded only when a card opens
@@ -470,7 +506,8 @@ def write_csv(soc_path, unit_path, societies):
             "listings_for_sale", "listings_for_rent", "price_range_min", "price_range_max", "price_per_sqft"]
     for b in range(1, 6):
         cols += [f"buy_{b}bhk_median", f"buy_{b}bhk_estimate", f"rent_{b}bhk_median", f"rent_{b}bhk_estimate", f"{b}bhk_price_flag"]
-    cols += ["rating", "rating_count", "review_count", "amenities", "verified", "smallest_bedroom_ft", "magicbricks_url", "google_maps_url"]
+    cols += ["rating", "rating_count", "review_count", "amenities", "verified", "smallest_bedroom_ft",
+             "commute_9am_min", "commute_6pm_min", "commute_km", "commute_no_traffic_min", "magicbricks_url", "google_maps_url"]
     with open(soc_path, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(cols)
@@ -485,7 +522,10 @@ def write_csv(soc_path, unit_path, societies):
                         (p.get("rent") or {}).get("median"), (p.get("rent_est") or {}).get("value"),
                         "; ".join(f"{k}: {v}" for k, v in (p.get("flags") or {}).items()) or None]
             row += [s["rating"], s["rating_count"], s["review_count"], "; ".join(s["amenities"]), s["verified"],
-                    f"{smallest[0]:.2f} x {smallest[1]:.2f}" if smallest else None, s["url"], s["gmaps"]]
+                    f"{smallest[0]:.2f} x {smallest[1]:.2f}" if smallest else None,
+                    *((s["commute"].get("am_min"), s["commute"].get("pm_min"), s["commute"].get("am_km") or s["commute"].get("km"),
+                       s["commute"].get("free_min")) if s.get("commute") else (None, None, None, None)),
+                    s["url"], s["gmaps"]]
             w.writerow(row)
     with open(unit_path, "w", newline="") as f:
         w = csv.writer(f)

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <title>Flat Finder</title>
-  <meta name="description" content="Every housing society in Gurugram on one map. Filter by the smallest bedroom you can live with, buy or rent budget, amenities and what is nearby.">
+  <meta name="description" content="Every housing society in Gurugram and Noida on one map. Filter by the smallest bedroom you can live with, buy or rent budget, amenities and what is nearby.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -74,6 +74,11 @@
       <div class="k">Nearby</div>
       <div class="chips" id="f-near"></div>
     </section>
+    <section id="commute-sec" hidden>
+      <div class="k" id="commute-k">Commute</div>
+      <div class="chips" id="f-commute"></div>
+      <div class="fine" id="commute-note"></div>
+    </section>
     <section>
       <label class="sw"><input type="checkbox" id="f-ready"> Ready to move only</label>
     </section>
@@ -93,7 +98,7 @@
     </div>
     <div class="k row">Results <select id="f-sort" aria-label="Sort results">
       <option value="best">Best match</option><option value="score">Flat Finder score</option><option value="rating">Resident rating</option>
-      <option value="price">Price, low to high</option><option value="listings">Most listings</option></select></div>
+      <option value="price">Price, low to high</option><option value="listings">Most listings</option><option value="commute" id="sort-commute" hidden>Shortest commute</option></select></div>
     <div id="results"></div>
 
     <div class="downloads">

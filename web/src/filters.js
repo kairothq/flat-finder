@@ -20,6 +20,8 @@ export const DEFAULT_CRITERIA = {
   maxRent: null,    // rupees per month, renting
   amenities: [],    // amenity keys, see AMENITY_KEYS
   ready: false,     // only ready to move
+  maxCommute: null, // minutes: slower of the 9 AM and 6 PM drive to the city's commute office must be within this
+  maxCommuteKm: null, // km by road to the commute office (used where peak times are not looked up)
 };
 
 // Amenity keys -> words that identify them in portal amenity names.
@@ -46,6 +48,18 @@ export const NEAR = {
 export function isNear(s, key) {
   const n = NEAR[key];
   return n.kinds.some((k) => (s.nearby?.[k]?.m ?? Infinity) <= n.m);
+}
+
+// Slower of the morning and evening peak-hour drives (minutes), or null when not looked up.
+export function commuteWorst(s) {
+  const c = s.commute;
+  if (!c || c.am_min == null) return null;
+  return Math.max(c.am_min, c.pm_min ?? c.am_min);
+}
+
+// Road distance to the commute office (km), from the peak lookup or the traffic-free one; null when not looked up.
+export function commuteKm(s) {
+  return s.commute?.am_km ?? s.commute?.km ?? null;
 }
 
 export function hasAmenity(s, key) {
@@ -125,6 +139,14 @@ export function matchSociety(s, c) {
   if (c.kinds.length && !c.kinds.includes(s.kind)) return 'no';
   for (const key of c.near || []) if (!isNear(s, key)) return 'no';
   if (c.ready && !/ready/i.test(s.status || '')) return 'no';
+  if (c.maxCommute) {
+    const t = commuteWorst(s);
+    if (t == null || t > c.maxCommute) return 'no'; // no route looked up: cannot confirm the commute, so not shown
+  }
+  if (c.maxCommuteKm) {
+    const k = commuteKm(s);
+    if (k == null || k > c.maxCommuteKm) return 'no';
+  }
   const budget = c.mode === 'rent' ? c.maxRent : c.maxPrice;
   const floor = c.mode === 'rent' ? c.minRent : c.minPrice;
   if (budget || floor) {

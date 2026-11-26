@@ -1,0 +1,7758 @@
+{
+"office": {
+"key": "gail",
+"name": "GAIL India Ltd, Sector 1",
+"address": "GAIL Jubilee Tower, B-35 & 36, Sector 1, Noida, Uttar Pradesh 201301, India",
+"lat": 28.5899,
+"lng": 77.3117
+},
+"source": "OSRM (OpenStreetMap road network), driving, no traffic",
+"societies": {
+"s5418665": {
+"km": 12.7,
+"free_min": 16.8,
+"back_km": 13.1,
+"back_free_min": 17.2
+},
+"s5018189": {
+"km": 17.9,
+"free_min": 23.0,
+"back_km": 17.4,
+"back_free_min": 22.3
+},
+"s5017262": {
+"km": 9.5,
+"free_min": 14.0,
+"back_km": 10.6,
+"back_free_min": 15.7
+},
+"s5016582": {
+"km": 18.7,
+"free_min": 23.6,
+"back_km": 18.1,
+"back_free_min": 22.9
+},
+"s5016594": {
+"km": 6.9,
+"free_min": 10.3,
+"back_km": 5.9,
+"back_free_min": 9.2
+},
+"s5016772": {
+"km": 18.3,
+"free_min": 22.0,
+"back_km": 17.5,
+"back_free_min": 23.2
+},
+"s5085077": {
+"km": 17.8,
+"free_min": 26.7,
+"back_km": 20.3,
+"back_free_min": 26.1
+},
+"s5018624": {
+"km": 17.8,
+"free_min": 22.9,
+"back_km": 17.2,
+"back_free_min": 22.3
+},
+"s5083185": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5017054": {
+"km": 11.7,
+"free_min": 13.5,
+"back_km": 11.5,
+"back_free_min": 12.5
+},
+"s5083573": {
+"km": 28.9,
+"free_min": 30.7,
+"back_km": 27.7,
+"back_free_min": 28.3
+},
+"s5083680": {
+"km": 28.0,
+"free_min": 28.4,
+"back_km": 28.7,
+"back_free_min": 30.6
+},
+"s5018074": {
+"km": 18.0,
+"free_min": 20.7,
+"back_km": 19.3,
+"back_free_min": 19.9
+},
+"s5018071": {
+"km": 15.8,
+"free_min": 17.0,
+"back_km": 15.8,
+"back_free_min": 17.2
+},
+"s5076040": {
+"km": 10.9,
+"free_min": 13.2,
+"back_km": 13.7,
+"back_free_min": 17.2
+},
+"s5103791": {
+"km": 11.3,
+"free_min": 16.1,
+"back_km": 12.5,
+"back_free_min": 17.8
+},
+"s5022992": {
+"km": 11.6,
+"free_min": 16.5,
+"back_km": 13.8,
+"back_free_min": 18.3
+},
+"s5121357": {
+"km": 1.5,
+"free_min": 3.5,
+"back_km": 1.5,
+"back_free_min": 4.0
+},
+"s5022827": {
+"km": 19.8,
+"free_min": 24.9,
+"back_km": 19.6,
+"back_free_min": 24.4
+},
+"s5010115": {
+"km": 11.5,
+"free_min": 18.0,
+"back_km": 13.1,
+"back_free_min": 17.8
+},
+"s5115835": {
+"km": 11.6,
+"free_min": 15.1,
+"back_km": 13.9,
+"back_free_min": 17.7
+},
+"s5010150": {
+"km": 11.9,
+"free_min": 16.2,
+"back_km": 14.1,
+"back_free_min": 18.1
+},
+"s5121845": {
+"km": 29.7,
+"free_min": 33.1,
+"back_km": 30.2,
+"back_free_min": 34.5
+},
+"s5126969": {
+"km": 11.4,
+"free_min": 17.7,
+"back_km": 13.1,
+"back_free_min": 17.9
+},
+"s5000181": {
+"km": 9.6,
+"free_min": 13.8,
+"back_km": 11.8,
+"back_free_min": 16.4
+},
+"s5000114": {
+"km": 16.7,
+"free_min": 20.1,
+"back_km": 18.9,
+"back_free_min": 22.5
+},
+"s5326951": {
+"km": 5.9,
+"free_min": 8.5,
+"back_km": 6.2,
+"back_free_min": 9.4
+},
+"s5096739": {
+"km": 15.7,
+"free_min": 22.3,
+"back_km": 18.4,
+"back_free_min": 23.4
+},
+"s5021510": {
+"km": 10.4,
+"free_min": 12.0,
+"back_km": 12.5,
+"back_free_min": 14.1
+},
+"s5021514": {
+"km": 14.8,
+"free_min": 16.0,
+"back_km": 14.5,
+"back_free_min": 17.4
+},
+"s5021515": {
+"km": 14.0,
+"free_min": 15.6,
+"back_km": 15.8,
+"back_free_min": 19.0
+},
+"s5009948": {
+"km": 5.2,
+"free_min": 8.4,
+"back_km": 6.1,
+"back_free_min": 9.7
+},
+"s5073517": {
+"km": 22.4,
+"free_min": 28.1,
+"back_km": 22.3,
+"back_free_min": 27.5
+},
+"s5009941": {
+"km": 11.4,
+"free_min": 15.9,
+"back_km": 11.9,
+"back_free_min": 16.6
+},
+"s5009846": {
+"km": 11.0,
+"free_min": 16.8,
+"back_km": 12.3,
+"back_free_min": 16.1
+},
+"s5230171": {
+"km": 6.0,
+"free_min": 8.4,
+"back_km": 6.9,
+"back_free_min": 9.9
+},
+"s5038031": {
+"km": 9.6,
+"free_min": 13.8,
+"back_km": 10.7,
+"back_free_min": 15.4
+},
+"s5388547": {
+"km": 16.7,
+"free_min": 20.1,
+"back_km": 18.9,
+"back_free_min": 22.5
+},
+"s5186155": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5186331": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5396677": {
+"km": 10.2,
+"free_min": 14.7,
+"back_km": 12.3,
+"back_free_min": 17.2
+},
+"s5023988": {
+"km": 16.6,
+"free_min": 19.1,
+"back_km": 16.4,
+"back_free_min": 19.0
+},
+"s5023884": {
+"km": 10.5,
+"free_min": 16.4,
+"back_km": 11.9,
+"back_free_min": 17.0
+},
+"s5119629": {
+"km": 29.7,
+"free_min": 32.9,
+"back_km": 30.2,
+"back_free_min": 34.3
+},
+"s5023993": {
+"km": 14.9,
+"free_min": 19.7,
+"back_km": 15.2,
+"back_free_min": 20.0
+},
+"s5119131": {
+"km": 29.2,
+"free_min": 31.6,
+"back_km": 29.7,
+"back_free_min": 33.1
+},
+"s5023991": {
+"km": 12.7,
+"free_min": 18.2,
+"back_km": 13.3,
+"back_free_min": 18.3
+},
+"s5086915": {
+"km": 17.3,
+"free_min": 22.0,
+"back_km": 19.6,
+"back_free_min": 25.2
+},
+"s5001292": {
+"km": 9.9,
+"free_min": 14.6,
+"back_km": 10.6,
+"back_free_min": 15.3
+},
+"s5325809": {
+"km": 29.7,
+"free_min": 32.8,
+"back_km": 30.2,
+"back_free_min": 34.2
+},
+"s5000846": {
+"km": 14.9,
+"free_min": 16.3,
+"back_km": 15.2,
+"back_free_min": 18.6
+},
+"s5000841": {
+"km": 18.2,
+"free_min": 23.1,
+"back_km": 17.2,
+"back_free_min": 21.5
+},
+"s5130333": {
+"km": 28.6,
+"free_min": 30.0,
+"back_km": 29.0,
+"back_free_min": 31.4
+},
+"s5410763": {
+"km": 6.3,
+"free_min": 7.5,
+"back_km": 7.7,
+"back_free_min": 10.6
+},
+"s5124749": {
+"km": 9.7,
+"free_min": 14.0,
+"back_km": 10.8,
+"back_free_min": 15.6
+},
+"s5094683": {
+"km": 12.3,
+"free_min": 16.1,
+"back_km": 11.2,
+"back_free_min": 14.5
+},
+"s5000868": {
+"km": 10.3,
+"free_min": 16.0,
+"back_km": 11.5,
+"back_free_min": 16.0
+},
+"s5000567": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5447539": {
+"km": 10.5,
+"free_min": 12.2,
+"back_km": 9.9,
+"back_free_min": 13.9
+},
+"s5095945": {
+"km": 6.6,
+"free_min": 8.3,
+"back_km": 7.4,
+"back_free_min": 9.9
+},
+"s5000558": {
+"km": 17.9,
+"free_min": 20.9,
+"back_km": 16.6,
+"back_free_min": 18.8
+},
+"s5023865": {
+"km": 10.1,
+"free_min": 14.3,
+"back_km": 12.1,
+"back_free_min": 17.3
+},
+"s5070600": {
+"km": 17.4,
+"free_min": 21.8,
+"back_km": 17.2,
+"back_free_min": 22.2
+},
+"s5070674": {
+"km": 19.4,
+"free_min": 24.0,
+"back_km": 18.4,
+"back_free_min": 22.9
+},
+"s5124371": {
+"km": 28.0,
+"free_min": 28.6,
+"back_km": 29.2,
+"back_free_min": 32.1
+},
+"s5114221": {
+"km": 16.7,
+"free_min": 20.1,
+"back_km": 18.9,
+"back_free_min": 22.5
+},
+"s5420619": {
+"km": 21.8,
+"free_min": 23.5,
+"back_km": 21.4,
+"back_free_min": 22.6
+},
+"s5132643": {
+"km": 28.4,
+"free_min": 30.4,
+"back_km": 28.7,
+"back_free_min": 31.6
+},
+"s5113649": {
+"km": 29.5,
+"free_min": 33.2,
+"back_km": 30.3,
+"back_free_min": 34.7
+},
+"s5337003": {
+"km": 9.9,
+"free_min": 14.5,
+"back_km": 10.9,
+"back_free_min": 16.0
+},
+"s5023456": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5071859": {
+"km": 21.5,
+"free_min": 24.0,
+"back_km": 17.9,
+"back_free_min": 22.6
+},
+"s5126555": {
+"km": 29.2,
+"free_min": 31.5,
+"back_km": 29.6,
+"back_free_min": 33.0
+},
+"s5440287": {
+"km": 27.2,
+"free_min": 26.7,
+"back_km": 27.4,
+"back_free_min": 27.3
+},
+"s5109861": {
+"km": 29.2,
+"free_min": 31.6,
+"back_km": 29.7,
+"back_free_min": 33.1
+},
+"s5079332": {
+"km": 27.1,
+"free_min": 26.3,
+"back_km": 27.5,
+"back_free_min": 27.8
+},
+"s5331931": {
+"km": 11.4,
+"free_min": 17.7,
+"back_km": 12.9,
+"back_free_min": 17.1
+},
+"s5020746": {
+"km": 10.3,
+"free_min": 15.4,
+"back_km": 13.4,
+"back_free_min": 18.7
+},
+"s5020748": {
+"km": 11.2,
+"free_min": 15.8,
+"back_km": 13.7,
+"back_free_min": 17.8
+},
+"s5020751": {
+"km": 16.7,
+"free_min": 20.1,
+"back_km": 18.9,
+"back_free_min": 22.5
+},
+"s5089768": {
+"km": 21.1,
+"free_min": 26.3,
+"back_km": 19.7,
+"back_free_min": 23.4
+},
+"s5081824": {
+"km": 12.5,
+"free_min": 17.7,
+"back_km": 13.1,
+"back_free_min": 18.3
+},
+"s5331625": {
+"km": 11.0,
+"free_min": 16.6,
+"back_km": 12.7,
+"back_free_min": 16.8
+},
+"s5130901": {
+"km": 20.1,
+"free_min": 24.4,
+"back_km": 20.0,
+"back_free_min": 21.5
+},
+"s5001057": {
+"km": 19.6,
+"free_min": 24.8,
+"back_km": 20.4,
+"back_free_min": 26.3
+},
+"s5025405": {
+"km": 18.7,
+"free_min": 19.1,
+"back_km": 17.2,
+"back_free_min": 19.8
+},
+"s5100517": {
+"km": 28.7,
+"free_min": 30.3,
+"back_km": 29.2,
+"back_free_min": 31.8
+},
+"s5095271": {
+"km": 24.8,
+"free_min": 22.5,
+"back_km": 25.8,
+"back_free_min": 25.0
+},
+"s5071082": {
+"km": 12.5,
+"free_min": 17.6,
+"back_km": 13.2,
+"back_free_min": 18.4
+},
+"s5000925": {
+"km": 17.4,
+"free_min": 21.9,
+"back_km": 16.9,
+"back_free_min": 21.1
+},
+"s5425491": {
+"km": 5.1,
+"free_min": 7.9,
+"back_km": 6.0,
+"back_free_min": 9.1
+},
+"s5094253": {
+"km": 12.2,
+"free_min": 17.9,
+"back_km": 12.9,
+"back_free_min": 18.1
+},
+"s5071003": {
+"km": 8.9,
+"free_min": 12.5,
+"back_km": 9.4,
+"back_free_min": 13.5
+},
+"s5025112": {
+"km": 12.8,
+"free_min": 16.3,
+"back_km": 14.4,
+"back_free_min": 19.1
+},
+"s5025546": {
+"km": 13.1,
+"free_min": 15.7,
+"back_km": 13.5,
+"back_free_min": 16.4
+},
+"s5000928": {
+"km": 18.3,
+"free_min": 22.9,
+"back_km": 19.3,
+"back_free_min": 25.0
+},
+"s5000755": {
+"km": 17.2,
+"free_min": 19.7,
+"back_km": 17.0,
+"back_free_min": 19.3
+},
+"s5001222": {
+"km": 17.6,
+"free_min": 22.0,
+"back_km": 19.1,
+"back_free_min": 24.7
+},
+"s5124295": {
+"km": 29.0,
+"free_min": 31.1,
+"back_km": 27.6,
+"back_free_min": 27.9
+},
+"s5025277": {
+"km": 19.1,
+"free_min": 22.7,
+"back_km": 20.4,
+"back_free_min": 21.8
+},
+"s5070791": {
+"km": 19.4,
+"free_min": 24.1,
+"back_km": 19.6,
+"back_free_min": 24.3
+},
+"s5025239": {
+"km": 15.7,
+"free_min": 22.5,
+"back_km": 18.4,
+"back_free_min": 23.3
+},
+"s5025141": {
+"km": 19.4,
+"free_min": 24.6,
+"back_km": 20.6,
+"back_free_min": 26.8
+},
+"s5077213": {
+"km": 16.7,
+"free_min": 21.3,
+"back_km": 16.2,
+"back_free_min": 20.9
+},
+"s5022221": {
+"km": 12.0,
+"free_min": 17.4,
+"back_km": 14.5,
+"back_free_min": 19.6
+},
+"s5022378": {
+"km": 11.7,
+"free_min": 17.1,
+"back_km": 13.2,
+"back_free_min": 17.9
+},
+"s5449813": {
+"km": 11.4,
+"free_min": 17.7,
+"back_km": 12.9,
+"back_free_min": 17.1
+},
+"s5022517": {
+"km": 14.3,
+"free_min": 18.5,
+"back_km": 14.5,
+"back_free_min": 18.6
+},
+"s5105635": {
+"km": 18.4,
+"free_min": 24.4,
+"back_km": 17.9,
+"back_free_min": 23.6
+},
+"s5022302": {
+"km": 17.5,
+"free_min": 24.4,
+"back_km": 19.9,
+"back_free_min": 24.9
+},
+"s5021974": {
+"km": 19.6,
+"free_min": 23.5,
+"back_km": 19.7,
+"back_free_min": 20.5
+},
+"s5021913": {
+"km": 16.7,
+"free_min": 22.3,
+"back_km": 17.1,
+"back_free_min": 23.1
+},
+"s5188888": {
+"km": 19.6,
+"free_min": 24.7,
+"back_km": 18.6,
+"back_free_min": 23.3
+},
+"s5026212": {
+"km": 20.3,
+"free_min": 26.0,
+"back_km": 19.2,
+"back_free_min": 24.6
+},
+"s5098601": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5069996": {
+"km": 19.6,
+"free_min": 24.4,
+"back_km": 19.2,
+"back_free_min": 24.4
+},
+"s5092882": {
+"km": 11.9,
+"free_min": 15.7,
+"back_km": 11.1,
+"back_free_min": 14.1
+},
+"s5098465": {
+"km": 11.5,
+"free_min": 18.2,
+"back_km": 12.3,
+"back_free_min": 17.0
+},
+"s5024133": {
+"km": 17.0,
+"free_min": 21.7,
+"back_km": 18.8,
+"back_free_min": 23.9
+},
+"s5194531": {
+"km": 18.2,
+"free_min": 23.0,
+"back_km": 17.7,
+"back_free_min": 21.8
+},
+"s5023870": {
+"km": 18.5,
+"free_min": 24.2,
+"back_km": 18.8,
+"back_free_min": 24.0
+},
+"s5023874": {
+"km": 17.1,
+"free_min": 22.2,
+"back_km": 19.2,
+"back_free_min": 24.4
+},
+"s5023877": {
+"km": 19.0,
+"free_min": 25.2,
+"back_km": 20.3,
+"back_free_min": 26.0
+},
+"s5420285": {
+"km": 6.7,
+"free_min": 10.7,
+"back_km": 7.3,
+"back_free_min": 10.8
+},
+"s5125639": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5023756": {
+"km": 27.4,
+"free_min": 27.1,
+"back_km": 27.9,
+"back_free_min": 28.7
+},
+"s5023758": {
+"km": 17.0,
+"free_min": 23.6,
+"back_km": 19.8,
+"back_free_min": 24.7
+},
+"s5000482": {
+"km": 13.3,
+"free_min": 16.7,
+"back_km": 12.9,
+"back_free_min": 15.1
+},
+"s5337143": {
+"km": 27.6,
+"free_min": 27.7,
+"back_km": 28.1,
+"back_free_min": 29.3
+},
+"s5087597": {
+"km": 28.4,
+"free_min": 30.5,
+"back_km": 29.3,
+"back_free_min": 32.4
+},
+"s5309735": {
+"km": 16.7,
+"free_min": 20.1,
+"back_km": 18.9,
+"back_free_min": 22.5
+},
+"s5248689": {
+"km": 15.2,
+"free_min": 17.3,
+"back_km": 15.3,
+"back_free_min": 16.7
+},
+"s5437665": {
+"km": 10.5,
+"free_min": 12.4,
+"back_km": 8.9,
+"back_free_min": 12.8
+},
+"s5416297": {
+"km": 22.1,
+"free_min": 23.9,
+"back_km": 21.1,
+"back_free_min": 22.2
+},
+"s5411765": {
+"km": 10.2,
+"free_min": 10.9,
+"back_km": 13.1,
+"back_free_min": 14.4
+},
+"s5025667": {
+"km": 14.0,
+"free_min": 15.6,
+"back_km": 15.8,
+"back_free_min": 19.0
+},
+"s5086134": {
+"km": 17.6,
+"free_min": 21.8,
+"back_km": 17.8,
+"back_free_min": 22.7
+},
+"s5001213": {
+"km": 18.3,
+"free_min": 22.7,
+"back_km": 18.1,
+"back_free_min": 23.9
+},
+"s5124337": {
+"km": 13.8,
+"free_min": 18.0,
+"back_km": 12.2,
+"back_free_min": 16.3
+},
+"s5070206": {
+"km": 5.0,
+"free_min": 8.0,
+"back_km": 3.9,
+"back_free_min": 7.3
+},
+"s5025894": {
+"km": 17.5,
+"free_min": 24.9,
+"back_km": 20.4,
+"back_free_min": 26.0
+},
+"s5417181": {
+"km": 12.7,
+"free_min": 17.7,
+"back_km": 14.6,
+"back_free_min": 19.0
+},
+"s5141131": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5020509": {
+"km": 11.4,
+"free_min": 17.9,
+"back_km": 13.2,
+"back_free_min": 18.1
+},
+"s5020041": {
+"km": 13.7,
+"free_min": 18.8,
+"back_km": 14.1,
+"back_free_min": 19.5
+},
+"s5020115": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5019808": {
+"km": 11.8,
+"free_min": 18.7,
+"back_km": 13.1,
+"back_free_min": 17.8
+},
+"s5019266": {
+"km": 20.3,
+"free_min": 26.0,
+"back_km": 19.2,
+"back_free_min": 24.6
+},
+"s5019424": {
+"km": 13.6,
+"free_min": 15.3,
+"back_km": 10.2,
+"back_free_min": 15.7
+},
+"s5019508": {
+"km": 12.2,
+"free_min": 17.5,
+"back_km": 13.1,
+"back_free_min": 19.2
+},
+"s5017529": {
+"km": 16.8,
+"free_min": 18.6,
+"back_km": 17.1,
+"back_free_min": 20.8
+},
+"s5017515": {
+"km": 6.9,
+"free_min": 9.3,
+"back_km": 6.9,
+"back_free_min": 8.4
+},
+"s5017667": {
+"km": 7.5,
+"free_min": 8.9,
+"back_km": 7.5,
+"back_free_min": 10.0
+},
+"s5017554": {
+"km": 16.8,
+"free_min": 19.2,
+"back_km": 16.9,
+"back_free_min": 19.7
+},
+"s5017513": {
+"km": 13.1,
+"free_min": 19.5,
+"back_km": 14.2,
+"back_free_min": 19.6
+},
+"s5028617": {
+"km": 10.6,
+"free_min": 15.6,
+"back_km": 12.6,
+"back_free_min": 16.6
+},
+"s5027156": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5290391": {
+"km": 25.4,
+"free_min": 23.5,
+"back_km": 26.5,
+"back_free_min": 26.0
+},
+"s5027828": {
+"km": 16.4,
+"free_min": 18.0,
+"back_km": 16.8,
+"back_free_min": 19.4
+},
+"s5028419": {
+"km": 11.6,
+"free_min": 16.3,
+"back_km": 11.5,
+"back_free_min": 16.0
+},
+"s5028328": {
+"km": 18.4,
+"free_min": 22.9,
+"back_km": 18.4,
+"back_free_min": 23.6
+},
+"s5226805": {
+"km": 9.4,
+"free_min": 15.0,
+"back_km": 9.1,
+"back_free_min": 14.9
+},
+"s5028557": {
+"km": 16.6,
+"free_min": 21.5,
+"back_km": 15.9,
+"back_free_min": 20.5
+},
+"s5028484": {
+"km": 12.1,
+"free_min": 17.1,
+"back_km": 13.4,
+"back_free_min": 18.2
+},
+"s5223933": {
+"km": 14.8,
+"free_min": 17.1,
+"back_km": 14.4,
+"back_free_min": 15.8
+},
+"s5224441": {
+"km": 9.9,
+"free_min": 15.5,
+"back_km": 8.7,
+"back_free_min": 14.5
+},
+"s5029232": {
+"km": 17.6,
+"free_min": 22.8,
+"back_km": 16.8,
+"back_free_min": 21.8
+},
+"s5028948": {
+"km": 26.5,
+"free_min": 25.5,
+"back_km": 27.0,
+"back_free_min": 27.0
+},
+"s5324935": {
+"km": 27.8,
+"free_min": 28.1,
+"back_km": 28.8,
+"back_free_min": 30.9
+},
+"s5402139": {
+"km": 12.3,
+"free_min": 14.4,
+"back_km": 11.0,
+"back_free_min": 15.9
+},
+"s5039680": {
+"km": 19.7,
+"free_min": 25.2,
+"back_km": 20.6,
+"back_free_min": 26.7
+},
+"s5252643": {
+"km": 28.0,
+"free_min": 28.8,
+"back_km": 29.3,
+"back_free_min": 32.3
+},
+"s5418673": {
+"km": 10.5,
+"free_min": 14.3,
+"back_km": 10.7,
+"back_free_min": 14.6
+},
+"s5083439": {
+"km": 17.6,
+"free_min": 22.6,
+"back_km": 17.1,
+"back_free_min": 22.4
+},
+"s5017233": {
+"km": 16.2,
+"free_min": 18.4,
+"back_km": 16.4,
+"back_free_min": 19.2
+},
+"s5010648": {
+"km": 11.7,
+"free_min": 17.3,
+"back_km": 13.2,
+"back_free_min": 18.0
+},
+"s5017993": {
+"km": 12.0,
+"free_min": 17.3,
+"back_km": 12.3,
+"back_free_min": 17.2
+},
+"s5083283": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5019009": {
+"km": 19.4,
+"free_min": 23.5,
+"back_km": 19.5,
+"back_free_min": 24.7
+},
+"s5010156": {
+"km": 10.2,
+"free_min": 11.5,
+"back_km": 13.2,
+"back_free_min": 15.8
+},
+"s5010154": {
+"km": 12.5,
+"free_min": 17.3,
+"back_km": 14.1,
+"back_free_min": 18.4
+},
+"s5010101": {
+"km": 16.4,
+"free_min": 18.5,
+"back_km": 16.2,
+"back_free_min": 18.5
+},
+"s5022746": {
+"km": 17.3,
+"free_min": 21.0,
+"back_km": 18.1,
+"back_free_min": 22.5
+},
+"s5010318": {
+"km": 5.3,
+"free_min": 8.6,
+"back_km": 6.4,
+"back_free_min": 10.3
+},
+"s5009992": {
+"km": 12.3,
+"free_min": 15.1,
+"back_km": 12.0,
+"back_free_min": 13.8
+},
+"s5021507": {
+"km": 32.8,
+"free_min": 31.9,
+"back_km": 32.8,
+"back_free_min": 32.6
+},
+"s5021505": {
+"km": 14.6,
+"free_min": 15.5,
+"back_km": 15.2,
+"back_free_min": 18.6
+},
+"s5021462": {
+"km": 11.9,
+"free_min": 17.0,
+"back_km": 12.6,
+"back_free_min": 17.8
+},
+"s5021461": {
+"km": 19.4,
+"free_min": 24.3,
+"back_km": 19.6,
+"back_free_min": 24.1
+},
+"s5038294": {
+"km": 13.2,
+"free_min": 17.4,
+"back_km": 12.1,
+"back_free_min": 16.3
+},
+"s5038213": {
+"km": 18.5,
+"free_min": 23.1,
+"back_km": 18.2,
+"back_free_min": 22.9
+},
+"s5187076": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5023888": {
+"km": 18.4,
+"free_min": 22.8,
+"back_km": 18.8,
+"back_free_min": 24.0
+},
+"s5023886": {
+"km": 16.7,
+"free_min": 22.5,
+"back_km": 17.2,
+"back_free_min": 23.3
+},
+"s5024530": {
+"km": 14.6,
+"free_min": 15.9,
+"back_km": 14.4,
+"back_free_min": 16.7
+},
+"s5441685": {
+"km": 11.0,
+"free_min": 15.7,
+"back_km": 11.2,
+"back_free_min": 15.9
+},
+"s5073673": {
+"km": 9.5,
+"free_min": 13.6,
+"back_km": 9.9,
+"back_free_min": 14.2
+},
+"s5093937": {
+"km": 16.7,
+"free_min": 20.1,
+"back_km": 18.9,
+"back_free_min": 22.5
+},
+"s5087247": {
+"km": 18.1,
+"free_min": 24.1,
+"back_km": 16.9,
+"back_free_min": 21.9
+},
+"s5025115": {
+"km": 11.1,
+"free_min": 13.8,
+"back_km": 13.4,
+"back_free_min": 16.5
+},
+"s5000927": {
+"km": 18.5,
+"free_min": 23.1,
+"back_km": 18.5,
+"back_free_min": 23.9
+},
+"s5022383": {
+"km": 16.2,
+"free_min": 18.0,
+"back_km": 16.6,
+"back_free_min": 19.0
+},
+"s5022226": {
+"km": 18.3,
+"free_min": 22.5,
+"back_km": 17.7,
+"back_free_min": 23.6
+},
+"s5022209": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5010449": {
+"km": 10.2,
+"free_min": 15.8,
+"back_km": 11.9,
+"back_free_min": 17.0
+},
+"s5105843": {
+"km": 11.1,
+"free_min": 13.8,
+"back_km": 13.1,
+"back_free_min": 16.0
+},
+"s5022993": {
+"km": 12.5,
+"free_min": 17.9,
+"back_km": 13.9,
+"back_free_min": 19.2
+},
+"s5022570": {
+"km": 12.5,
+"free_min": 17.5,
+"back_km": 14.0,
+"back_free_min": 18.5
+},
+"s5070339": {
+"km": 16.3,
+"free_min": 24.1,
+"back_km": 19.3,
+"back_free_min": 25.5
+},
+"s5001250": {
+"km": 17.8,
+"free_min": 21.8,
+"back_km": 19.9,
+"back_free_min": 25.2
+},
+"s5019760": {
+"km": 17.5,
+"free_min": 21.4,
+"back_km": 16.7,
+"back_free_min": 19.3
+},
+"s5019768": {
+"km": 16.2,
+"free_min": 18.2,
+"back_km": 16.0,
+"back_free_min": 18.1
+},
+"s5019326": {
+"km": 17.2,
+"free_min": 20.1,
+"back_km": 17.8,
+"back_free_min": 20.6
+},
+"s5458379": {
+"km": 10.1,
+"free_min": 14.5,
+"back_km": 12.3,
+"back_free_min": 17.2
+},
+"s5028613": {
+"km": 20.9,
+"free_min": 26.0,
+"back_km": 21.1,
+"back_free_min": 27.6
+},
+"s5027531": {
+"km": 18.9,
+"free_min": 24.2,
+"back_km": 19.7,
+"back_free_min": 25.1
+},
+"s5029352": {
+"km": 15.2,
+"free_min": 17.3,
+"back_km": 15.3,
+"back_free_min": 16.7
+},
+"s5041375": {
+"km": 26.3,
+"free_min": 24.9,
+"back_km": 26.7,
+"back_free_min": 26.4
+},
+"s5041742": {
+"km": 10.4,
+"free_min": 11.4,
+"back_km": 9.6,
+"back_free_min": 13.0
+},
+"s5018834": {
+"km": 15.6,
+"free_min": 19.5,
+"back_km": 18.6,
+"back_free_min": 23.6
+},
+"s5083322": {
+"km": 10.8,
+"free_min": 13.0,
+"back_km": 13.8,
+"back_free_min": 17.4
+},
+"s5018478": {
+"km": 17.7,
+"free_min": 22.6,
+"back_km": 17.1,
+"back_free_min": 21.4
+},
+"s5418669": {
+"km": 11.5,
+"free_min": 16.7,
+"back_km": 12.8,
+"back_free_min": 18.6
+},
+"s5431387": {
+"km": 1.2,
+"free_min": 3.0,
+"back_km": 1.5,
+"back_free_min": 3.6
+},
+"s5443689": {
+"km": 10.8,
+"free_min": 13.0,
+"back_km": 13.8,
+"back_free_min": 17.4
+},
+"s5443711": {
+"km": 26.3,
+"free_min": 25.3,
+"back_km": 27.4,
+"back_free_min": 27.9
+},
+"s5431317": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5016581": {
+"km": 18.6,
+"free_min": 23.2,
+"back_km": 18.4,
+"back_free_min": 23.8
+},
+"s5016774": {
+"km": 19.0,
+"free_min": 22.1,
+"back_km": 19.7,
+"back_free_min": 20.4
+},
+"s5016631": {
+"km": 18.1,
+"free_min": 22.3,
+"back_km": 17.2,
+"back_free_min": 22.8
+},
+"s5017033": {
+"km": 13.1,
+"free_min": 17.1,
+"back_km": 13.5,
+"back_free_min": 17.6
+},
+"s5017077": {
+"km": 12.5,
+"free_min": 17.5,
+"back_km": 14.4,
+"back_free_min": 18.8
+},
+"s5017076": {
+"km": 13.8,
+"free_min": 18.7,
+"back_km": 14.6,
+"back_free_min": 19.8
+},
+"s5018070": {
+"km": 10.2,
+"free_min": 16.1,
+"back_km": 12.1,
+"back_free_min": 17.6
+},
+"s5018068": {
+"km": 18.5,
+"free_min": 22.0,
+"back_km": 20.3,
+"back_free_min": 21.9
+},
+"s5083613": {
+"km": 23.6,
+"free_min": 26.5,
+"back_km": 19.7,
+"back_free_min": 24.8
+},
+"s5418439": {
+"km": 10.4,
+"free_min": 14.2,
+"back_km": 10.6,
+"back_free_min": 14.5
+},
+"s5443045": {
+"km": 12.3,
+"free_min": 16.7,
+"back_km": 13.6,
+"back_free_min": 17.3
+},
+"s5083463": {
+"km": 32.6,
+"free_min": 32.3,
+"back_km": 36.0,
+"back_free_min": 35.9
+},
+"s5083296": {
+"km": 5.2,
+"free_min": 7.9,
+"back_km": 5.2,
+"back_free_min": 8.9
+},
+"s5097079": {
+"km": 29.4,
+"free_min": 32.2,
+"back_km": 29.9,
+"back_free_min": 33.7
+},
+"s5436825": {
+"km": 10.8,
+"free_min": 13.0,
+"back_km": 13.8,
+"back_free_min": 17.4
+},
+"s5010157": {
+"km": 10.8,
+"free_min": 13.0,
+"back_km": 13.8,
+"back_free_min": 17.4
+},
+"s5010149": {
+"km": 10.6,
+"free_min": 11.5,
+"back_km": 12.8,
+"back_free_min": 13.9
+},
+"s5010143": {
+"km": 10.9,
+"free_min": 13.1,
+"back_km": 13.3,
+"back_free_min": 16.0
+},
+"s5010037": {
+"km": 14.4,
+"free_min": 18.8,
+"back_km": 13.9,
+"back_free_min": 19.1
+},
+"s5437183": {
+"km": 16.0,
+"free_min": 18.0,
+"back_km": 14.9,
+"back_free_min": 20.0
+},
+"s5022754": {
+"km": 18.3,
+"free_min": 22.4,
+"back_km": 18.4,
+"back_free_min": 23.6
+},
+"s5021835": {
+"km": 14.2,
+"free_min": 19.0,
+"back_km": 17.2,
+"back_free_min": 19.9
+},
+"s5021526": {
+"km": 12.4,
+"free_min": 15.6,
+"back_km": 14.3,
+"back_free_min": 18.6
+},
+"s5439911": {
+"km": 5.8,
+"free_min": 9.7,
+"back_km": 5.2,
+"back_free_min": 9.8
+},
+"s5073912": {
+"km": 17.8,
+"free_min": 22.4,
+"back_km": 18.5,
+"back_free_min": 23.4
+},
+"s5439899": {
+"km": 3.1,
+"free_min": 5.6,
+"back_km": 3.6,
+"back_free_min": 6.1
+},
+"s5021511": {
+"km": 11.6,
+"free_min": 16.0,
+"back_km": 14.1,
+"back_free_min": 19.2
+},
+"s5439921": {
+"km": 5.8,
+"free_min": 9.7,
+"back_km": 5.2,
+"back_free_min": 9.8
+},
+"s5021506": {
+"km": 26.2,
+"free_min": 25.1,
+"back_km": 27.3,
+"back_free_min": 27.7
+},
+"s5021504": {
+"km": 13.0,
+"free_min": 17.0,
+"back_km": 14.5,
+"back_free_min": 19.6
+},
+"s5009851": {
+"km": 11.0,
+"free_min": 16.6,
+"back_km": 12.7,
+"back_free_min": 16.8
+},
+"s5173705": {
+"km": 18.0,
+"free_min": 22.1,
+"back_km": 19.1,
+"back_free_min": 24.0
+},
+"s5035712": {
+"km": 16.7,
+"free_min": 20.1,
+"back_km": 18.9,
+"back_free_min": 22.5
+},
+"s5035728": {
+"km": 20.4,
+"free_min": 26.4,
+"back_km": 19.7,
+"back_free_min": 25.0
+},
+"s5168567": {
+"km": 13.6,
+"free_min": 19.0,
+"back_km": 14.6,
+"back_free_min": 19.6
+},
+"s5392115": {
+"km": 9.8,
+"free_min": 15.1,
+"back_km": 8.8,
+"back_free_min": 14.9
+},
+"s5168639": {
+"km": 19.6,
+"free_min": 23.7,
+"back_km": 20.9,
+"back_free_min": 22.6
+},
+"s5039110": {
+"km": 10.4,
+"free_min": 15.7,
+"back_km": 12.8,
+"back_free_min": 17.4
+},
+"s5188538": {
+"km": 28.2,
+"free_min": 29.1,
+"back_km": 29.4,
+"back_free_min": 32.6
+},
+"s5071590": {
+"km": 6.9,
+"free_min": 11.1,
+"back_km": 6.3,
+"back_free_min": 10.5
+},
+"s5071588": {
+"km": 7.1,
+"free_min": 11.5,
+"back_km": 5.8,
+"back_free_min": 9.6
+},
+"s5424309": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5001291": {
+"km": 16.3,
+"free_min": 17.9,
+"back_km": 16.7,
+"back_free_min": 19.2
+},
+"s5447059": {
+"km": 10.2,
+"free_min": 10.9,
+"back_km": 13.1,
+"back_free_min": 14.4
+},
+"s5023863": {
+"km": 6.9,
+"free_min": 11.0,
+"back_km": 8.1,
+"back_free_min": 11.0
+},
+"s5023764": {
+"km": 17.9,
+"free_min": 22.8,
+"back_km": 17.4,
+"back_free_min": 22.2
+},
+"s5436241": {
+"km": 11.4,
+"free_min": 16.0,
+"back_km": 11.5,
+"back_free_min": 16.4
+},
+"s5023535": {
+"km": 26.5,
+"free_min": 25.9,
+"back_km": 27.0,
+"back_free_min": 27.2
+},
+"s5436303": {
+"km": 10.8,
+"free_min": 13.0,
+"back_km": 13.8,
+"back_free_min": 17.4
+},
+"s5436299": {
+"km": 10.8,
+"free_min": 13.0,
+"back_km": 13.8,
+"back_free_min": 17.4
+},
+"s5441615": {
+"km": 10.5,
+"free_min": 12.2,
+"back_km": 9.9,
+"back_free_min": 13.9
+},
+"s5440053": {
+"km": 5.8,
+"free_min": 9.7,
+"back_km": 5.2,
+"back_free_min": 9.8
+},
+"s5422047": {
+"km": 10.8,
+"free_min": 15.2,
+"back_km": 11.9,
+"back_free_min": 17.0
+},
+"s5440077": {
+"km": 5.8,
+"free_min": 9.7,
+"back_km": 5.2,
+"back_free_min": 9.8
+},
+"s5020851": {
+"km": 18.9,
+"free_min": 22.2,
+"back_km": 20.2,
+"back_free_min": 21.2
+},
+"s5081863": {
+"km": 11.5,
+"free_min": 13.8,
+"back_km": 10.4,
+"back_free_min": 15.2
+},
+"s5074441": {
+"km": 24.4,
+"free_min": 30.0,
+"back_km": 23.4,
+"back_free_min": 29.9
+},
+"s5025030": {
+"km": 17.6,
+"free_min": 21.7,
+"back_km": 16.9,
+"back_free_min": 19.7
+},
+"s5071017": {
+"km": 9.7,
+"free_min": 10.8,
+"back_km": 10.0,
+"back_free_min": 14.5
+},
+"s5087114": {
+"km": 28.7,
+"free_min": 30.4,
+"back_km": 28.8,
+"back_free_min": 31.7
+},
+"s5025806": {
+"km": 12.6,
+"free_min": 15.9,
+"back_km": 14.5,
+"back_free_min": 19.1
+},
+"s5025140": {
+"km": 18.1,
+"free_min": 22.9,
+"back_km": 17.2,
+"back_free_min": 21.5
+},
+"s5022573": {
+"km": 15.9,
+"free_min": 22.7,
+"back_km": 18.9,
+"back_free_min": 24.2
+},
+"s5022507": {
+"km": 17.4,
+"free_min": 21.4,
+"back_km": 19.3,
+"back_free_min": 25.3
+},
+"s5022508": {
+"km": 17.1,
+"free_min": 23.5,
+"back_km": 18.6,
+"back_free_min": 23.8
+},
+"s5022229": {
+"km": 17.5,
+"free_min": 22.3,
+"back_km": 17.1,
+"back_free_min": 22.5
+},
+"s5135645": {
+"km": 29.5,
+"free_min": 32.5,
+"back_km": 29.9,
+"back_free_min": 33.7
+},
+"s5022052": {
+"km": 9.9,
+"free_min": 14.5,
+"back_km": 10.9,
+"back_free_min": 16.0
+},
+"s5135397": {
+"km": 5.9,
+"free_min": 8.3,
+"back_km": 6.9,
+"back_free_min": 9.7
+},
+"s5026075": {
+"km": 11.8,
+"free_min": 18.8,
+"back_km": 13.0,
+"back_free_min": 17.5
+},
+"s5125559": {
+"km": 12.9,
+"free_min": 15.1,
+"back_km": 11.2,
+"back_free_min": 16.0
+},
+"s5071493": {
+"km": 17.7,
+"free_min": 22.5,
+"back_km": 19.2,
+"back_free_min": 24.1
+},
+"s5435819": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5000517": {
+"km": 9.6,
+"free_min": 13.8,
+"back_km": 10.7,
+"back_free_min": 15.4
+},
+"s5030273": {
+"km": 22.2,
+"free_min": 27.2,
+"back_km": 22.1,
+"back_free_min": 26.8
+},
+"s5001196": {
+"km": 11.8,
+"free_min": 17.3,
+"back_km": 13.1,
+"back_free_min": 17.9
+},
+"s5118173": {
+"km": 7.0,
+"free_min": 11.4,
+"back_km": 6.3,
+"back_free_min": 11.5
+},
+"s5001178": {
+"km": 21.9,
+"free_min": 26.1,
+"back_km": 21.2,
+"back_free_min": 26.5
+},
+"s5019391": {
+"km": 11.5,
+"free_min": 18.0,
+"back_km": 13.1,
+"back_free_min": 17.8
+},
+"s5019392": {
+"km": 12.6,
+"free_min": 18.3,
+"back_km": 13.4,
+"back_free_min": 17.9
+},
+"s5455077": {
+"km": 27.2,
+"free_min": 26.6,
+"back_km": 29.4,
+"back_free_min": 32.4
+},
+"s5082209": {
+"km": 17.2,
+"free_min": 19.6,
+"back_km": 17.8,
+"back_free_min": 20.7
+},
+"s5020507": {
+"km": 12.9,
+"free_min": 18.9,
+"back_km": 13.0,
+"back_free_min": 17.6
+},
+"s5453847": {
+"km": 14.9,
+"free_min": 16.3,
+"back_km": 15.2,
+"back_free_min": 18.6
+},
+"s5020147": {
+"km": 18.7,
+"free_min": 24.5,
+"back_km": 20.0,
+"back_free_min": 25.3
+},
+"s5019691": {
+"km": 21.2,
+"free_min": 26.6,
+"back_km": 22.4,
+"back_free_min": 28.2
+},
+"s5019255": {
+"km": 17.2,
+"free_min": 21.1,
+"back_km": 16.6,
+"back_free_min": 20.5
+},
+"s5082661": {
+"km": 22.3,
+"free_min": 27.3,
+"back_km": 22.2,
+"back_free_min": 26.9
+},
+"s5019020": {
+"km": 12.4,
+"free_min": 16.6,
+"back_km": 11.5,
+"back_free_min": 15.3
+},
+"s5018976": {
+"km": 12.8,
+"free_min": 17.1,
+"back_km": 13.2,
+"back_free_min": 17.3
+},
+"s5289163": {
+"km": 11.5,
+"free_min": 16.7,
+"back_km": 12.8,
+"back_free_min": 18.6
+},
+"s5289153": {
+"km": 11.8,
+"free_min": 17.5,
+"back_km": 12.0,
+"back_free_min": 17.8
+},
+"s5017533": {
+"km": 6.9,
+"free_min": 9.3,
+"back_km": 6.9,
+"back_free_min": 8.4
+},
+"s5017517": {
+"km": 12.5,
+"free_min": 18.0,
+"back_km": 12.4,
+"back_free_min": 17.2
+},
+"s5084071": {
+"km": 18.6,
+"free_min": 23.5,
+"back_km": 18.6,
+"back_free_min": 24.0
+},
+"s5085334": {
+"km": 9.9,
+"free_min": 15.5,
+"back_km": 8.7,
+"back_free_min": 14.5
+},
+"s5219655": {
+"km": 10.2,
+"free_min": 11.5,
+"back_km": 13.1,
+"back_free_min": 15.7
+},
+"s5085489": {
+"km": 28.1,
+"free_min": 28.9,
+"back_km": 29.3,
+"back_free_min": 32.4
+},
+"s5445707": {
+"km": 9.8,
+"free_min": 15.1,
+"back_km": 8.8,
+"back_free_min": 14.9
+},
+"s5028621": {
+"km": 14.5,
+"free_min": 18.1,
+"back_km": 15.2,
+"back_free_min": 18.4
+},
+"s5028588": {
+"km": 10.8,
+"free_min": 13.0,
+"back_km": 13.8,
+"back_free_min": 17.4
+},
+"s5028377": {
+"km": 19.0,
+"free_min": 21.9,
+"back_km": 17.4,
+"back_free_min": 19.6
+},
+"s5028401": {
+"km": 18.0,
+"free_min": 20.6,
+"back_km": 17.7,
+"back_free_min": 20.5
+},
+"s5028275": {
+"km": 20.1,
+"free_min": 25.4,
+"back_km": 19.1,
+"back_free_min": 24.2
+},
+"s5028343": {
+"km": 10.1,
+"free_min": 11.1,
+"back_km": 8.7,
+"back_free_min": 12.2
+},
+"s5028837": {
+"km": 9.5,
+"free_min": 10.0,
+"back_km": 9.3,
+"back_free_min": 12.6
+},
+"s5324309": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5042718": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5324731": {
+"km": 7.2,
+"free_min": 9.9,
+"back_km": 7.6,
+"back_free_min": 11.6
+},
+"s5066063": {
+"km": 11.0,
+"free_min": 15.0,
+"back_km": 10.7,
+"back_free_min": 14.2
+},
+"s5066147": {
+"km": 7.6,
+"free_min": 11.8,
+"back_km": 9.3,
+"back_free_min": 12.6
+},
+"s5427411": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5082907": {
+"km": 16.3,
+"free_min": 20.1,
+"back_km": 16.0,
+"back_free_min": 19.8
+},
+"s5083374": {
+"km": 12.3,
+"free_min": 16.2,
+"back_km": 12.7,
+"back_free_min": 17.2
+},
+"s5083397": {
+"km": 22.1,
+"free_min": 23.0,
+"back_km": 17.7,
+"back_free_min": 22.5
+},
+"s5418671": {
+"km": 19.6,
+"free_min": 24.3,
+"back_km": 19.4,
+"back_free_min": 21.1
+},
+"s5418677": {
+"km": 11.3,
+"free_min": 15.7,
+"back_km": 11.4,
+"back_free_min": 16.3
+},
+"s5083384": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5084435": {
+"km": 11.2,
+"free_min": 12.6,
+"back_km": 10.6,
+"back_free_min": 15.0
+},
+"s5084369": {
+"km": 22.9,
+"free_min": 27.9,
+"back_km": 22.2,
+"back_free_min": 28.3
+},
+"s5016592": {
+"km": 7.3,
+"free_min": 12.9,
+"back_km": 6.8,
+"back_free_min": 12.2
+},
+"s5085047": {
+"km": 13.0,
+"free_min": 16.4,
+"back_km": 13.3,
+"back_free_min": 16.9
+},
+"s5083013": {
+"km": 29.6,
+"free_min": 32.6,
+"back_km": 30.0,
+"back_free_min": 33.8
+},
+"s5082978": {
+"km": 3.0,
+"free_min": 5.3,
+"back_km": 3.1,
+"back_free_min": 5.4
+},
+"s5083095": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5443337": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5017031": {
+"km": 21.1,
+"free_min": 26.3,
+"back_km": 19.7,
+"back_free_min": 23.4
+},
+"s5017030": {
+"km": 13.2,
+"free_min": 17.6,
+"back_km": 13.6,
+"back_free_min": 18.0
+},
+"s5084648": {
+"km": 10.5,
+"free_min": 13.9,
+"back_km": 10.7,
+"back_free_min": 14.4
+},
+"s5084634": {
+"km": 9.3,
+"free_min": 13.8,
+"back_km": 9.0,
+"back_free_min": 13.9
+},
+"s5016941": {
+"km": 23.5,
+"free_min": 28.5,
+"back_km": 23.3,
+"back_free_min": 28.3
+},
+"s5017079": {
+"km": 13.5,
+"free_min": 19.3,
+"back_km": 12.7,
+"back_free_min": 19.9
+},
+"s5084569": {
+"km": 11.5,
+"free_min": 16.7,
+"back_km": 12.8,
+"back_free_min": 18.6
+},
+"s5084563": {
+"km": 10.4,
+"free_min": 13.8,
+"back_km": 10.6,
+"back_free_min": 14.2
+},
+"s5084528": {
+"km": 10.3,
+"free_min": 13.6,
+"back_km": 10.5,
+"back_free_min": 14.1
+},
+"s5084527": {
+"km": 11.2,
+"free_min": 14.2,
+"back_km": 10.8,
+"back_free_min": 13.2
+},
+"s5017078": {
+"km": 13.5,
+"free_min": 18.8,
+"back_km": 12.7,
+"back_free_min": 19.4
+},
+"s5084558": {
+"km": 10.4,
+"free_min": 13.7,
+"back_km": 10.6,
+"back_free_min": 14.3
+},
+"s5083492": {
+"km": 10.4,
+"free_min": 14.2,
+"back_km": 10.6,
+"back_free_min": 14.4
+},
+"s5083481": {
+"km": 10.5,
+"free_min": 13.9,
+"back_km": 10.6,
+"back_free_min": 14.4
+},
+"s5289495": {
+"km": 15.3,
+"free_min": 17.6,
+"back_km": 13.9,
+"back_free_min": 16.2
+},
+"s5018464": {
+"km": 6.9,
+"free_min": 10.4,
+"back_km": 7.5,
+"back_free_min": 11.6
+},
+"s5209889": {
+"km": 3.8,
+"free_min": 6.7,
+"back_km": 3.0,
+"back_free_min": 5.4
+},
+"s5083465": {
+"km": 10.8,
+"free_min": 15.1,
+"back_km": 11.8,
+"back_free_min": 15.3
+},
+"s5083469": {
+"km": 10.5,
+"free_min": 13.9,
+"back_km": 10.6,
+"back_free_min": 14.4
+},
+"s5418401": {
+"km": 9.9,
+"free_min": 14.5,
+"back_km": 10.9,
+"back_free_min": 16.0
+},
+"s5209881": {
+"km": 7.2,
+"free_min": 10.4,
+"back_km": 8.1,
+"back_free_min": 12.4
+},
+"s5018391": {
+"km": 17.1,
+"free_min": 19.0,
+"back_km": 18.9,
+"back_free_min": 19.8
+},
+"s5016611": {
+"km": 6.7,
+"free_min": 11.1,
+"back_km": 6.4,
+"back_free_min": 10.5
+},
+"s5092579": {
+"km": 12.9,
+"free_min": 17.2,
+"back_km": 12.5,
+"back_free_min": 16.1
+},
+"s5220641": {
+"km": 11.2,
+"free_min": 14.1,
+"back_km": 10.9,
+"back_free_min": 13.8
+},
+"s5415707": {
+"km": 10.5,
+"free_min": 14.8,
+"back_km": 15.3,
+"back_free_min": 17.7
+},
+"s5114095": {
+"km": 26.9,
+"free_min": 34.5,
+"back_km": 26.8,
+"back_free_min": 34.5
+},
+"s5000176": {
+"km": 13.7,
+"free_min": 16.0,
+"back_km": 12.8,
+"back_free_min": 14.6
+},
+"s5000177": {
+"km": 17.7,
+"free_min": 21.8,
+"back_km": 16.7,
+"back_free_min": 20.6
+},
+"s5072163": {
+"km": 18.3,
+"free_min": 22.5,
+"back_km": 19.0,
+"back_free_min": 23.5
+},
+"s5076057": {
+"km": 13.7,
+"free_min": 15.4,
+"back_km": 10.1,
+"back_free_min": 15.7
+},
+"s5072511": {
+"km": 8.3,
+"free_min": 11.8,
+"back_km": 8.8,
+"back_free_min": 12.5
+},
+"s5096953": {
+"km": 7.6,
+"free_min": 9.1,
+"back_km": 8.3,
+"back_free_min": 11.2
+},
+"s5072085": {
+"km": 13.5,
+"free_min": 18.9,
+"back_km": 12.7,
+"back_free_min": 19.5
+},
+"s5103825": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5011428": {
+"km": 14.5,
+"free_min": 15.0,
+"back_km": 14.4,
+"back_free_min": 15.2
+},
+"s5426573": {
+"km": 9.9,
+"free_min": 14.5,
+"back_km": 10.9,
+"back_free_min": 16.0
+},
+"s5011422": {
+"km": 12.9,
+"free_min": 16.1,
+"back_km": 11.2,
+"back_free_min": 15.2
+},
+"s5011446": {
+"km": 13.4,
+"free_min": 17.5,
+"back_km": 10.2,
+"back_free_min": 13.3
+},
+"s5011441": {
+"km": 5.3,
+"free_min": 8.8,
+"back_km": 5.7,
+"back_free_min": 8.8
+},
+"s5011438": {
+"km": 16.6,
+"free_min": 18.8,
+"back_km": 16.7,
+"back_free_min": 19.3
+},
+"s5011440": {
+"km": 9.4,
+"free_min": 13.5,
+"back_km": 9.9,
+"back_free_min": 14.1
+},
+"s5011445": {
+"km": 16.4,
+"free_min": 18.0,
+"back_km": 16.8,
+"back_free_min": 19.4
+},
+"s5011411": {
+"km": 14.1,
+"free_min": 13.0,
+"back_km": 19.3,
+"back_free_min": 21.2
+},
+"s5011402": {
+"km": 9.3,
+"free_min": 12.8,
+"back_km": 8.2,
+"back_free_min": 12.5
+},
+"s5097099": {
+"km": 18.5,
+"free_min": 23.6,
+"back_km": 17.6,
+"back_free_min": 22.7
+},
+"s5103793": {
+"km": 6.2,
+"free_min": 10.0,
+"back_km": 5.0,
+"back_free_min": 8.6
+},
+"s5011457": {
+"km": 4.0,
+"free_min": 6.8,
+"back_km": 4.0,
+"back_free_min": 6.5
+},
+"s5011418": {
+"km": 16.2,
+"free_min": 23.2,
+"back_km": 19.0,
+"back_free_min": 23.9
+},
+"s5011348": {
+"km": 13.7,
+"free_min": 17.2,
+"back_km": 15.2,
+"back_free_min": 16.5
+},
+"s5011274": {
+"km": 12.8,
+"free_min": 15.9,
+"back_km": 8.7,
+"back_free_min": 14.9
+},
+"s5011266": {
+"km": 13.1,
+"free_min": 16.4,
+"back_km": 14.1,
+"back_free_min": 14.6
+},
+"s5072470": {
+"km": 3.3,
+"free_min": 5.5,
+"back_km": 3.8,
+"back_free_min": 6.3
+},
+"s5072469": {
+"km": 20.9,
+"free_min": 24.9,
+"back_km": 21.9,
+"back_free_min": 26.3
+},
+"s5011232": {
+"km": 9.0,
+"free_min": 13.3,
+"back_km": 9.5,
+"back_free_min": 13.8
+},
+"s5104375": {
+"km": 17.6,
+"free_min": 23.2,
+"back_km": 18.9,
+"back_free_min": 24.8
+},
+"s5011210": {
+"km": 11.3,
+"free_min": 15.8,
+"back_km": 11.4,
+"back_free_min": 16.3
+},
+"s5011330": {
+"km": 12.4,
+"free_min": 17.1,
+"back_km": 9.9,
+"back_free_min": 15.2
+},
+"s5011326": {
+"km": 12.8,
+"free_min": 16.0,
+"back_km": 10.7,
+"back_free_min": 14.0
+},
+"s5011316": {
+"km": 7.0,
+"free_min": 10.8,
+"back_km": 6.6,
+"back_free_min": 10.8
+},
+"s5011315": {
+"km": 13.1,
+"free_min": 17.4,
+"back_km": 13.5,
+"back_free_min": 17.8
+},
+"s5011314": {
+"km": 4.9,
+"free_min": 7.1,
+"back_km": 4.3,
+"back_free_min": 6.4
+},
+"s5011189": {
+"km": 11.8,
+"free_min": 17.4,
+"back_km": 13.9,
+"back_free_min": 16.0
+},
+"s5011284": {
+"km": 4.7,
+"free_min": 8.1,
+"back_km": 4.5,
+"back_free_min": 7.5
+},
+"s5414949": {
+"km": 11.4,
+"free_min": 16.0,
+"back_km": 11.5,
+"back_free_min": 16.4
+},
+"s5011386": {
+"km": 9.1,
+"free_min": 13.7,
+"back_km": 9.4,
+"back_free_min": 13.5
+},
+"s5011385": {
+"km": 7.5,
+"free_min": 12.0,
+"back_km": 5.9,
+"back_free_min": 10.4
+},
+"s5011362": {
+"km": 11.6,
+"free_min": 16.6,
+"back_km": 12.4,
+"back_free_min": 16.8
+},
+"s5010197": {
+"km": 28.9,
+"free_min": 34.5,
+"back_km": 27.1,
+"back_free_min": 32.8
+},
+"s5010193": {
+"km": 28.6,
+"free_min": 30.1,
+"back_km": 29.0,
+"back_free_min": 31.6
+},
+"s5010170": {
+"km": 18.0,
+"free_min": 22.1,
+"back_km": 17.4,
+"back_free_min": 23.2
+},
+"s5010159": {
+"km": 14.0,
+"free_min": 15.6,
+"back_km": 15.8,
+"back_free_min": 19.0
+},
+"s5073587": {
+"km": 16.6,
+"free_min": 18.1,
+"back_km": 16.6,
+"back_free_min": 18.4
+},
+"s5010129": {
+"km": 14.1,
+"free_min": 13.0,
+"back_km": 19.3,
+"back_free_min": 21.2
+},
+"s5010151": {
+"km": 3.5,
+"free_min": 5.8,
+"back_km": 3.9,
+"back_free_min": 6.5
+},
+"s5010120": {
+"km": 8.9,
+"free_min": 13.6,
+"back_km": 10.2,
+"back_free_min": 12.8
+},
+"s5010119": {
+"km": 13.1,
+"free_min": 17.4,
+"back_km": 13.5,
+"back_free_min": 17.8
+},
+"s5010138": {
+"km": 14.7,
+"free_min": 15.8,
+"back_km": 14.7,
+"back_free_min": 17.9
+},
+"s5107215": {
+"km": 10.1,
+"free_min": 14.5,
+"back_km": 12.3,
+"back_free_min": 17.2
+},
+"s5010093": {
+"km": 14.3,
+"free_min": 18.4,
+"back_km": 14.5,
+"back_free_min": 18.4
+},
+"s5010147": {
+"km": 14.8,
+"free_min": 16.3,
+"back_km": 14.1,
+"back_free_min": 16.3
+},
+"s5010038": {
+"km": 8.3,
+"free_min": 11.2,
+"back_km": 8.9,
+"back_free_min": 12.2
+},
+"s5073550": {
+"km": 20.4,
+"free_min": 25.0,
+"back_km": 20.2,
+"back_free_min": 21.9
+},
+"s5010040": {
+"km": 13.8,
+"free_min": 15.5,
+"back_km": 12.8,
+"back_free_min": 14.2
+},
+"s5010039": {
+"km": 13.6,
+"free_min": 15.0,
+"back_km": 12.9,
+"back_free_min": 14.0
+},
+"s5010041": {
+"km": 14.1,
+"free_min": 15.7,
+"back_km": 13.6,
+"back_free_min": 13.7
+},
+"s5077693": {
+"km": 31.0,
+"free_min": 27.7,
+"back_km": 30.4,
+"back_free_min": 27.4
+},
+"s5021609": {
+"km": 10.7,
+"free_min": 14.2,
+"back_km": 10.8,
+"back_free_min": 14.6
+},
+"s5421711": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5010036": {
+"km": 14.5,
+"free_min": 18.9,
+"back_km": 14.6,
+"back_free_min": 18.8
+},
+"s5010028": {
+"km": 11.8,
+"free_min": 16.9,
+"back_km": 14.1,
+"back_free_min": 16.1
+},
+"s5010031": {
+"km": 13.6,
+"free_min": 17.4,
+"back_km": 14.9,
+"back_free_min": 17.6
+},
+"s5073021": {
+"km": 2.9,
+"free_min": 5.1,
+"back_km": 3.3,
+"back_free_min": 6.2
+},
+"s5121619": {
+"km": 12.0,
+"free_min": 15.9,
+"back_km": 12.4,
+"back_free_min": 16.5
+},
+"s5011377": {
+"km": 15.1,
+"free_min": 17.5,
+"back_km": 13.9,
+"back_free_min": 16.5
+},
+"s5011155": {
+"km": 10.8,
+"free_min": 14.2,
+"back_km": 10.1,
+"back_free_min": 13.2
+},
+"s5011153": {
+"km": 11.2,
+"free_min": 17.3,
+"back_km": 13.0,
+"back_free_min": 17.1
+},
+"s5011119": {
+"km": 20.0,
+"free_min": 22.4,
+"back_km": 15.7,
+"back_free_min": 15.1
+},
+"s5011181": {
+"km": 7.6,
+"free_min": 10.5,
+"back_km": 7.5,
+"back_free_min": 10.5
+},
+"s5011177": {
+"km": 9.4,
+"free_min": 15.0,
+"back_km": 9.1,
+"back_free_min": 14.8
+},
+"s5011161": {
+"km": 13.2,
+"free_min": 17.1,
+"back_km": 10.3,
+"back_free_min": 13.4
+},
+"s5010241": {
+"km": 13.6,
+"free_min": 17.9,
+"back_km": 14.0,
+"back_free_min": 18.5
+},
+"s5010242": {
+"km": 11.0,
+"free_min": 15.4,
+"back_km": 11.5,
+"back_free_min": 16.0
+},
+"s5021818": {
+"km": 12.7,
+"free_min": 18.6,
+"back_km": 13.8,
+"back_free_min": 18.9
+},
+"s5010312": {
+"km": 8.7,
+"free_min": 13.2,
+"back_km": 8.2,
+"back_free_min": 12.7
+},
+"s5010313": {
+"km": 8.1,
+"free_min": 11.8,
+"back_km": 8.4,
+"back_free_min": 12.0
+},
+"s5010207": {
+"km": 9.2,
+"free_min": 13.6,
+"back_km": 9.4,
+"back_free_min": 13.9
+},
+"s5010205": {
+"km": 17.8,
+"free_min": 22.9,
+"back_km": 17.3,
+"back_free_min": 22.1
+},
+"s5010204": {
+"km": 9.2,
+"free_min": 13.0,
+"back_km": 9.7,
+"back_free_min": 14.2
+},
+"s5010273": {
+"km": 9.9,
+"free_min": 14.3,
+"back_km": 11.9,
+"back_free_min": 16.3
+},
+"s5010270": {
+"km": 12.5,
+"free_min": 17.8,
+"back_km": 14.4,
+"back_free_min": 19.2
+},
+"s5010269": {
+"km": 12.6,
+"free_min": 17.9,
+"back_km": 14.5,
+"back_free_min": 19.3
+},
+"s5010289": {
+"km": 17.5,
+"free_min": 20.5,
+"back_km": 17.1,
+"back_free_min": 19.6
+},
+"s5010281": {
+"km": 13.6,
+"free_min": 18.0,
+"back_km": 14.6,
+"back_free_min": 18.1
+},
+"s5450679": {
+"km": 9.9,
+"free_min": 14.5,
+"back_km": 10.9,
+"back_free_min": 16.0
+},
+"s5010243": {
+"km": 16.6,
+"free_min": 21.9,
+"back_km": 15.9,
+"back_free_min": 20.7
+},
+"s5010228": {
+"km": 7.4,
+"free_min": 11.1,
+"back_km": 8.9,
+"back_free_min": 13.0
+},
+"s5010227": {
+"km": 8.4,
+"free_min": 12.3,
+"back_km": 8.0,
+"back_free_min": 11.9
+},
+"s5010230": {
+"km": 13.5,
+"free_min": 16.8,
+"back_km": 11.4,
+"back_free_min": 15.6
+},
+"s5021768": {
+"km": 26.9,
+"free_min": 26.6,
+"back_km": 27.2,
+"back_free_min": 27.8
+},
+"s5021762": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5021776": {
+"km": 27.4,
+"free_min": 27.8,
+"back_km": 27.7,
+"back_free_min": 29.1
+},
+"s5021774": {
+"km": 10.4,
+"free_min": 14.0,
+"back_km": 10.1,
+"back_free_min": 14.6
+},
+"s5021772": {
+"km": 5.9,
+"free_min": 9.2,
+"back_km": 7.0,
+"back_free_min": 9.2
+},
+"s5021769": {
+"km": 13.3,
+"free_min": 16.9,
+"back_km": 13.6,
+"back_free_min": 17.5
+},
+"s5088171": {
+"km": 20.0,
+"free_min": 25.2,
+"back_km": 19.8,
+"back_free_min": 24.9
+},
+"s5103201": {
+"km": 15.0,
+"free_min": 19.6,
+"back_km": 15.3,
+"back_free_min": 20.1
+},
+"s5072503": {
+"km": 13.9,
+"free_min": 18.4,
+"back_km": 14.2,
+"back_free_min": 18.9
+},
+"s5427069": {
+"km": 16.7,
+"free_min": 19.0,
+"back_km": 16.8,
+"back_free_min": 19.5
+},
+"s5000178": {
+"km": 18.1,
+"free_min": 22.8,
+"back_km": 17.0,
+"back_free_min": 21.5
+},
+"s5120531": {
+"km": 11.5,
+"free_min": 16.9,
+"back_km": 11.7,
+"back_free_min": 17.1
+},
+"s5075934": {
+"km": 7.4,
+"free_min": 10.7,
+"back_km": 7.1,
+"back_free_min": 10.3
+},
+"s5103161": {
+"km": 13.6,
+"free_min": 17.0,
+"back_km": 12.9,
+"back_free_min": 14.5
+},
+"s5415681": {
+"km": 11.2,
+"free_min": 15.7,
+"back_km": 11.4,
+"back_free_min": 16.1
+},
+"s5009987": {
+"km": 10.2,
+"free_min": 15.9,
+"back_km": 11.1,
+"back_free_min": 14.8
+},
+"s5073476": {
+"km": 18.9,
+"free_min": 23.1,
+"back_km": 19.7,
+"back_free_min": 24.6
+},
+"s5009919": {
+"km": 8.8,
+"free_min": 12.2,
+"back_km": 9.2,
+"back_free_min": 13.2
+},
+"s5200803": {
+"km": 23.1,
+"free_min": 28.1,
+"back_km": 21.4,
+"back_free_min": 23.7
+},
+"s5021469": {
+"km": 7.2,
+"free_min": 9.3,
+"back_km": 6.4,
+"back_free_min": 8.6
+},
+"s5009915": {
+"km": 12.9,
+"free_min": 16.4,
+"back_km": 11.8,
+"back_free_min": 15.0
+},
+"s5330569": {
+"km": 20.6,
+"free_min": 21.7,
+"back_km": 20.7,
+"back_free_min": 21.8
+},
+"s5009946": {
+"km": 10.2,
+"free_min": 15.8,
+"back_km": 11.0,
+"back_free_min": 14.7
+},
+"s5021445": {
+"km": 10.2,
+"free_min": 11.5,
+"back_km": 13.1,
+"back_free_min": 15.7
+},
+"s5009862": {
+"km": 16.6,
+"free_min": 18.1,
+"back_km": 16.5,
+"back_free_min": 18.3
+},
+"s5009855": {
+"km": 16.5,
+"free_min": 18.9,
+"back_km": 16.4,
+"back_free_min": 19.0
+},
+"s5123103": {
+"km": 21.5,
+"free_min": 28.2,
+"back_km": 21.2,
+"back_free_min": 27.9
+},
+"s5073444": {
+"km": 13.2,
+"free_min": 17.6,
+"back_km": 13.6,
+"back_free_min": 18.0
+},
+"s5073928": {
+"km": 7.7,
+"free_min": 12.1,
+"back_km": 6.7,
+"back_free_min": 11.4
+},
+"s5009947": {
+"km": 9.6,
+"free_min": 15.5,
+"back_km": 8.4,
+"back_free_min": 14.2
+},
+"s5009942": {
+"km": 9.3,
+"free_min": 13.5,
+"back_km": 9.8,
+"back_free_min": 14.6
+},
+"s5009874": {
+"km": 9.2,
+"free_min": 13.4,
+"back_km": 9.1,
+"back_free_min": 13.3
+},
+"s5009871": {
+"km": 23.7,
+"free_min": 24.5,
+"back_km": 24.3,
+"back_free_min": 26.8
+},
+"s5009875": {
+"km": 9.4,
+"free_min": 13.7,
+"back_km": 9.9,
+"back_free_min": 14.9
+},
+"s5010020": {
+"km": 17.4,
+"free_min": 21.1,
+"back_km": 18.2,
+"back_free_min": 22.6
+},
+"s5106943": {
+"km": 20.9,
+"free_min": 27.1,
+"back_km": 20.8,
+"back_free_min": 26.9
+},
+"s5116297": {
+"km": 11.5,
+"free_min": 16.7,
+"back_km": 12.8,
+"back_free_min": 18.6
+},
+"s5073964": {
+"km": 19.0,
+"free_min": 22.1,
+"back_km": 19.7,
+"back_free_min": 20.4
+},
+"s5123149": {
+"km": 1.4,
+"free_min": 3.5,
+"back_km": 1.6,
+"back_free_min": 3.4
+},
+"s5330567": {
+"km": 16.7,
+"free_min": 20.1,
+"back_km": 18.9,
+"back_free_min": 22.5
+},
+"s5009877": {
+"km": 17.2,
+"free_min": 21.1,
+"back_km": 18.5,
+"back_free_min": 23.1
+},
+"s5009876": {
+"km": 10.5,
+"free_min": 14.8,
+"back_km": 11.7,
+"back_free_min": 16.6
+},
+"s5021460": {
+"km": 11.5,
+"free_min": 18.1,
+"back_km": 13.1,
+"back_free_min": 17.7
+},
+"s5021458": {
+"km": 9.8,
+"free_min": 14.9,
+"back_km": 9.4,
+"back_free_min": 14.2
+},
+"s5009850": {
+"km": 7.4,
+"free_min": 11.0,
+"back_km": 9.1,
+"back_free_min": 12.9
+},
+"s5009844": {
+"km": 10.2,
+"free_min": 16.0,
+"back_km": 11.9,
+"back_free_min": 16.8
+},
+"s5073869": {
+"km": 8.1,
+"free_min": 11.9,
+"back_km": 6.7,
+"back_free_min": 11.1
+},
+"s5080455": {
+"km": 10.8,
+"free_min": 13.0,
+"back_km": 13.8,
+"back_free_min": 17.4
+},
+"s5030533": {
+"km": 9.2,
+"free_min": 13.4,
+"back_km": 9.1,
+"back_free_min": 13.4
+},
+"s5030449": {
+"km": 11.3,
+"free_min": 15.7,
+"back_km": 11.4,
+"back_free_min": 16.3
+},
+"s5173689": {
+"km": 5.7,
+"free_min": 9.1,
+"back_km": 5.2,
+"back_free_min": 9.2
+},
+"s5172753": {
+"km": 11.9,
+"free_min": 17.1,
+"back_km": 14.5,
+"back_free_min": 19.7
+},
+"s5029748": {
+"km": 19.2,
+"free_min": 22.7,
+"back_km": 20.2,
+"back_free_min": 21.2
+},
+"s5235161": {
+"km": 28.9,
+"free_min": 31.6,
+"back_km": 29.8,
+"back_free_min": 33.2
+},
+"s5172473": {
+"km": 11.3,
+"free_min": 15.7,
+"back_km": 11.4,
+"back_free_min": 16.3
+},
+"s5172467": {
+"km": 11.6,
+"free_min": 16.5,
+"back_km": 11.7,
+"back_free_min": 17.0
+},
+"s5172359": {
+"km": 15.2,
+"free_min": 16.3,
+"back_km": 15.1,
+"back_free_min": 17.8
+},
+"s5173201": {
+"km": 10.0,
+"free_min": 12.7,
+"back_km": 10.6,
+"back_free_min": 13.7
+},
+"s5173249": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5173217": {
+"km": 7.0,
+"free_min": 8.4,
+"back_km": 6.8,
+"back_free_min": 8.8
+},
+"s5173255": {
+"km": 1.8,
+"free_min": 3.6,
+"back_km": 2.7,
+"back_free_min": 4.8
+},
+"s5029672": {
+"km": 19.5,
+"free_min": 21.3,
+"back_km": 21.1,
+"back_free_min": 24.2
+},
+"s5173707": {
+"km": 14.0,
+"free_min": 17.2,
+"back_km": 14.3,
+"back_free_min": 15.5
+},
+"s5173029": {
+"km": 9.5,
+"free_min": 13.9,
+"back_km": 9.7,
+"back_free_min": 14.3
+},
+"s5172529": {
+"km": 9.4,
+"free_min": 14.4,
+"back_km": 9.7,
+"back_free_min": 14.3
+},
+"s5172513": {
+"km": 13.5,
+"free_min": 17.0,
+"back_km": 13.0,
+"back_free_min": 16.6
+},
+"s5172501": {
+"km": 11.0,
+"free_min": 14.6,
+"back_km": 10.5,
+"back_free_min": 13.5
+},
+"s5172495": {
+"km": 11.6,
+"free_min": 16.5,
+"back_km": 11.7,
+"back_free_min": 17.0
+},
+"s5172481": {
+"km": 11.6,
+"free_min": 16.5,
+"back_km": 11.7,
+"back_free_min": 17.0
+},
+"s5172477": {
+"km": 8.4,
+"free_min": 9.9,
+"back_km": 9.3,
+"back_free_min": 12.8
+},
+"s5173345": {
+"km": 17.3,
+"free_min": 20.2,
+"back_km": 17.9,
+"back_free_min": 21.3
+},
+"s5173341": {
+"km": 9.8,
+"free_min": 15.1,
+"back_km": 8.8,
+"back_free_min": 14.9
+},
+"s5173055": {
+"km": 13.9,
+"free_min": 18.0,
+"back_km": 16.9,
+"back_free_min": 18.9
+},
+"s5173117": {
+"km": 11.1,
+"free_min": 14.0,
+"back_km": 10.6,
+"back_free_min": 13.6
+},
+"s5173113": {
+"km": 11.4,
+"free_min": 17.7,
+"back_km": 12.9,
+"back_free_min": 17.1
+},
+"s5173103": {
+"km": 2.1,
+"free_min": 4.5,
+"back_km": 2.3,
+"back_free_min": 4.7
+},
+"s5173611": {
+"km": 13.6,
+"free_min": 19.6,
+"back_km": 14.7,
+"back_free_min": 19.7
+},
+"s5173617": {
+"km": 2.4,
+"free_min": 5.4,
+"back_km": 2.6,
+"back_free_min": 5.6
+},
+"s5029813": {
+"km": 21.4,
+"free_min": 28.2,
+"back_km": 21.2,
+"back_free_min": 28.1
+},
+"s5169939": {
+"km": 13.4,
+"free_min": 16.8,
+"back_km": 13.0,
+"back_free_min": 15.1
+},
+"s5169481": {
+"km": 11.3,
+"free_min": 14.2,
+"back_km": 10.5,
+"back_free_min": 13.3
+},
+"s5169537": {
+"km": 12.4,
+"free_min": 16.4,
+"back_km": 12.8,
+"back_free_min": 16.8
+},
+"s5169569": {
+"km": 12.4,
+"free_min": 16.6,
+"back_km": 12.9,
+"back_free_min": 17.2
+},
+"s5169563": {
+"km": 12.8,
+"free_min": 17.1,
+"back_km": 13.2,
+"back_free_min": 17.3
+},
+"s5169527": {
+"km": 13.9,
+"free_min": 15.8,
+"back_km": 12.8,
+"back_free_min": 14.0
+},
+"s5169113": {
+"km": 13.8,
+"free_min": 17.6,
+"back_km": 13.8,
+"back_free_min": 17.3
+},
+"s5169093": {
+"km": 11.0,
+"free_min": 15.1,
+"back_km": 11.1,
+"back_free_min": 15.5
+},
+"s5169121": {
+"km": 26.2,
+"free_min": 25.0,
+"back_km": 26.6,
+"back_free_min": 26.2
+},
+"s5169071": {
+"km": 19.5,
+"free_min": 24.7,
+"back_km": 20.2,
+"back_free_min": 25.7
+},
+"s5169069": {
+"km": 13.0,
+"free_min": 15.6,
+"back_km": 14.7,
+"back_free_min": 17.7
+},
+"s5169055": {
+"km": 11.2,
+"free_min": 14.1,
+"back_km": 10.8,
+"back_free_min": 13.8
+},
+"s5169039": {
+"km": 14.1,
+"free_min": 19.5,
+"back_km": 15.1,
+"back_free_min": 19.9
+},
+"s5171293": {
+"km": 10.5,
+"free_min": 15.8,
+"back_km": 9.7,
+"back_free_min": 15.1
+},
+"s5038064": {
+"km": 11.0,
+"free_min": 12.1,
+"back_km": 12.1,
+"back_free_min": 13.2
+},
+"s5171141": {
+"km": 5.1,
+"free_min": 8.2,
+"back_km": 3.8,
+"back_free_min": 7.1
+},
+"s5171139": {
+"km": 1.6,
+"free_min": 3.6,
+"back_km": 2.5,
+"back_free_min": 5.3
+},
+"s5171123": {
+"km": 8.4,
+"free_min": 12.0,
+"back_km": 7.9,
+"back_free_min": 11.7
+},
+"s5171183": {
+"km": 11.0,
+"free_min": 16.6,
+"back_km": 12.7,
+"back_free_min": 16.8
+},
+"s5171235": {
+"km": 13.5,
+"free_min": 17.0,
+"back_km": 13.1,
+"back_free_min": 16.4
+},
+"s5170519": {
+"km": 15.0,
+"free_min": 16.0,
+"back_km": 14.9,
+"back_free_min": 17.6
+},
+"s5170513": {
+"km": 11.2,
+"free_min": 15.7,
+"back_km": 11.4,
+"back_free_min": 16.1
+},
+"s5170505": {
+"km": 2.4,
+"free_min": 4.5,
+"back_km": 2.8,
+"back_free_min": 5.3
+},
+"s5170501": {
+"km": 15.5,
+"free_min": 17.2,
+"back_km": 15.4,
+"back_free_min": 18.7
+},
+"s5170497": {
+"km": 11.4,
+"free_min": 16.2,
+"back_km": 11.5,
+"back_free_min": 16.7
+},
+"s5170321": {
+"km": 13.3,
+"free_min": 18.1,
+"back_km": 13.9,
+"back_free_min": 18.5
+},
+"s5035639": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5035613": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5035609": {
+"km": 3.0,
+"free_min": 5.2,
+"back_km": 3.1,
+"back_free_min": 5.4
+},
+"s5035710": {
+"km": 25.4,
+"free_min": 23.9,
+"back_km": 26.8,
+"back_free_min": 27.2
+},
+"s5035736": {
+"km": 22.1,
+"free_min": 26.4,
+"back_km": 21.3,
+"back_free_min": 26.5
+},
+"s5035733": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5035494": {
+"km": 22.0,
+"free_min": 23.8,
+"back_km": 19.3,
+"back_free_min": 25.3
+},
+"s5035566": {
+"km": 14.2,
+"free_min": 18.1,
+"back_km": 14.4,
+"back_free_min": 18.1
+},
+"s5168561": {
+"km": 12.6,
+"free_min": 17.9,
+"back_km": 14.5,
+"back_free_min": 19.1
+},
+"s5168557": {
+"km": 11.6,
+"free_min": 16.5,
+"back_km": 11.7,
+"back_free_min": 17.0
+},
+"s5168555": {
+"km": 11.6,
+"free_min": 16.5,
+"back_km": 11.7,
+"back_free_min": 17.0
+},
+"s5168547": {
+"km": 11.6,
+"free_min": 16.5,
+"back_km": 11.7,
+"back_free_min": 17.0
+},
+"s5168593": {
+"km": 7.7,
+"free_min": 11.5,
+"back_km": 9.4,
+"back_free_min": 13.4
+},
+"s5168581": {
+"km": 10.4,
+"free_min": 14.2,
+"back_km": 11.3,
+"back_free_min": 14.0
+},
+"s5168577": {
+"km": 8.1,
+"free_min": 12.0,
+"back_km": 7.4,
+"back_free_min": 11.5
+},
+"s5168573": {
+"km": 10.4,
+"free_min": 13.3,
+"back_km": 10.5,
+"back_free_min": 13.8
+},
+"s5168569": {
+"km": 12.5,
+"free_min": 16.6,
+"back_km": 12.0,
+"back_free_min": 15.9
+},
+"s5168703": {
+"km": 11.7,
+"free_min": 12.2,
+"back_km": 12.2,
+"back_free_min": 13.1
+},
+"s5168323": {
+"km": 11.6,
+"free_min": 16.5,
+"back_km": 11.7,
+"back_free_min": 17.0
+},
+"s5035388": {
+"km": 31.2,
+"free_min": 28.8,
+"back_km": 31.1,
+"back_free_min": 28.9
+},
+"s5247669": {
+"km": 4.2,
+"free_min": 6.8,
+"back_km": 4.6,
+"back_free_min": 7.5
+},
+"s5246859": {
+"km": 14.3,
+"free_min": 16.8,
+"back_km": 10.3,
+"back_free_min": 16.3
+},
+"s5246839": {
+"km": 4.4,
+"free_min": 7.3,
+"back_km": 4.8,
+"back_free_min": 8.1
+},
+"s5246171": {
+"km": 10.8,
+"free_min": 14.5,
+"back_km": 10.9,
+"back_free_min": 15.0
+},
+"s5246587": {
+"km": 12.2,
+"free_min": 15.5,
+"back_km": 11.6,
+"back_free_min": 15.5
+},
+"s5246585": {
+"km": 12.5,
+"free_min": 16.3,
+"back_km": 11.9,
+"back_free_min": 15.7
+},
+"s5246389": {
+"km": 28.9,
+"free_min": 31.6,
+"back_km": 29.8,
+"back_free_min": 33.2
+},
+"s5170885": {
+"km": 8.6,
+"free_min": 12.9,
+"back_km": 8.1,
+"back_free_min": 12.5
+},
+"s5170881": {
+"km": 28.1,
+"free_min": 29.6,
+"back_km": 28.5,
+"back_free_min": 30.8
+},
+"s5170843": {
+"km": 11.1,
+"free_min": 15.0,
+"back_km": 10.7,
+"back_free_min": 14.3
+},
+"s5170839": {
+"km": 12.5,
+"free_min": 17.8,
+"back_km": 14.4,
+"back_free_min": 19.1
+},
+"s5170835": {
+"km": 8.5,
+"free_min": 11.4,
+"back_km": 8.2,
+"back_free_min": 11.1
+},
+"s5170831": {
+"km": 1.8,
+"free_min": 3.9,
+"back_km": 2.7,
+"back_free_min": 5.0
+},
+"s5170825": {
+"km": 10.1,
+"free_min": 16.1,
+"back_km": 9.1,
+"back_free_min": 15.4
+},
+"s5038091": {
+"km": 29.6,
+"free_min": 33.3,
+"back_km": 30.4,
+"back_free_min": 34.8
+},
+"s5038049": {
+"km": 7.0,
+"free_min": 9.7,
+"back_km": 7.0,
+"back_free_min": 11.2
+},
+"s5171549": {
+"km": 15.3,
+"free_min": 17.6,
+"back_km": 13.8,
+"back_free_min": 15.8
+},
+"s5171523": {
+"km": 14.1,
+"free_min": 17.5,
+"back_km": 12.7,
+"back_free_min": 15.6
+},
+"s5038199": {
+"km": 12.1,
+"free_min": 18.8,
+"back_km": 12.7,
+"back_free_min": 19.7
+},
+"s5038193": {
+"km": 18.0,
+"free_min": 22.7,
+"back_km": 18.8,
+"back_free_min": 24.2
+},
+"s5170137": {
+"km": 10.3,
+"free_min": 14.0,
+"back_km": 10.5,
+"back_free_min": 14.2
+},
+"s5170131": {
+"km": 12.9,
+"free_min": 17.1,
+"back_km": 11.6,
+"back_free_min": 15.2
+},
+"s5170107": {
+"km": 12.0,
+"free_min": 16.1,
+"back_km": 12.4,
+"back_free_min": 16.6
+},
+"s5170143": {
+"km": 13.2,
+"free_min": 16.1,
+"back_km": 12.3,
+"back_free_min": 18.4
+},
+"s5169585": {
+"km": 16.0,
+"free_min": 18.0,
+"back_km": 16.2,
+"back_free_min": 18.5
+},
+"s5169609": {
+"km": 21.1,
+"free_min": 26.3,
+"back_km": 19.7,
+"back_free_min": 23.4
+},
+"s5169661": {
+"km": 13.5,
+"free_min": 18.7,
+"back_km": 14.1,
+"back_free_min": 19.3
+},
+"s5168875": {
+"km": 8.1,
+"free_min": 12.5,
+"back_km": 7.5,
+"back_free_min": 11.5
+},
+"s5171781": {
+"km": 17.0,
+"free_min": 19.4,
+"back_km": 17.6,
+"back_free_min": 20.2
+},
+"s5171665": {
+"km": 13.6,
+"free_min": 18.3,
+"back_km": 14.1,
+"back_free_min": 18.9
+},
+"s5171717": {
+"km": 8.4,
+"free_min": 12.3,
+"back_km": 6.5,
+"back_free_min": 10.9
+},
+"s5038244": {
+"km": 29.2,
+"free_min": 26.8,
+"back_km": 30.1,
+"back_free_min": 27.7
+},
+"s5038218": {
+"km": 12.8,
+"free_min": 12.7,
+"back_km": 13.2,
+"back_free_min": 15.1
+},
+"s5169359": {
+"km": 19.6,
+"free_min": 25.0,
+"back_km": 20.1,
+"back_free_min": 25.4
+},
+"s5169347": {
+"km": 16.8,
+"free_min": 19.5,
+"back_km": 16.6,
+"back_free_min": 19.6
+},
+"s5169343": {
+"km": 16.5,
+"free_min": 18.8,
+"back_km": 16.3,
+"back_free_min": 18.3
+},
+"s5169313": {
+"km": 16.9,
+"free_min": 18.9,
+"back_km": 17.0,
+"back_free_min": 20.6
+},
+"s5169301": {
+"km": 16.8,
+"free_min": 19.5,
+"back_km": 16.6,
+"back_free_min": 19.6
+},
+"s5169385": {
+"km": 15.9,
+"free_min": 17.5,
+"back_km": 16.7,
+"back_free_min": 19.1
+},
+"s5169383": {
+"km": 11.0,
+"free_min": 13.4,
+"back_km": 13.6,
+"back_free_min": 17.0
+},
+"s5169381": {
+"km": 18.9,
+"free_min": 22.9,
+"back_km": 18.9,
+"back_free_min": 20.0
+},
+"s5171409": {
+"km": 5.6,
+"free_min": 8.6,
+"back_km": 4.3,
+"back_free_min": 7.6
+},
+"s5170541": {
+"km": 11.8,
+"free_min": 17.2,
+"back_km": 11.8,
+"back_free_min": 16.3
+},
+"s5170611": {
+"km": 2.6,
+"free_min": 4.5,
+"back_km": 3.2,
+"back_free_min": 5.4
+},
+"s5172245": {
+"km": 13.5,
+"free_min": 17.1,
+"back_km": 13.1,
+"back_free_min": 16.5
+},
+"s5168747": {
+"km": 13.6,
+"free_min": 17.3,
+"back_km": 13.1,
+"back_free_min": 16.6
+},
+"s5245885": {
+"km": 8.2,
+"free_min": 12.4,
+"back_km": 7.6,
+"back_free_min": 11.9
+},
+"s5245489": {
+"km": 10.6,
+"free_min": 14.1,
+"back_km": 10.7,
+"back_free_min": 14.6
+},
+"s5244967": {
+"km": 20.1,
+"free_min": 22.3,
+"back_km": 18.8,
+"back_free_min": 24.3
+},
+"s5245337": {
+"km": 4.7,
+"free_min": 7.4,
+"back_km": 4.3,
+"back_free_min": 7.3
+},
+"s5244675": {
+"km": 8.7,
+"free_min": 12.5,
+"back_km": 9.3,
+"back_free_min": 13.7
+},
+"s5039449": {
+"km": 8.5,
+"free_min": 12.2,
+"back_km": 6.2,
+"back_free_min": 10.3
+},
+"s5245919": {
+"km": 8.2,
+"free_min": 11.7,
+"back_km": 8.5,
+"back_free_min": 12.3
+},
+"s5244947": {
+"km": 10.4,
+"free_min": 13.8,
+"back_km": 10.6,
+"back_free_min": 14.3
+},
+"s5038902": {
+"km": 13.0,
+"free_min": 16.8,
+"back_km": 11.9,
+"back_free_min": 15.4
+},
+"s5039146": {
+"km": 19.8,
+"free_min": 25.1,
+"back_km": 19.8,
+"back_free_min": 22.6
+},
+"s5040199": {
+"km": 1.9,
+"free_min": 3.7,
+"back_km": 1.6,
+"back_free_min": 3.5
+},
+"s5318701": {
+"km": 11.2,
+"free_min": 13.1,
+"back_km": 11.9,
+"back_free_min": 13.3
+},
+"s5023883": {
+"km": 13.2,
+"free_min": 17.6,
+"back_km": 13.6,
+"back_free_min": 18.1
+},
+"s5071577": {
+"km": 11.7,
+"free_min": 16.8,
+"back_km": 11.8,
+"back_free_min": 17.2
+},
+"s5071574": {
+"km": 8.2,
+"free_min": 11.0,
+"back_km": 6.8,
+"back_free_min": 9.4
+},
+"s5095563": {
+"km": 11.4,
+"free_min": 17.7,
+"back_km": 12.9,
+"back_free_min": 17.1
+},
+"s5071743": {
+"km": 7.2,
+"free_min": 10.1,
+"back_km": 7.7,
+"back_free_min": 11.8
+},
+"s5086907": {
+"km": 12.5,
+"free_min": 16.3,
+"back_km": 12.2,
+"back_free_min": 15.5
+},
+"s5086912": {
+"km": 11.1,
+"free_min": 17.1,
+"back_km": 12.8,
+"back_free_min": 17.1
+},
+"s5095539": {
+"km": 10.5,
+"free_min": 13.9,
+"back_km": 10.6,
+"back_free_min": 14.4
+},
+"s5125257": {
+"km": 8.4,
+"free_min": 9.7,
+"back_km": 9.3,
+"back_free_min": 12.7
+},
+"s5071591": {
+"km": 28.2,
+"free_min": 29.6,
+"back_km": 28.5,
+"back_free_min": 30.8
+},
+"s5026035": {
+"km": 11.7,
+"free_min": 17.0,
+"back_km": 13.2,
+"back_free_min": 17.7
+},
+"s5093335": {
+"km": 15.5,
+"free_min": 20.4,
+"back_km": 15.7,
+"back_free_min": 20.3
+},
+"s5123987": {
+"km": 6.0,
+"free_min": 9.2,
+"back_km": 7.0,
+"back_free_min": 9.2
+},
+"s5070308": {
+"km": 11.6,
+"free_min": 17.2,
+"back_km": 14.5,
+"back_free_min": 17.4
+},
+"s5070232": {
+"km": 8.8,
+"free_min": 13.9,
+"back_km": 8.5,
+"back_free_min": 14.4
+},
+"s5070287": {
+"km": 25.1,
+"free_min": 31.1,
+"back_km": 25.0,
+"back_free_min": 30.3
+},
+"s5025948": {
+"km": 13.8,
+"free_min": 18.2,
+"back_km": 14.2,
+"back_free_min": 18.7
+},
+"s5111253": {
+"km": 13.7,
+"free_min": 18.6,
+"back_km": 14.1,
+"back_free_min": 19.4
+},
+"s5092938": {
+"km": 17.0,
+"free_min": 19.7,
+"back_km": 17.1,
+"back_free_min": 20.2
+},
+"s5026023": {
+"km": 18.3,
+"free_min": 19.2,
+"back_km": 20.5,
+"back_free_min": 21.7
+},
+"s5110389": {
+"km": 23.4,
+"free_min": 26.1,
+"back_km": 19.9,
+"back_free_min": 24.9
+},
+"s5086169": {
+"km": 12.0,
+"free_min": 15.0,
+"back_km": 11.0,
+"back_free_min": 13.7
+},
+"s5001384": {
+"km": 9.8,
+"free_min": 15.1,
+"back_km": 8.8,
+"back_free_min": 14.9
+},
+"s5094887": {
+"km": 13.7,
+"free_min": 18.6,
+"back_km": 14.1,
+"back_free_min": 19.4
+},
+"s5094901": {
+"km": 15.3,
+"free_min": 21.6,
+"back_km": 17.9,
+"back_free_min": 22.0
+},
+"s5024912": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5112057": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5024535": {
+"km": 13.8,
+"free_min": 17.8,
+"back_km": 16.4,
+"back_free_min": 19.7
+},
+"s5071342": {
+"km": 14.5,
+"free_min": 19.2,
+"back_km": 14.6,
+"back_free_min": 19.0
+},
+"s5070872": {
+"km": 24.6,
+"free_min": 31.0,
+"back_km": 24.6,
+"back_free_min": 31.0
+},
+"s5071396": {
+"km": 7.2,
+"free_min": 8.7,
+"back_km": 6.6,
+"back_free_min": 8.5
+},
+"s5023867": {
+"km": 17.5,
+"free_min": 21.5,
+"back_km": 18.3,
+"back_free_min": 22.7
+},
+"s5023869": {
+"km": 10.2,
+"free_min": 16.3,
+"back_km": 11.5,
+"back_free_min": 16.4
+},
+"s5095399": {
+"km": 22.3,
+"free_min": 27.1,
+"back_km": 22.1,
+"back_free_min": 26.8
+},
+"s5095361": {
+"km": 32.7,
+"free_min": 30.9,
+"back_km": 32.5,
+"back_free_min": 30.9
+},
+"s5102211": {
+"km": 8.5,
+"free_min": 10.2,
+"back_km": 9.0,
+"back_free_min": 12.5
+},
+"s5412905": {
+"km": 3.3,
+"free_min": 6.3,
+"back_km": 2.1,
+"back_free_min": 4.6
+},
+"s5412927": {
+"km": 5.9,
+"free_min": 9.8,
+"back_km": 6.0,
+"back_free_min": 9.3
+},
+"s5023817": {
+"km": 11.9,
+"free_min": 18.0,
+"back_km": 12.6,
+"back_free_min": 18.1
+},
+"s5076663": {
+"km": 18.3,
+"free_min": 23.1,
+"back_km": 19.4,
+"back_free_min": 25.0
+},
+"s5001121": {
+"km": 26.1,
+"free_min": 28.0,
+"back_km": 28.2,
+"back_free_min": 29.1
+},
+"s5070679": {
+"km": 14.1,
+"free_min": 16.1,
+"back_km": 13.0,
+"back_free_min": 16.7
+},
+"s5099301": {
+"km": 18.6,
+"free_min": 23.9,
+"back_km": 17.3,
+"back_free_min": 21.9
+},
+"s5093599": {
+"km": 14.4,
+"free_min": 18.7,
+"back_km": 14.8,
+"back_free_min": 19.6
+},
+"s5111733": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5100957": {
+"km": 15.2,
+"free_min": 16.1,
+"back_km": 15.3,
+"back_free_min": 16.6
+},
+"s5000270": {
+"km": 20.8,
+"free_min": 25.5,
+"back_km": 22.0,
+"back_free_min": 27.0
+},
+"s5023357": {
+"km": 19.8,
+"free_min": 20.2,
+"back_km": 19.9,
+"back_free_min": 20.3
+},
+"s5023411": {
+"km": 20.0,
+"free_min": 22.4,
+"back_km": 15.7,
+"back_free_min": 15.1
+},
+"s5076155": {
+"km": 4.2,
+"free_min": 7.0,
+"back_km": 4.7,
+"back_free_min": 7.4
+},
+"s5126007": {
+"km": 25.8,
+"free_min": 31.6,
+"back_km": 25.9,
+"back_free_min": 31.5
+},
+"s5072411": {
+"km": 9.4,
+"free_min": 14.5,
+"back_km": 9.8,
+"back_free_min": 14.4
+},
+"s5023564": {
+"km": 16.1,
+"free_min": 19.0,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5072299": {
+"km": 11.7,
+"free_min": 16.9,
+"back_km": 11.9,
+"back_free_min": 17.4
+},
+"s5425975": {
+"km": 8.5,
+"free_min": 11.5,
+"back_km": 8.6,
+"back_free_min": 11.8
+},
+"s5088411": {
+"km": 12.6,
+"free_min": 16.5,
+"back_km": 12.3,
+"back_free_min": 15.8
+},
+"s5071884": {
+"km": 16.8,
+"free_min": 20.8,
+"back_km": 16.3,
+"back_free_min": 20.4
+},
+"s5071883": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5101519": {
+"km": 10.4,
+"free_min": 14.1,
+"back_km": 10.6,
+"back_free_min": 14.5
+},
+"s5096097": {
+"km": 20.3,
+"free_min": 25.5,
+"back_km": 20.3,
+"back_free_min": 25.5
+},
+"s5000423": {
+"km": 2.4,
+"free_min": 4.1,
+"back_km": 3.3,
+"back_free_min": 5.6
+},
+"s5071813": {
+"km": 15.4,
+"free_min": 19.3,
+"back_km": 15.9,
+"back_free_min": 20.1
+},
+"s5090852": {
+"km": 21.5,
+"free_min": 24.3,
+"back_km": 21.6,
+"back_free_min": 24.4
+},
+"s5090851": {
+"km": 21.5,
+"free_min": 24.3,
+"back_km": 21.6,
+"back_free_min": 24.4
+},
+"s5074048": {
+"km": 22.1,
+"free_min": 27.1,
+"back_km": 22.0,
+"back_free_min": 26.7
+},
+"s5090722": {
+"km": 13.3,
+"free_min": 17.0,
+"back_km": 12.9,
+"back_free_min": 16.4
+},
+"s5452061": {
+"km": 20.4,
+"free_min": 25.1,
+"back_km": 20.2,
+"back_free_min": 22.1
+},
+"s5108243": {
+"km": 10.5,
+"free_min": 12.2,
+"back_km": 9.9,
+"back_free_min": 13.9
+},
+"s5089503": {
+"km": 15.6,
+"free_min": 22.0,
+"back_km": 18.6,
+"back_free_min": 23.3
+},
+"s5451621": {
+"km": 9.9,
+"free_min": 14.5,
+"back_km": 10.9,
+"back_free_min": 16.0
+},
+"s5090058": {
+"km": 10.6,
+"free_min": 16.7,
+"back_km": 11.9,
+"back_free_min": 17.1
+},
+"s5451603": {
+"km": 9.9,
+"free_min": 14.5,
+"back_km": 10.9,
+"back_free_min": 16.0
+},
+"s5331557": {
+"km": 13.6,
+"free_min": 17.8,
+"back_km": 12.7,
+"back_free_min": 20.3
+},
+"s5074241": {
+"km": 6.9,
+"free_min": 11.1,
+"back_km": 6.3,
+"back_free_min": 10.5
+},
+"s5116397": {
+"km": 28.0,
+"free_min": 29.2,
+"back_km": 29.1,
+"back_free_min": 31.4
+},
+"s5073696": {
+"km": 11.2,
+"free_min": 15.5,
+"back_km": 11.3,
+"back_free_min": 15.9
+},
+"s5116471": {
+"km": 22.9,
+"free_min": 28.5,
+"back_km": 22.7,
+"back_free_min": 28.3
+},
+"s5273873": {
+"km": 11.0,
+"free_min": 15.3,
+"back_km": 12.4,
+"back_free_min": 17.3
+},
+"s5345899": {
+"km": 28.2,
+"free_min": 29.1,
+"back_km": 29.4,
+"back_free_min": 32.6
+},
+"s5116521": {
+"km": 7.9,
+"free_min": 12.1,
+"back_km": 9.8,
+"back_free_min": 14.5
+},
+"s5198187": {
+"km": 20.8,
+"free_min": 22.7,
+"back_km": 20.9,
+"back_free_min": 22.8
+},
+"s5020856": {
+"km": 28.6,
+"free_min": 30.1,
+"back_km": 29.0,
+"back_free_min": 31.6
+},
+"s5198665": {
+"km": 2.7,
+"free_min": 4.6,
+"back_km": 3.4,
+"back_free_min": 5.8
+},
+"s5198301": {
+"km": 17.0,
+"free_min": 21.5,
+"back_km": 16.5,
+"back_free_min": 20.8
+},
+"s5198593": {
+"km": 7.2,
+"free_min": 9.9,
+"back_km": 7.8,
+"back_free_min": 11.1
+},
+"s5198513": {
+"km": 22.5,
+"free_min": 26.6,
+"back_km": 21.5,
+"back_free_min": 25.3
+},
+"s5074118": {
+"km": 9.7,
+"free_min": 10.8,
+"back_km": 10.0,
+"back_free_min": 14.5
+},
+"s5142475": {
+"km": 19.8,
+"free_min": 20.7,
+"back_km": 19.9,
+"back_free_min": 20.6
+},
+"s5142467": {
+"km": 22.2,
+"free_min": 26.8,
+"back_km": 21.4,
+"back_free_min": 26.9
+},
+"s5090782": {
+"km": 13.7,
+"free_min": 18.3,
+"back_km": 14.1,
+"back_free_min": 18.8
+},
+"s5020847": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5020776": {
+"km": 20.4,
+"free_min": 25.6,
+"back_km": 19.1,
+"back_free_min": 23.8
+},
+"s5079371": {
+"km": 12.7,
+"free_min": 15.8,
+"back_km": 13.3,
+"back_free_min": 16.7
+},
+"s5141215": {
+"km": 19.2,
+"free_min": 20.2,
+"back_km": 20.5,
+"back_free_min": 22.3
+},
+"s5020343": {
+"km": 14.5,
+"free_min": 19.1,
+"back_km": 16.5,
+"back_free_min": 18.5
+},
+"s5074620": {
+"km": 13.7,
+"free_min": 18.2,
+"back_km": 14.1,
+"back_free_min": 18.8
+},
+"s5273257": {
+"km": 9.7,
+"free_min": 10.3,
+"back_km": 8.9,
+"back_free_min": 11.9
+},
+"s5273281": {
+"km": 18.6,
+"free_min": 21.2,
+"back_km": 17.3,
+"back_free_min": 19.5
+},
+"s5273267": {
+"km": 11.1,
+"free_min": 14.2,
+"back_km": 10.7,
+"back_free_min": 13.9
+},
+"s5273263": {
+"km": 19.6,
+"free_min": 23.7,
+"back_km": 20.9,
+"back_free_min": 22.6
+},
+"s5273261": {
+"km": 10.7,
+"free_min": 15.3,
+"back_km": 12.2,
+"back_free_min": 17.5
+},
+"s5273297": {
+"km": 18.7,
+"free_min": 19.0,
+"back_km": 20.7,
+"back_free_min": 22.1
+},
+"s5273291": {
+"km": 9.3,
+"free_min": 13.3,
+"back_km": 8.7,
+"back_free_min": 13.2
+},
+"s5080060": {
+"km": 20.0,
+"free_min": 22.4,
+"back_km": 15.7,
+"back_free_min": 15.1
+},
+"s5199333": {
+"km": 19.9,
+"free_min": 20.4,
+"back_km": 20.0,
+"back_free_min": 20.4
+},
+"s5074383": {
+"km": 32.9,
+"free_min": 30.5,
+"back_km": 31.5,
+"back_free_min": 28.8
+},
+"s5273007": {
+"km": 19.1,
+"free_min": 22.3,
+"back_km": 20.1,
+"back_free_min": 20.9
+},
+"s5020521": {
+"km": 8.5,
+"free_min": 11.5,
+"back_km": 8.6,
+"back_free_min": 11.8
+},
+"s5427357": {
+"km": 16.0,
+"free_min": 18.0,
+"back_km": 14.9,
+"back_free_min": 20.0
+},
+"s5116447": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5116445": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5025398": {
+"km": 6.4,
+"free_min": 7.5,
+"back_km": 7.7,
+"back_free_min": 10.3
+},
+"s5070846": {
+"km": 11.6,
+"free_min": 15.2,
+"back_km": 10.6,
+"back_free_min": 13.9
+},
+"s5001077": {
+"km": 15.5,
+"free_min": 21.8,
+"back_km": 18.5,
+"back_free_min": 23.0
+},
+"s5130031": {
+"km": 8.3,
+"free_min": 12.8,
+"back_km": 7.6,
+"back_free_min": 12.9
+},
+"s5071324": {
+"km": 23.2,
+"free_min": 26.1,
+"back_km": 22.6,
+"back_free_min": 24.6
+},
+"s5087244": {
+"km": 20.0,
+"free_min": 25.5,
+"back_km": 20.0,
+"back_free_min": 25.7
+},
+"s5100503": {
+"km": 13.7,
+"free_min": 19.1,
+"back_km": 14.3,
+"back_free_min": 19.7
+},
+"s5071343": {
+"km": 17.6,
+"free_min": 22.8,
+"back_km": 16.8,
+"back_free_min": 21.6
+},
+"s5001006": {
+"km": 14.3,
+"free_min": 16.1,
+"back_km": 13.3,
+"back_free_min": 13.3
+},
+"s5099675": {
+"km": 8.2,
+"free_min": 14.3,
+"back_km": 8.0,
+"back_free_min": 12.7
+},
+"s5025014": {
+"km": 11.7,
+"free_min": 18.5,
+"back_km": 13.1,
+"back_free_min": 17.8
+},
+"s5025005": {
+"km": 15.4,
+"free_min": 20.2,
+"back_km": 13.9,
+"back_free_min": 19.2
+},
+"s5024916": {
+"km": 10.4,
+"free_min": 11.9,
+"back_km": 12.5,
+"back_free_min": 14.2
+},
+"s5094195": {
+"km": 2.5,
+"free_min": 5.5,
+"back_km": 2.6,
+"back_free_min": 5.7
+},
+"s5025452": {
+"km": 16.9,
+"free_min": 18.9,
+"back_km": 16.9,
+"back_free_min": 20.5
+},
+"s5025066": {
+"km": 19.1,
+"free_min": 22.5,
+"back_km": 20.0,
+"back_free_min": 21.0
+},
+"s5118435": {
+"km": 22.9,
+"free_min": 28.5,
+"back_km": 22.7,
+"back_free_min": 28.3
+},
+"s5070787": {
+"km": 19.0,
+"free_min": 23.6,
+"back_km": 19.9,
+"back_free_min": 24.9
+},
+"s5070719": {
+"km": 27.3,
+"free_min": 26.9,
+"back_km": 27.8,
+"back_free_min": 28.6
+},
+"s5124935": {
+"km": 15.3,
+"free_min": 21.3,
+"back_km": 18.0,
+"back_free_min": 22.2
+},
+"s5124921": {
+"km": 17.5,
+"free_min": 24.9,
+"back_km": 20.4,
+"back_free_min": 26.0
+},
+"s5024399": {
+"km": 4.7,
+"free_min": 8.0,
+"back_km": 4.5,
+"back_free_min": 7.7
+},
+"s5024398": {
+"km": 8.3,
+"free_min": 12.0,
+"back_km": 7.9,
+"back_free_min": 11.6
+},
+"s5024380": {
+"km": 13.8,
+"free_min": 18.7,
+"back_km": 14.6,
+"back_free_min": 19.8
+},
+"s5095281": {
+"km": 18.5,
+"free_min": 23.3,
+"back_km": 17.4,
+"back_free_min": 22.2
+},
+"s5112457": {
+"km": 18.3,
+"free_min": 22.9,
+"back_km": 17.6,
+"back_free_min": 24.1
+},
+"s5024364": {
+"km": 10.5,
+"free_min": 15.2,
+"back_km": 11.6,
+"back_free_min": 16.9
+},
+"s5024356": {
+"km": 17.6,
+"free_min": 21.3,
+"back_km": 17.2,
+"back_free_min": 22.9
+},
+"s5024295": {
+"km": 13.8,
+"free_min": 17.0,
+"back_km": 13.1,
+"back_free_min": 16.9
+},
+"s5100375": {
+"km": 12.3,
+"free_min": 15.8,
+"back_km": 13.4,
+"back_free_min": 20.2
+},
+"s5112403": {
+"km": 17.0,
+"free_min": 21.6,
+"back_km": 16.5,
+"back_free_min": 20.9
+},
+"s5000712": {
+"km": 9.9,
+"free_min": 14.3,
+"back_km": 11.9,
+"back_free_min": 16.3
+},
+"s5071200": {
+"km": 15.9,
+"free_min": 17.0,
+"back_km": 13.5,
+"back_free_min": 17.6
+},
+"s5087130": {
+"km": 14.4,
+"free_min": 16.7,
+"back_km": 15.6,
+"back_free_min": 18.6
+},
+"s5000713": {
+"km": 9.6,
+"free_min": 13.7,
+"back_km": 10.0,
+"back_free_min": 15.0
+},
+"s5070461": {
+"km": 9.7,
+"free_min": 10.8,
+"back_km": 10.0,
+"back_free_min": 14.5
+},
+"s5129833": {
+"km": 17.3,
+"free_min": 19.5,
+"back_km": 16.6,
+"back_free_min": 18.4
+},
+"s5129821": {
+"km": 10.3,
+"free_min": 13.4,
+"back_km": 10.4,
+"back_free_min": 13.8
+},
+"s5129819": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5129829": {
+"km": 19.0,
+"free_min": 24.0,
+"back_km": 19.1,
+"back_free_min": 23.8
+},
+"s5129809": {
+"km": 10.2,
+"free_min": 15.5,
+"back_km": 8.7,
+"back_free_min": 13.6
+},
+"s5129807": {
+"km": 9.0,
+"free_min": 14.9,
+"back_km": 8.2,
+"back_free_min": 14.6
+},
+"s5129799": {
+"km": 9.2,
+"free_min": 15.2,
+"back_km": 8.4,
+"back_free_min": 14.1
+},
+"s5025860": {
+"km": 24.8,
+"free_min": 30.0,
+"back_km": 24.2,
+"back_free_min": 29.1
+},
+"s5111543": {
+"km": 18.1,
+"free_min": 21.4,
+"back_km": 17.2,
+"back_free_min": 20.2
+},
+"s5446659": {
+"km": 11.8,
+"free_min": 17.4,
+"back_km": 12.0,
+"back_free_min": 17.7
+},
+"s5446655": {
+"km": 12.3,
+"free_min": 14.3,
+"back_km": 11.0,
+"back_free_min": 15.9
+},
+"s5118427": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5001005": {
+"km": 14.1,
+"free_min": 15.7,
+"back_km": 13.5,
+"back_free_min": 13.7
+},
+"s5025142": {
+"km": 34.2,
+"free_min": 35.1,
+"back_km": 37.5,
+"back_free_min": 38.8
+},
+"s5000957": {
+"km": 8.9,
+"free_min": 12.7,
+"back_km": 8.4,
+"back_free_min": 12.4
+},
+"s5100275": {
+"km": 18.9,
+"free_min": 22.2,
+"back_km": 20.2,
+"back_free_min": 21.2
+},
+"s5071157": {
+"km": 4.4,
+"free_min": 7.3,
+"back_km": 4.7,
+"back_free_min": 7.8
+},
+"s5024187": {
+"km": 10.5,
+"free_min": 14.4,
+"back_km": 10.7,
+"back_free_min": 14.6
+},
+"s5087078": {
+"km": 22.6,
+"free_min": 24.2,
+"back_km": 18.3,
+"back_free_min": 24.1
+},
+"s5098291": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5010518": {
+"km": 7.6,
+"free_min": 12.1,
+"back_km": 8.2,
+"back_free_min": 11.4
+},
+"s5135621": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5010538": {
+"km": 13.0,
+"free_min": 17.1,
+"back_km": 13.4,
+"back_free_min": 17.5
+},
+"s5011071": {
+"km": 11.1,
+"free_min": 13.7,
+"back_km": 10.8,
+"back_free_min": 13.2
+},
+"s5011075": {
+"km": 9.3,
+"free_min": 13.6,
+"back_km": 9.8,
+"back_free_min": 14.4
+},
+"s5022585": {
+"km": 19.6,
+"free_min": 23.8,
+"back_km": 19.4,
+"back_free_min": 20.6
+},
+"s5078913": {
+"km": 8.0,
+"free_min": 12.3,
+"back_km": 9.8,
+"back_free_min": 14.0
+},
+"s5022535": {
+"km": 17.4,
+"free_min": 21.5,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5103887": {
+"km": 12.8,
+"free_min": 16.9,
+"back_km": 12.4,
+"back_free_min": 15.7
+},
+"s5072938": {
+"km": 8.3,
+"free_min": 11.8,
+"back_km": 8.8,
+"back_free_min": 12.3
+},
+"s5103899": {
+"km": 10.5,
+"free_min": 13.7,
+"back_km": 10.6,
+"back_free_min": 14.1
+},
+"s5103881": {
+"km": 15.3,
+"free_min": 17.5,
+"back_km": 14.6,
+"back_free_min": 17.3
+},
+"s5103895": {
+"km": 11.6,
+"free_min": 16.6,
+"back_km": 11.8,
+"back_free_min": 17.1
+},
+"s5121811": {
+"km": 12.5,
+"free_min": 16.4,
+"back_km": 12.1,
+"back_free_min": 15.8
+},
+"s5010956": {
+"km": 15.3,
+"free_min": 17.5,
+"back_km": 14.0,
+"back_free_min": 16.3
+},
+"s5010663": {
+"km": 13.6,
+"free_min": 15.3,
+"back_km": 13.8,
+"back_free_min": 14.2
+},
+"s5114573": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5114571": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5114569": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5114567": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5010749": {
+"km": 12.7,
+"free_min": 15.7,
+"back_km": 10.8,
+"back_free_min": 14.3
+},
+"s5105561": {
+"km": 18.5,
+"free_min": 22.0,
+"back_km": 20.3,
+"back_free_min": 21.9
+},
+"s5010659": {
+"km": 11.5,
+"free_min": 13.1,
+"back_km": 12.8,
+"back_free_min": 14.6
+},
+"s5010725": {
+"km": 10.0,
+"free_min": 15.1,
+"back_km": 13.3,
+"back_free_min": 17.8
+},
+"s5010723": {
+"km": 10.7,
+"free_min": 14.7,
+"back_km": 10.8,
+"back_free_min": 15.0
+},
+"s5010718": {
+"km": 26.1,
+"free_min": 30.9,
+"back_km": 31.2,
+"back_free_min": 30.3
+},
+"s5098277": {
+"km": 39.1,
+"free_min": 52.2,
+"back_km": 41.5,
+"back_free_min": 53.8
+},
+"s5115161": {
+"km": 13.9,
+"free_min": 15.8,
+"back_km": 9.4,
+"back_free_min": 14.2
+},
+"s5022225": {
+"km": 18.5,
+"free_min": 22.9,
+"back_km": 18.1,
+"back_free_min": 23.0
+},
+"s5105387": {
+"km": 13.0,
+"free_min": 16.9,
+"back_km": 11.7,
+"back_free_min": 15.0
+},
+"s5010482": {
+"km": 10.0,
+"free_min": 14.7,
+"back_km": 11.8,
+"back_free_min": 16.2
+},
+"s5010457": {
+"km": 13.0,
+"free_min": 14.3,
+"back_km": 12.6,
+"back_free_min": 13.9
+},
+"s5010456": {
+"km": 18.1,
+"free_min": 23.4,
+"back_km": 17.6,
+"back_free_min": 22.7
+},
+"s5010465": {
+"km": 8.5,
+"free_min": 11.5,
+"back_km": 8.2,
+"back_free_min": 11.0
+},
+"s5327671": {
+"km": 9.6,
+"free_min": 13.8,
+"back_km": 10.7,
+"back_free_min": 15.4
+},
+"s5010402": {
+"km": 28.6,
+"free_min": 30.0,
+"back_km": 29.0,
+"back_free_min": 31.5
+},
+"s5021976": {
+"km": 13.4,
+"free_min": 17.2,
+"back_km": 13.0,
+"back_free_min": 17.0
+},
+"s5010485": {
+"km": 11.5,
+"free_min": 16.1,
+"back_km": 12.0,
+"back_free_min": 16.7
+},
+"s5010483": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5010444": {
+"km": 9.1,
+"free_min": 13.2,
+"back_km": 9.6,
+"back_free_min": 14.1
+},
+"s5010443": {
+"km": 9.8,
+"free_min": 15.1,
+"back_km": 8.8,
+"back_free_min": 14.9
+},
+"s5010442": {
+"km": 5.5,
+"free_min": 7.9,
+"back_km": 6.3,
+"back_free_min": 9.5
+},
+"s5010395": {
+"km": 3.5,
+"free_min": 7.1,
+"back_km": 2.9,
+"back_free_min": 6.3
+},
+"s5104921": {
+"km": 11.8,
+"free_min": 17.2,
+"back_km": 11.8,
+"back_free_min": 16.3
+},
+"s5010405": {
+"km": 9.1,
+"free_min": 13.0,
+"back_km": 9.6,
+"back_free_min": 14.0
+},
+"s5135213": {
+"km": 3.5,
+"free_min": 7.0,
+"back_km": 2.8,
+"back_free_min": 6.2
+},
+"s5010697": {
+"km": 8.6,
+"free_min": 12.9,
+"back_km": 8.1,
+"back_free_min": 12.5
+},
+"s5010696": {
+"km": 14.0,
+"free_min": 18.7,
+"back_km": 14.4,
+"back_free_min": 19.3
+},
+"s5078465": {
+"km": 8.3,
+"free_min": 12.9,
+"back_km": 9.6,
+"back_free_min": 13.9
+},
+"s5010780": {
+"km": 4.7,
+"free_min": 8.0,
+"back_km": 4.5,
+"back_free_min": 7.5
+},
+"s5105837": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5010690": {
+"km": 8.6,
+"free_min": 11.9,
+"back_km": 9.1,
+"back_free_min": 12.8
+},
+"s5010333": {
+"km": 10.2,
+"free_min": 13.0,
+"back_km": 10.2,
+"back_free_min": 12.8
+},
+"s5010332": {
+"km": 9.1,
+"free_min": 13.2,
+"back_km": 9.0,
+"back_free_min": 13.2
+},
+"s5010327": {
+"km": 8.9,
+"free_min": 13.8,
+"back_km": 8.6,
+"back_free_min": 15.1
+},
+"s5010331": {
+"km": 9.3,
+"free_min": 13.6,
+"back_km": 9.8,
+"back_free_min": 14.6
+},
+"s5010330": {
+"km": 11.8,
+"free_min": 14.1,
+"back_km": 11.4,
+"back_free_min": 15.2
+},
+"s5105115": {
+"km": 12.0,
+"free_min": 15.8,
+"back_km": 14.4,
+"back_free_min": 19.0
+},
+"s5010497": {
+"km": 16.2,
+"free_min": 18.5,
+"back_km": 16.2,
+"back_free_min": 18.6
+},
+"s5010466": {
+"km": 13.7,
+"free_min": 16.3,
+"back_km": 13.2,
+"back_free_min": 15.4
+},
+"s5010464": {
+"km": 13.0,
+"free_min": 14.3,
+"back_km": 12.6,
+"back_free_min": 13.9
+},
+"s5010406": {
+"km": 5.4,
+"free_min": 8.7,
+"back_km": 6.2,
+"back_free_min": 9.2
+},
+"s5010386": {
+"km": 11.3,
+"free_min": 16.4,
+"back_km": 11.9,
+"back_free_min": 16.4
+},
+"s5010378": {
+"km": 10.4,
+"free_min": 15.7,
+"back_km": 12.8,
+"back_free_min": 17.4
+},
+"s5078070": {
+"km": 16.5,
+"free_min": 20.6,
+"back_km": 16.0,
+"back_free_min": 20.2
+},
+"s5010371": {
+"km": 9.6,
+"free_min": 15.5,
+"back_km": 8.4,
+"back_free_min": 14.4
+},
+"s5070176": {
+"km": 13.3,
+"free_min": 13.1,
+"back_km": 14.4,
+"back_free_min": 16.5
+},
+"s5086035": {
+"km": 17.7,
+"free_min": 23.0,
+"back_km": 16.7,
+"back_free_min": 21.4
+},
+"s5075635": {
+"km": 13.8,
+"free_min": 17.8,
+"back_km": 13.9,
+"back_free_min": 18.2
+},
+"s5410169": {
+"km": 11.2,
+"free_min": 15.7,
+"back_km": 11.4,
+"back_free_min": 16.1
+},
+"s5189132": {
+"km": 11.7,
+"free_min": 17.2,
+"back_km": 14.6,
+"back_free_min": 17.6
+},
+"s5026203": {
+"km": 20.0,
+"free_min": 22.4,
+"back_km": 15.7,
+"back_free_min": 15.1
+},
+"s5086090": {
+"km": 3.0,
+"free_min": 5.2,
+"back_km": 3.1,
+"back_free_min": 5.4
+},
+"s5189020": {
+"km": 4.9,
+"free_min": 7.0,
+"back_km": 4.4,
+"back_free_min": 6.5
+},
+"s5098615": {
+"km": 12.4,
+"free_min": 16.3,
+"back_km": 11.4,
+"back_free_min": 14.7
+},
+"s5098639": {
+"km": 10.9,
+"free_min": 13.1,
+"back_km": 13.3,
+"back_free_min": 16.0
+},
+"s5026258": {
+"km": 27.5,
+"free_min": 28.0,
+"back_km": 28.6,
+"back_free_min": 30.1
+},
+"s5075780": {
+"km": 11.0,
+"free_min": 14.0,
+"back_km": 10.7,
+"back_free_min": 13.6
+},
+"s5001879": {
+"km": 28.6,
+"free_min": 29.0,
+"back_km": 29.3,
+"back_free_min": 29.7
+},
+"s5001877": {
+"km": 10.4,
+"free_min": 15.7,
+"back_km": 12.8,
+"back_free_min": 17.4
+},
+"s5001875": {
+"km": 10.8,
+"free_min": 16.1,
+"back_km": 13.1,
+"back_free_min": 18.1
+},
+"s5123335": {
+"km": 11.2,
+"free_min": 13.8,
+"back_km": 10.9,
+"back_free_min": 13.4
+},
+"s5463023": {
+"km": 10.8,
+"free_min": 13.0,
+"back_km": 13.8,
+"back_free_min": 17.4
+},
+"s5001873": {
+"km": 12.2,
+"free_min": 17.4,
+"back_km": 13.1,
+"back_free_min": 19.2
+},
+"s5001871": {
+"km": 12.0,
+"free_min": 17.9,
+"back_km": 13.6,
+"back_free_min": 18.7
+},
+"s5001869": {
+"km": 7.1,
+"free_min": 10.5,
+"back_km": 7.7,
+"back_free_min": 11.6
+},
+"s5001868": {
+"km": 6.8,
+"free_min": 10.1,
+"back_km": 7.4,
+"back_free_min": 11.2
+},
+"s5462957": {
+"km": 12.8,
+"free_min": 15.1,
+"back_km": 11.9,
+"back_free_min": 17.4
+},
+"s5075743": {
+"km": 5.6,
+"free_min": 9.9,
+"back_km": 4.4,
+"back_free_min": 8.2
+},
+"s5069943": {
+"km": 11.8,
+"free_min": 17.7,
+"back_km": 14.4,
+"back_free_min": 17.3
+},
+"s5026310": {
+"km": 17.4,
+"free_min": 21.1,
+"back_km": 16.7,
+"back_free_min": 20.5
+},
+"s5075736": {
+"km": 10.9,
+"free_min": 13.8,
+"back_km": 10.6,
+"back_free_min": 13.5
+},
+"s5462949": {
+"km": 11.4,
+"free_min": 16.2,
+"back_km": 11.5,
+"back_free_min": 16.7
+},
+"s5001499": {
+"km": 14.0,
+"free_min": 17.2,
+"back_km": 14.3,
+"back_free_min": 15.5
+},
+"s5086185": {
+"km": 19.1,
+"free_min": 23.4,
+"back_km": 19.3,
+"back_free_min": 23.5
+},
+"s5075470": {
+"km": 8.2,
+"free_min": 11.8,
+"back_km": 6.3,
+"back_free_min": 10.3
+},
+"s5117383": {
+"km": 15.0,
+"free_min": 19.6,
+"back_km": 15.3,
+"back_free_min": 20.1
+},
+"s5125267": {
+"km": 15.5,
+"free_min": 17.1,
+"back_km": 15.6,
+"back_free_min": 17.6
+},
+"s5087006": {
+"km": 3.1,
+"free_min": 5.1,
+"back_km": 3.7,
+"back_free_min": 6.8
+},
+"s5095685": {
+"km": 14.5,
+"free_min": 19.0,
+"back_km": 17.4,
+"back_free_min": 20.1
+},
+"s5125517": {
+"km": 13.3,
+"free_min": 16.5,
+"back_km": 16.5,
+"back_free_min": 19.6
+},
+"s5102293": {
+"km": 13.8,
+"free_min": 17.9,
+"back_km": 14.1,
+"back_free_min": 18.5
+},
+"s5102303": {
+"km": 12.1,
+"free_min": 15.8,
+"back_km": 11.3,
+"back_free_min": 14.8
+},
+"s5125581": {
+"km": 18.7,
+"free_min": 18.8,
+"back_km": 20.7,
+"back_free_min": 22.0
+},
+"s5125577": {
+"km": 13.5,
+"free_min": 17.1,
+"back_km": 12.7,
+"back_free_min": 16.6
+},
+"s5023882": {
+"km": 13.2,
+"free_min": 17.7,
+"back_km": 13.4,
+"back_free_min": 18.3
+},
+"s5095521": {
+"km": 6.9,
+"free_min": 11.2,
+"back_km": 8.0,
+"back_free_min": 10.8
+},
+"s5000592": {
+"km": 15.2,
+"free_min": 16.3,
+"back_km": 14.1,
+"back_free_min": 14.8
+},
+"s5000591": {
+"km": 14.3,
+"free_min": 14.6,
+"back_km": 15.0,
+"back_free_min": 16.0
+},
+"s5071605": {
+"km": 7.0,
+"free_min": 11.5,
+"back_km": 6.4,
+"back_free_min": 10.8
+},
+"s5071602": {
+"km": 18.3,
+"free_min": 22.9,
+"back_km": 18.2,
+"back_free_min": 24.2
+},
+"s5071598": {
+"km": 10.4,
+"free_min": 11.4,
+"back_km": 8.2,
+"back_free_min": 10.8
+},
+"s5071584": {
+"km": 18.8,
+"free_min": 23.7,
+"back_km": 18.2,
+"back_free_min": 23.3
+},
+"s5000516": {
+"km": 8.9,
+"free_min": 12.9,
+"back_km": 9.7,
+"back_free_min": 12.4
+},
+"s5101839": {
+"km": 8.2,
+"free_min": 11.6,
+"back_km": 8.5,
+"back_free_min": 12.2
+},
+"s5101689": {
+"km": 5.0,
+"free_min": 7.2,
+"back_km": 4.4,
+"back_free_min": 7.3
+},
+"s5412555": {
+"km": 11.7,
+"free_min": 13.7,
+"back_km": 10.3,
+"back_free_min": 14.7
+},
+"s5412713": {
+"km": 7.1,
+"free_min": 11.5,
+"back_km": 6.0,
+"back_free_min": 10.2
+},
+"s5076598": {
+"km": 13.5,
+"free_min": 17.0,
+"back_km": 14.0,
+"back_free_min": 17.9
+},
+"s5000469": {
+"km": 14.5,
+"free_min": 18.4,
+"back_km": 14.4,
+"back_free_min": 15.7
+},
+"s5171931": {
+"km": 5.2,
+"free_min": 7.8,
+"back_km": 4.7,
+"back_free_min": 8.4
+},
+"s5171801": {
+"km": 3.2,
+"free_min": 5.7,
+"back_km": 3.5,
+"back_free_min": 6.1
+},
+"s5173587": {
+"km": 15.5,
+"free_min": 17.1,
+"back_km": 15.1,
+"back_free_min": 17.2
+},
+"s5173517": {
+"km": 7.9,
+"free_min": 10.8,
+"back_km": 8.0,
+"back_free_min": 11.0
+},
+"s5173515": {
+"km": 7.9,
+"free_min": 12.2,
+"back_km": 9.8,
+"back_free_min": 14.5
+},
+"s5173509": {
+"km": 11.3,
+"free_min": 16.2,
+"back_km": 11.4,
+"back_free_min": 16.4
+},
+"s5173307": {
+"km": 13.0,
+"free_min": 16.4,
+"back_km": 13.2,
+"back_free_min": 16.5
+},
+"s5172211": {
+"km": 11.2,
+"free_min": 14.0,
+"back_km": 10.9,
+"back_free_min": 13.6
+},
+"s5172101": {
+"km": 9.8,
+"free_min": 15.1,
+"back_km": 8.8,
+"back_free_min": 14.9
+},
+"s5172123": {
+"km": 1.8,
+"free_min": 4.0,
+"back_km": 2.2,
+"back_free_min": 4.5
+},
+"s5172061": {
+"km": 7.8,
+"free_min": 10.8,
+"back_km": 8.0,
+"back_free_min": 11.1
+},
+"s5038424": {
+"km": 22.7,
+"free_min": 25.3,
+"back_km": 22.5,
+"back_free_min": 24.7
+},
+"s5171041": {
+"km": 7.5,
+"free_min": 11.7,
+"back_km": 6.6,
+"back_free_min": 11.0
+},
+"s5169963": {
+"km": 11.3,
+"free_min": 15.7,
+"back_km": 11.4,
+"back_free_min": 16.3
+},
+"s5169951": {
+"km": 9.4,
+"free_min": 15.0,
+"back_km": 8.9,
+"back_free_min": 15.7
+},
+"s5169949": {
+"km": 10.1,
+"free_min": 16.0,
+"back_km": 9.1,
+"back_free_min": 15.3
+},
+"s5169947": {
+"km": 9.8,
+"free_min": 15.1,
+"back_km": 8.8,
+"back_free_min": 14.9
+},
+"s5169945": {
+"km": 12.6,
+"free_min": 15.5,
+"back_km": 9.2,
+"back_free_min": 15.4
+},
+"s5168605": {
+"km": 11.5,
+"free_min": 16.9,
+"back_km": 11.7,
+"back_free_min": 17.2
+},
+"s5035844": {
+"km": 19.5,
+"free_min": 24.7,
+"back_km": 20.3,
+"back_free_min": 26.0
+},
+"s5373929": {
+"km": 26.3,
+"free_min": 25.3,
+"back_km": 27.4,
+"back_free_min": 27.9
+},
+"s5030413": {
+"km": 2.8,
+"free_min": 6.8,
+"back_km": 1.8,
+"back_free_min": 4.1
+},
+"s5030385": {
+"km": 6.9,
+"free_min": 11.0,
+"back_km": 5.9,
+"back_free_min": 10.2
+},
+"s5248717": {
+"km": 9.9,
+"free_min": 11.3,
+"back_km": 10.2,
+"back_free_min": 14.1
+},
+"s5248373": {
+"km": 12.3,
+"free_min": 17.7,
+"back_km": 13.9,
+"back_free_min": 18.3
+},
+"s5248073": {
+"km": 10.2,
+"free_min": 13.3,
+"back_km": 10.4,
+"back_free_min": 13.7
+},
+"s5248069": {
+"km": 4.0,
+"free_min": 7.6,
+"back_km": 2.8,
+"back_free_min": 5.6
+},
+"s5010923": {
+"km": 8.9,
+"free_min": 12.9,
+"back_km": 8.5,
+"back_free_min": 12.6
+},
+"s5073324": {
+"km": 22.8,
+"free_min": 26.8,
+"back_km": 22.4,
+"back_free_min": 26.1
+},
+"s5010949": {
+"km": 8.4,
+"free_min": 13.2,
+"back_km": 9.7,
+"back_free_min": 14.3
+},
+"s5011397": {
+"km": 13.0,
+"free_min": 14.2,
+"back_km": 12.5,
+"back_free_min": 13.8
+},
+"s5011400": {
+"km": 1.7,
+"free_min": 4.2,
+"back_km": 2.0,
+"back_free_min": 4.4
+},
+"s5075805": {
+"km": 5.1,
+"free_min": 7.8,
+"back_km": 5.4,
+"back_free_min": 8.8
+},
+"s5023010": {
+"km": 5.0,
+"free_min": 7.5,
+"back_km": 3.2,
+"back_free_min": 5.9
+},
+"s5011351": {
+"km": 4.9,
+"free_min": 7.2,
+"back_km": 4.6,
+"back_free_min": 7.6
+},
+"s5011307": {
+"km": 16.3,
+"free_min": 17.7,
+"back_km": 17.8,
+"back_free_min": 20.3
+},
+"s5089192": {
+"km": 10.4,
+"free_min": 15.8,
+"back_km": 13.4,
+"back_free_min": 18.4
+},
+"s5097005": {
+"km": 7.7,
+"free_min": 13.1,
+"back_km": 6.8,
+"back_free_min": 11.6
+},
+"s5010893": {
+"km": 12.9,
+"free_min": 16.4,
+"back_km": 10.5,
+"back_free_min": 13.9
+},
+"s5010856": {
+"km": 10.2,
+"free_min": 13.0,
+"back_km": 10.2,
+"back_free_min": 12.8
+},
+"s5010904": {
+"km": 7.8,
+"free_min": 12.5,
+"back_km": 8.3,
+"back_free_min": 11.5
+},
+"s5010817": {
+"km": 8.0,
+"free_min": 11.4,
+"back_km": 8.3,
+"back_free_min": 11.5
+},
+"s5127169": {
+"km": 30.0,
+"free_min": 26.8,
+"back_km": 31.6,
+"back_free_min": 29.8
+},
+"s5011044": {
+"km": 9.5,
+"free_min": 14.6,
+"back_km": 9.6,
+"back_free_min": 13.9
+},
+"s5010987": {
+"km": 8.7,
+"free_min": 12.5,
+"back_km": 9.3,
+"back_free_min": 13.2
+},
+"s5010983": {
+"km": 10.6,
+"free_min": 16.3,
+"back_km": 9.6,
+"back_free_min": 15.0
+},
+"s5010825": {
+"km": 13.1,
+"free_min": 16.7,
+"back_km": 9.3,
+"back_free_min": 15.7
+},
+"s5010830": {
+"km": 8.9,
+"free_min": 14.3,
+"back_km": 8.7,
+"back_free_min": 16.0
+},
+"s5078654": {
+"km": 12.2,
+"free_min": 15.8,
+"back_km": 12.6,
+"back_free_min": 16.7
+},
+"s5010851": {
+"km": 8.3,
+"free_min": 12.3,
+"back_km": 6.9,
+"back_free_min": 11.6
+},
+"s5010897": {
+"km": 13.7,
+"free_min": 17.0,
+"back_km": 11.2,
+"back_free_min": 15.2
+},
+"s5097723": {
+"km": 11.2,
+"free_min": 14.1,
+"back_km": 10.9,
+"back_free_min": 13.8
+},
+"s5136339": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5129681": {
+"km": 11.5,
+"free_min": 18.2,
+"back_km": 12.8,
+"back_free_min": 17.1
+},
+"s5086382": {
+"km": 26.5,
+"free_min": 25.8,
+"back_km": 26.9,
+"back_free_min": 26.9
+},
+"s5086388": {
+"km": 13.5,
+"free_min": 17.1,
+"back_km": 13.1,
+"back_free_min": 16.5
+},
+"s5025720": {
+"km": 3.7,
+"free_min": 5.7,
+"back_km": 2.6,
+"back_free_min": 5.3
+},
+"s5070424": {
+"km": 8.2,
+"free_min": 11.1,
+"back_km": 6.8,
+"back_free_min": 9.4
+},
+"s5099207": {
+"km": 19.5,
+"free_min": 26.6,
+"back_km": 20.9,
+"back_free_min": 27.5
+},
+"s5111287": {
+"km": 22.9,
+"free_min": 28.6,
+"back_km": 22.7,
+"back_free_min": 28.4
+},
+"s5086125": {
+"km": 26.6,
+"free_min": 25.5,
+"back_km": 25.3,
+"back_free_min": 23.9
+},
+"s5093429": {
+"km": 12.0,
+"free_min": 17.5,
+"back_km": 13.5,
+"back_free_min": 18.4
+},
+"s5111179": {
+"km": 8.8,
+"free_min": 10.5,
+"back_km": 9.1,
+"back_free_min": 12.6
+},
+"s5025707": {
+"km": 13.4,
+"free_min": 18.2,
+"back_km": 13.8,
+"back_free_min": 18.7
+},
+"s5086462": {
+"km": 29.5,
+"free_min": 32.5,
+"back_km": 30.0,
+"back_free_min": 33.9
+},
+"s5129685": {
+"km": 11.5,
+"free_min": 18.2,
+"back_km": 12.8,
+"back_free_min": 17.1
+},
+"s5118153": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5001154": {
+"km": 14.1,
+"free_min": 16.0,
+"back_km": 13.0,
+"back_free_min": 14.7
+},
+"s5099235": {
+"km": 18.2,
+"free_min": 22.5,
+"back_km": 17.6,
+"back_free_min": 22.3
+},
+"s5098931": {
+"km": 13.5,
+"free_min": 17.1,
+"back_km": 13.0,
+"back_free_min": 16.6
+},
+"s5026040": {
+"km": 11.3,
+"free_min": 14.5,
+"back_km": 11.8,
+"back_free_min": 15.0
+},
+"s5098993": {
+"km": 11.7,
+"free_min": 13.5,
+"back_km": 10.8,
+"back_free_min": 15.4
+},
+"s5129671": {
+"km": 14.6,
+"free_min": 15.8,
+"back_km": 14.3,
+"back_free_min": 16.8
+},
+"s5129823": {
+"km": 18.2,
+"free_min": 22.8,
+"back_km": 17.6,
+"back_free_min": 24.0
+},
+"s5082576": {
+"km": 13.1,
+"free_min": 16.1,
+"back_km": 10.7,
+"back_free_min": 16.7
+},
+"s5019206": {
+"km": 18.3,
+"free_min": 22.5,
+"back_km": 17.7,
+"back_free_min": 23.7
+},
+"s5019163": {
+"km": 2.7,
+"free_min": 4.9,
+"back_km": 3.6,
+"back_free_min": 6.4
+},
+"s5082544": {
+"km": 0.5,
+"free_min": 1.9,
+"back_km": 0.5,
+"back_free_min": 1.8
+},
+"s5331795": {
+"km": 6.1,
+"free_min": 10.2,
+"back_km": 6.9,
+"back_free_min": 9.8
+},
+"s5019510": {
+"km": 7.6,
+"free_min": 11.3,
+"back_km": 9.6,
+"back_free_min": 13.5
+},
+"s5332587": {
+"km": 9.6,
+"free_min": 10.7,
+"back_km": 9.9,
+"back_free_min": 14.4
+},
+"s5082235": {
+"km": 12.5,
+"free_min": 16.4,
+"back_km": 12.1,
+"back_free_min": 15.7
+},
+"s5020157": {
+"km": 20.5,
+"free_min": 21.7,
+"back_km": 20.5,
+"back_free_min": 21.8
+},
+"s5140347": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5423067": {
+"km": 15.3,
+"free_min": 17.5,
+"back_km": 13.6,
+"back_free_min": 15.9
+},
+"s5091150": {
+"km": 12.6,
+"free_min": 16.9,
+"back_km": 11.9,
+"back_free_min": 16.0
+},
+"s5019963": {
+"km": 15.2,
+"free_min": 16.6,
+"back_km": 14.5,
+"back_free_min": 15.6
+},
+"s5019917": {
+"km": 22.1,
+"free_min": 27.0,
+"back_km": 22.0,
+"back_free_min": 26.5
+},
+"s5139595": {
+"km": 19.6,
+"free_min": 19.9,
+"back_km": 19.7,
+"back_free_min": 20.0
+},
+"s5091060": {
+"km": 19.3,
+"free_min": 22.6,
+"back_km": 19.1,
+"back_free_min": 19.4
+},
+"s5428229": {
+"km": 8.5,
+"free_min": 11.5,
+"back_km": 8.6,
+"back_free_min": 11.8
+},
+"s5428225": {
+"km": 12.0,
+"free_min": 17.9,
+"back_km": 12.2,
+"back_free_min": 18.1
+},
+"s5428227": {
+"km": 8.5,
+"free_min": 11.5,
+"back_km": 8.6,
+"back_free_min": 11.8
+},
+"s5428223": {
+"km": 8.5,
+"free_min": 11.5,
+"back_km": 8.6,
+"back_free_min": 11.8
+},
+"s5074607": {
+"km": 12.2,
+"free_min": 16.2,
+"back_km": 12.6,
+"back_free_min": 16.6
+},
+"s5423513": {
+"km": 25.5,
+"free_min": 24.3,
+"back_km": 26.8,
+"back_free_min": 26.8
+},
+"s5427905": {
+"km": 3.6,
+"free_min": 7.2,
+"back_km": 2.9,
+"back_free_min": 6.4
+},
+"s5427903": {
+"km": 6.0,
+"free_min": 9.2,
+"back_km": 7.0,
+"back_free_min": 9.2
+},
+"s5091556": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5427917": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5082885": {
+"km": 18.2,
+"free_min": 22.7,
+"back_km": 17.6,
+"back_free_min": 22.2
+},
+"s5092536": {
+"km": 11.3,
+"free_min": 14.3,
+"back_km": 11.0,
+"back_free_min": 14.0
+},
+"s5082318": {
+"km": 19.5,
+"free_min": 20.0,
+"back_km": 19.6,
+"back_free_min": 20.3
+},
+"s5289177": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5289171": {
+"km": 14.1,
+"free_min": 19.5,
+"back_km": 15.1,
+"back_free_min": 19.9
+},
+"s5289169": {
+"km": 14.1,
+"free_min": 17.5,
+"back_km": 12.7,
+"back_free_min": 15.6
+},
+"s5289161": {
+"km": 12.1,
+"free_min": 15.9,
+"back_km": 11.3,
+"back_free_min": 14.7
+},
+"s5289183": {
+"km": 29.0,
+"free_min": 31.1,
+"back_km": 27.6,
+"back_free_min": 27.9
+},
+"s5289159": {
+"km": 12.8,
+"free_min": 18.3,
+"back_km": 14.3,
+"back_free_min": 19.5
+},
+"s5289157": {
+"km": 29.1,
+"free_min": 32.0,
+"back_km": 29.5,
+"back_free_min": 33.2
+},
+"s5289155": {
+"km": 10.8,
+"free_min": 13.2,
+"back_km": 10.4,
+"back_free_min": 13.1
+},
+"s5289151": {
+"km": 11.2,
+"free_min": 13.9,
+"back_km": 10.8,
+"back_free_min": 13.7
+},
+"s5289149": {
+"km": 14.0,
+"free_min": 18.1,
+"back_km": 13.9,
+"back_free_min": 17.7
+},
+"s5289145": {
+"km": 11.7,
+"free_min": 16.9,
+"back_km": 11.9,
+"back_free_min": 17.4
+},
+"s5017746": {
+"km": 8.3,
+"free_min": 12.0,
+"back_km": 8.5,
+"back_free_min": 13.6
+},
+"s5017541": {
+"km": 14.4,
+"free_min": 18.0,
+"back_km": 14.7,
+"back_free_min": 18.4
+},
+"s5018125": {
+"km": 17.4,
+"free_min": 20.2,
+"back_km": 16.7,
+"back_free_min": 19.5
+},
+"s5018123": {
+"km": 13.6,
+"free_min": 17.6,
+"back_km": 13.9,
+"back_free_min": 18.2
+},
+"s5289139": {
+"km": 9.4,
+"free_min": 13.9,
+"back_km": 9.6,
+"back_free_min": 14.4
+},
+"s5017511": {
+"km": 14.0,
+"free_min": 15.7,
+"back_km": 12.7,
+"back_free_min": 14.0
+},
+"s5288975": {
+"km": 29.0,
+"free_min": 34.2,
+"back_km": 27.1,
+"back_free_min": 31.7
+},
+"s5084005": {
+"km": 29.4,
+"free_min": 32.2,
+"back_km": 29.9,
+"back_free_min": 33.6
+},
+"s5288931": {
+"km": 12.5,
+"free_min": 16.4,
+"back_km": 12.3,
+"back_free_min": 15.7
+},
+"s5219721": {
+"km": 13.0,
+"free_min": 13.4,
+"back_km": 13.1,
+"back_free_min": 15.2
+},
+"s5163577": {
+"km": 12.7,
+"free_min": 17.2,
+"back_km": 13.3,
+"back_free_min": 18.4
+},
+"s5011762": {
+"km": 3.0,
+"free_min": 5.2,
+"back_km": 3.1,
+"back_free_min": 5.4
+},
+"s5460889": {
+"km": 11.8,
+"free_min": 17.5,
+"back_km": 12.0,
+"back_free_min": 17.7
+},
+"s5460925": {
+"km": 11.8,
+"free_min": 17.5,
+"back_km": 12.0,
+"back_free_min": 17.7
+},
+"s5461401": {
+"km": 11.8,
+"free_min": 17.5,
+"back_km": 12.0,
+"back_free_min": 17.7
+},
+"s5461341": {
+"km": 11.8,
+"free_min": 17.5,
+"back_km": 12.0,
+"back_free_min": 17.7
+},
+"s5461349": {
+"km": 11.8,
+"free_min": 17.5,
+"back_km": 12.0,
+"back_free_min": 17.7
+},
+"s5163661": {
+"km": 11.4,
+"free_min": 17.7,
+"back_km": 12.9,
+"back_free_min": 17.1
+},
+"s5163655": {
+"km": 11.4,
+"free_min": 17.7,
+"back_km": 12.9,
+"back_free_min": 17.1
+},
+"s5461353": {
+"km": 11.8,
+"free_min": 17.5,
+"back_km": 12.0,
+"back_free_min": 17.7
+},
+"s5163643": {
+"km": 7.5,
+"free_min": 11.1,
+"back_km": 9.0,
+"back_free_min": 12.8
+},
+"s5084744": {
+"km": 7.6,
+"free_min": 12.0,
+"back_km": 6.5,
+"back_free_min": 11.3
+},
+"s5084743": {
+"km": 11.4,
+"free_min": 16.6,
+"back_km": 11.6,
+"back_free_min": 16.8
+},
+"s5219989": {
+"km": 8.0,
+"free_min": 12.5,
+"back_km": 7.9,
+"back_free_min": 13.2
+},
+"s5221063": {
+"km": 7.5,
+"free_min": 10.5,
+"back_km": 8.4,
+"back_free_min": 11.9
+},
+"s5220373": {
+"km": 20.8,
+"free_min": 25.6,
+"back_km": 20.8,
+"back_free_min": 26.8
+},
+"s5165557": {
+"km": 20.6,
+"free_min": 21.6,
+"back_km": 20.0,
+"back_free_min": 20.5
+},
+"s5218997": {
+"km": 20.9,
+"free_min": 26.0,
+"back_km": 20.9,
+"back_free_min": 27.2
+},
+"s5219161": {
+"km": 14.9,
+"free_min": 15.8,
+"back_km": 14.9,
+"back_free_min": 17.5
+},
+"s5218383": {
+"km": 8.4,
+"free_min": 12.2,
+"back_km": 8.7,
+"back_free_min": 12.8
+},
+"s5219223": {
+"km": 10.6,
+"free_min": 15.8,
+"back_km": 12.1,
+"back_free_min": 15.6
+},
+"s5219193": {
+"km": 13.1,
+"free_min": 16.0,
+"back_km": 12.5,
+"back_free_min": 16.0
+},
+"s5459537": {
+"km": 11.6,
+"free_min": 16.6,
+"back_km": 12.5,
+"back_free_min": 17.1
+},
+"s5218677": {
+"km": 18.1,
+"free_min": 22.5,
+"back_km": 17.5,
+"back_free_min": 22.2
+},
+"s5218673": {
+"km": 7.3,
+"free_min": 11.2,
+"back_km": 6.3,
+"back_free_min": 10.6
+},
+"s5085552": {
+"km": 10.7,
+"free_min": 14.4,
+"back_km": 10.8,
+"back_free_min": 14.9
+},
+"s5219263": {
+"km": 8.0,
+"free_min": 11.6,
+"back_km": 7.7,
+"back_free_min": 11.4
+},
+"s5164751": {
+"km": 19.7,
+"free_min": 20.2,
+"back_km": 19.7,
+"back_free_min": 20.2
+},
+"s5085664": {
+"km": 8.4,
+"free_min": 11.6,
+"back_km": 8.6,
+"back_free_min": 11.8
+},
+"s5219593": {
+"km": 10.7,
+"free_min": 13.3,
+"back_km": 10.4,
+"back_free_min": 12.8
+},
+"s5219485": {
+"km": 5.1,
+"free_min": 8.5,
+"back_km": 5.1,
+"back_free_min": 8.4
+},
+"s5218861": {
+"km": 8.8,
+"free_min": 10.6,
+"back_km": 9.0,
+"back_free_min": 12.6
+},
+"s5218859": {
+"km": 10.8,
+"free_min": 17.0,
+"back_km": 10.4,
+"back_free_min": 16.1
+},
+"s5164767": {
+"km": 23.6,
+"free_min": 26.0,
+"back_km": 23.2,
+"back_free_min": 25.5
+},
+"s5028692": {
+"km": 13.3,
+"free_min": 17.9,
+"back_km": 13.7,
+"back_free_min": 18.4
+},
+"s5028611": {
+"km": 19.7,
+"free_min": 20.8,
+"back_km": 20.0,
+"back_free_min": 21.4
+},
+"s5160351": {
+"km": 8.7,
+"free_min": 12.9,
+"back_km": 9.0,
+"back_free_min": 13.5
+},
+"s5160929": {
+"km": 28.2,
+"free_min": 29.9,
+"back_km": 29.4,
+"back_free_min": 32.0
+},
+"s5215133": {
+"km": 17.6,
+"free_min": 21.3,
+"back_km": 17.2,
+"back_free_min": 22.9
+},
+"s5160503": {
+"km": 20.5,
+"free_min": 22.5,
+"back_km": 20.6,
+"back_free_min": 22.8
+},
+"s5027800": {
+"km": 11.7,
+"free_min": 16.6,
+"back_km": 12.0,
+"back_free_min": 17.2
+},
+"s5161431": {
+"km": 20.7,
+"free_min": 22.2,
+"back_km": 20.7,
+"back_free_min": 22.3
+},
+"s5161415": {
+"km": 29.4,
+"free_min": 27.0,
+"back_km": 29.1,
+"back_free_min": 27.8
+},
+"s5028376": {
+"km": 11.7,
+"free_min": 18.5,
+"back_km": 13.0,
+"back_free_min": 17.4
+},
+"s5157547": {
+"km": 7.8,
+"free_min": 11.5,
+"back_km": 6.6,
+"back_free_min": 10.8
+},
+"s5157567": {
+"km": 8.5,
+"free_min": 12.1,
+"back_km": 8.0,
+"back_free_min": 11.7
+},
+"s5028402": {
+"km": 17.4,
+"free_min": 22.6,
+"back_km": 18.7,
+"back_free_min": 24.0
+},
+"s5028417": {
+"km": 13.4,
+"free_min": 18.3,
+"back_km": 14.9,
+"back_free_min": 19.5
+},
+"s5028273": {
+"km": 11.1,
+"free_min": 15.8,
+"back_km": 11.2,
+"back_free_min": 16.1
+},
+"s5028281": {
+"km": 22.8,
+"free_min": 25.2,
+"back_km": 22.8,
+"back_free_min": 25.2
+},
+"s5028354": {
+"km": 10.4,
+"free_min": 13.9,
+"back_km": 10.6,
+"back_free_min": 14.4
+},
+"s5028339": {
+"km": 27.0,
+"free_min": 31.5,
+"back_km": 26.7,
+"back_free_min": 30.9
+},
+"s5028526": {
+"km": 13.1,
+"free_min": 13.3,
+"back_km": 13.2,
+"back_free_min": 15.1
+},
+"s5028576": {
+"km": 11.4,
+"free_min": 14.3,
+"back_km": 11.0,
+"back_free_min": 14.0
+},
+"s5028593": {
+"km": 14.0,
+"free_min": 18.0,
+"back_km": 16.9,
+"back_free_min": 18.8
+},
+"s5157655": {
+"km": 8.3,
+"free_min": 13.0,
+"back_km": 9.6,
+"back_free_min": 14.0
+},
+"s5028548": {
+"km": 17.0,
+"free_min": 25.6,
+"back_km": 20.0,
+"back_free_min": 27.0
+},
+"s5289643": {
+"km": 15.9,
+"free_min": 22.7,
+"back_km": 18.9,
+"back_free_min": 24.2
+},
+"s5028436": {
+"km": 20.8,
+"free_min": 22.6,
+"back_km": 20.8,
+"back_free_min": 22.6
+},
+"s5157367": {
+"km": 13.3,
+"free_min": 16.7,
+"back_km": 12.9,
+"back_free_min": 15.1
+},
+"s5157435": {
+"km": 13.0,
+"free_min": 16.4,
+"back_km": 13.3,
+"back_free_min": 16.9
+},
+"s5224869": {
+"km": 5.5,
+"free_min": 7.7,
+"back_km": 6.1,
+"back_free_min": 9.0
+},
+"s5224167": {
+"km": 12.4,
+"free_min": 16.2,
+"back_km": 12.0,
+"back_free_min": 15.5
+},
+"s5030707": {
+"km": 14.2,
+"free_min": 18.2,
+"back_km": 14.4,
+"back_free_min": 18.3
+},
+"s5221831": {
+"km": 5.5,
+"free_min": 7.7,
+"back_km": 6.1,
+"back_free_min": 9.0
+},
+"s5221717": {
+"km": 11.2,
+"free_min": 15.5,
+"back_km": 12.0,
+"back_free_min": 16.7
+},
+"s5221673": {
+"km": 7.7,
+"free_min": 11.4,
+"back_km": 7.3,
+"back_free_min": 11.0
+},
+"s5221671": {
+"km": 10.4,
+"free_min": 13.9,
+"back_km": 10.6,
+"back_free_min": 14.4
+},
+"s5028852": {
+"km": 12.0,
+"free_min": 17.4,
+"back_km": 14.7,
+"back_free_min": 20.0
+},
+"s5224367": {
+"km": 1.8,
+"free_min": 4.0,
+"back_km": 2.2,
+"back_free_min": 4.5
+},
+"s5224725": {
+"km": 20.4,
+"free_min": 25.0,
+"back_km": 20.2,
+"back_free_min": 21.9
+},
+"s5225539": {
+"km": 28.6,
+"free_min": 30.3,
+"back_km": 29.1,
+"back_free_min": 31.7
+},
+"s5224427": {
+"km": 16.7,
+"free_min": 20.1,
+"back_km": 18.9,
+"back_free_min": 22.5
+},
+"s5029501": {
+"km": 9.3,
+"free_min": 13.8,
+"back_km": 8.7,
+"back_free_min": 13.1
+},
+"s5029551": {
+"km": 9.1,
+"free_min": 14.8,
+"back_km": 7.9,
+"back_free_min": 13.7
+},
+"s5224447": {
+"km": 21.1,
+"free_min": 23.0,
+"back_km": 17.9,
+"back_free_min": 22.2
+},
+"s5157515": {
+"km": 13.5,
+"free_min": 17.0,
+"back_km": 13.1,
+"back_free_min": 16.5
+},
+"s5029300": {
+"km": 13.7,
+"free_min": 18.2,
+"back_km": 16.6,
+"back_free_min": 19.2
+},
+"s5223759": {
+"km": 23.1,
+"free_min": 28.8,
+"back_km": 22.6,
+"back_free_min": 28.0
+},
+"s5028937": {
+"km": 19.3,
+"free_min": 21.9,
+"back_km": 17.4,
+"back_free_min": 22.0
+},
+"s5222659": {
+"km": 16.7,
+"free_min": 19.0,
+"back_km": 16.8,
+"back_free_min": 19.5
+},
+"s5222997": {
+"km": 9.0,
+"free_min": 12.1,
+"back_km": 9.0,
+"back_free_min": 12.3
+},
+"s5222995": {
+"km": 8.5,
+"free_min": 13.1,
+"back_km": 7.4,
+"back_free_min": 11.3
+},
+"s5028894": {
+"km": 16.3,
+"free_min": 23.9,
+"back_km": 19.3,
+"back_free_min": 25.3
+},
+"s5223631": {
+"km": 5.6,
+"free_min": 7.9,
+"back_km": 6.4,
+"back_free_min": 9.5
+},
+"s5222347": {
+"km": 25.5,
+"free_min": 22.5,
+"back_km": 27.4,
+"back_free_min": 26.5
+},
+"s5222325": {
+"km": 15.8,
+"free_min": 17.8,
+"back_km": 15.9,
+"back_free_min": 18.3
+},
+"s5408405": {
+"km": 14.1,
+"free_min": 18.1,
+"back_km": 13.1,
+"back_free_min": 17.2
+},
+"s5062955": {
+"km": 21.0,
+"free_min": 22.6,
+"back_km": 21.0,
+"back_free_min": 22.8
+},
+"s5062954": {
+"km": 3.3,
+"free_min": 5.3,
+"back_km": 3.2,
+"back_free_min": 5.4
+},
+"s5062953": {
+"km": 19.7,
+"free_min": 20.2,
+"back_km": 19.7,
+"back_free_min": 20.3
+},
+"s5062952": {
+"km": 30.3,
+"free_min": 27.4,
+"back_km": 31.8,
+"back_free_min": 30.0
+},
+"s5041393": {
+"km": 18.9,
+"free_min": 21.8,
+"back_km": 19.7,
+"back_free_min": 20.2
+},
+"s5249441": {
+"km": 19.5,
+"free_min": 21.3,
+"back_km": 21.1,
+"back_free_min": 24.2
+},
+"s5041482": {
+"km": 13.5,
+"free_min": 17.1,
+"back_km": 12.7,
+"back_free_min": 16.6
+},
+"s5041693": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5042225": {
+"km": 16.8,
+"free_min": 19.6,
+"back_km": 16.7,
+"back_free_min": 19.6
+},
+"s5249055": {
+"km": 8.1,
+"free_min": 11.4,
+"back_km": 7.6,
+"back_free_min": 11.0
+},
+"s5041505": {
+"km": 7.1,
+"free_min": 10.1,
+"back_km": 8.1,
+"back_free_min": 12.1
+},
+"s5041457": {
+"km": 12.7,
+"free_min": 18.9,
+"back_km": 13.9,
+"back_free_min": 19.8
+},
+"s5069858": {
+"km": 17.2,
+"free_min": 21.6,
+"back_km": 16.7,
+"back_free_min": 21.4
+},
+"s5261011": {
+"km": 10.7,
+"free_min": 13.3,
+"back_km": 10.4,
+"back_free_min": 12.8
+},
+"s5324735": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5324729": {
+"km": 12.9,
+"free_min": 14.9,
+"back_km": 12.4,
+"back_free_min": 16.8
+},
+"s5042529": {
+"km": 13.2,
+"free_min": 16.5,
+"back_km": 10.8,
+"back_free_min": 17.0
+},
+"s5042541": {
+"km": 19.2,
+"free_min": 23.8,
+"back_km": 20.0,
+"back_free_min": 25.3
+},
+"s5261097": {
+"km": 11.6,
+"free_min": 16.0,
+"back_km": 14.1,
+"back_free_min": 19.2
+},
+"s5261093": {
+"km": 9.8,
+"free_min": 14.8,
+"back_km": 9.2,
+"back_free_min": 14.3
+},
+"s5252325": {
+"km": 11.1,
+"free_min": 13.5,
+"back_km": 13.4,
+"back_free_min": 16.8
+},
+"s5041092": {
+"km": 5.6,
+"free_min": 8.3,
+"back_km": 5.0,
+"back_free_min": 8.2
+},
+"s5251369": {
+"km": 8.0,
+"free_min": 11.6,
+"back_km": 7.1,
+"back_free_min": 10.4
+},
+"s5251489": {
+"km": 7.7,
+"free_min": 9.2,
+"back_km": 8.3,
+"back_free_min": 11.2
+},
+"s5040836": {
+"km": 9.5,
+"free_min": 14.5,
+"back_km": 9.7,
+"back_free_min": 14.2
+},
+"s5251471": {
+"km": 17.9,
+"free_min": 22.2,
+"back_km": 17.2,
+"back_free_min": 21.2
+},
+"s5251337": {
+"km": 8.4,
+"free_min": 9.9,
+"back_km": 9.3,
+"back_free_min": 12.8
+},
+"s5040226": {
+"km": 7.0,
+"free_min": 11.5,
+"back_km": 6.4,
+"back_free_min": 10.8
+},
+"s5252831": {
+"km": 7.2,
+"free_min": 9.9,
+"back_km": 8.4,
+"back_free_min": 11.6
+},
+"s5252145": {
+"km": 13.1,
+"free_min": 16.5,
+"back_km": 14.6,
+"back_free_min": 16.6
+},
+"s5249795": {
+"km": 8.3,
+"free_min": 12.9,
+"back_km": 6.5,
+"back_free_min": 11.0
+},
+"s5403597": {
+"km": 11.2,
+"free_min": 15.7,
+"back_km": 11.4,
+"back_free_min": 16.1
+},
+"s5041856": {
+"km": 1.8,
+"free_min": 3.4,
+"back_km": 2.2,
+"back_free_min": 4.5
+},
+"s5250589": {
+"km": 12.3,
+"free_min": 14.3,
+"back_km": 11.0,
+"back_free_min": 15.9
+},
+"s5250283": {
+"km": 9.6,
+"free_min": 10.7,
+"back_km": 9.9,
+"back_free_min": 14.4
+},
+"s5041680": {
+"km": 28.9,
+"free_min": 31.4,
+"back_km": 29.2,
+"back_free_min": 32.6
+},
+"s5066124": {
+"km": 15.3,
+"free_min": 19.8,
+"back_km": 16.5,
+"back_free_min": 21.8
+},
+"s5066123": {
+"km": 15.3,
+"free_min": 19.8,
+"back_km": 16.5,
+"back_free_min": 21.9
+},
+"s5066104": {
+"km": 15.2,
+"free_min": 17.2,
+"back_km": 14.1,
+"back_free_min": 16.6
+},
+"s5066103": {
+"km": 13.3,
+"free_min": 16.9,
+"back_km": 14.8,
+"back_free_min": 15.8
+},
+"s5066102": {
+"km": 13.2,
+"free_min": 16.8,
+"back_km": 15.4,
+"back_free_min": 16.8
+},
+"s5066083": {
+"km": 11.1,
+"free_min": 15.7,
+"back_km": 11.5,
+"back_free_min": 15.9
+},
+"s5065825": {
+"km": 4.0,
+"free_min": 6.9,
+"back_km": 4.3,
+"back_free_min": 7.8
+},
+"s5065821": {
+"km": 6.0,
+"free_min": 9.3,
+"back_km": 5.4,
+"back_free_min": 9.1
+},
+"s5065832": {
+"km": 4.9,
+"free_min": 8.2,
+"back_km": 4.9,
+"back_free_min": 8.0
+},
+"s5065831": {
+"km": 4.8,
+"free_min": 7.7,
+"back_km": 4.9,
+"back_free_min": 7.3
+},
+"s5065829": {
+"km": 5.1,
+"free_min": 8.8,
+"back_km": 5.1,
+"back_free_min": 8.6
+},
+"s5065828": {
+"km": 4.8,
+"free_min": 8.1,
+"back_km": 4.8,
+"back_free_min": 7.8
+},
+"s5065827": {
+"km": 4.2,
+"free_min": 7.3,
+"back_km": 4.2,
+"back_free_min": 6.8
+},
+"s5065811": {
+"km": 2.8,
+"free_min": 4.9,
+"back_km": 2.9,
+"back_free_min": 5.6
+},
+"s5065807": {
+"km": 21.6,
+"free_min": 24.1,
+"back_km": 21.6,
+"back_free_min": 24.2
+},
+"s5065805": {
+"km": 20.9,
+"free_min": 22.9,
+"back_km": 21.0,
+"back_free_min": 23.0
+},
+"s5065795": {
+"km": 1.2,
+"free_min": 3.1,
+"back_km": 1.2,
+"back_free_min": 3.5
+},
+"s5065780": {
+"km": 11.5,
+"free_min": 13.6,
+"back_km": 14.1,
+"back_free_min": 22.4
+},
+"s5065778": {
+"km": 7.6,
+"free_min": 9.2,
+"back_km": 8.3,
+"back_free_min": 11.2
+},
+"s5065776": {
+"km": 12.2,
+"free_min": 16.7,
+"back_km": 12.6,
+"back_free_min": 17.3
+},
+"s5065775": {
+"km": 13.9,
+"free_min": 19.7,
+"back_km": 15.7,
+"back_free_min": 20.1
+},
+"s5065774": {
+"km": 11.0,
+"free_min": 14.8,
+"back_km": 10.3,
+"back_free_min": 13.8
+},
+"s5065773": {
+"km": 13.5,
+"free_min": 17.1,
+"back_km": 13.0,
+"back_free_min": 16.6
+},
+"s5065751": {
+"km": 11.7,
+"free_min": 13.7,
+"back_km": 10.9,
+"back_free_min": 15.8
+},
+"s5066079": {
+"km": 11.7,
+"free_min": 17.1,
+"back_km": 13.2,
+"back_free_min": 17.9
+},
+"s5066064": {
+"km": 10.7,
+"free_min": 14.3,
+"back_km": 10.9,
+"back_free_min": 14.8
+},
+"s5066061": {
+"km": 10.7,
+"free_min": 13.4,
+"back_km": 10.4,
+"back_free_min": 13.1
+},
+"s5066060": {
+"km": 10.4,
+"free_min": 12.7,
+"back_km": 10.0,
+"back_free_min": 12.4
+},
+"s5066059": {
+"km": 10.6,
+"free_min": 13.0,
+"back_km": 10.2,
+"back_free_min": 12.8
+},
+"s5065995": {
+"km": 9.4,
+"free_min": 14.9,
+"back_km": 8.1,
+"back_free_min": 13.8
+},
+"s5065994": {
+"km": 9.6,
+"free_min": 15.3,
+"back_km": 8.3,
+"back_free_min": 14.1
+},
+"s5065993": {
+"km": 10.1,
+"free_min": 16.1,
+"back_km": 9.1,
+"back_free_min": 15.4
+},
+"s5065992": {
+"km": 9.5,
+"free_min": 15.4,
+"back_km": 8.9,
+"back_free_min": 14.5
+},
+"s5066023": {
+"km": 13.1,
+"free_min": 16.9,
+"back_km": 10.5,
+"back_free_min": 13.9
+},
+"s5066022": {
+"km": 9.5,
+"free_min": 15.3,
+"back_km": 8.6,
+"back_free_min": 14.7
+},
+"s5066021": {
+"km": 9.7,
+"free_min": 15.5,
+"back_km": 8.5,
+"back_free_min": 14.5
+},
+"s5066020": {
+"km": 13.6,
+"free_min": 17.1,
+"back_km": 11.6,
+"back_free_min": 15.9
+},
+"s5066019": {
+"km": 12.9,
+"free_min": 16.3,
+"back_km": 10.5,
+"back_free_min": 14.0
+},
+"s5066018": {
+"km": 13.3,
+"free_min": 17.1,
+"back_km": 11.6,
+"back_free_min": 15.9
+},
+"s5066017": {
+"km": 10.1,
+"free_min": 16.0,
+"back_km": 9.1,
+"back_free_min": 15.3
+},
+"s5066016": {
+"km": 9.7,
+"free_min": 15.4,
+"back_km": 8.4,
+"back_free_min": 14.3
+},
+"s5066014": {
+"km": 10.6,
+"free_min": 16.3,
+"back_km": 9.6,
+"back_free_min": 15.0
+},
+"s5066013": {
+"km": 10.3,
+"free_min": 16.6,
+"back_km": 9.3,
+"back_free_min": 16.0
+},
+"s5066012": {
+"km": 10.4,
+"free_min": 16.7,
+"back_km": 9.3,
+"back_free_min": 16.0
+},
+"s5066010": {
+"km": 13.1,
+"free_min": 16.8,
+"back_km": 10.3,
+"back_free_min": 13.4
+},
+"s5066007": {
+"km": 13.2,
+"free_min": 17.1,
+"back_km": 10.2,
+"back_free_min": 13.2
+},
+"s5066005": {
+"km": 9.6,
+"free_min": 15.6,
+"back_km": 8.7,
+"back_free_min": 15.1
+},
+"s5066004": {
+"km": 9.7,
+"free_min": 16.1,
+"back_km": 8.6,
+"back_free_min": 15.0
+},
+"s5066003": {
+"km": 13.5,
+"free_min": 16.8,
+"back_km": 11.4,
+"back_free_min": 15.6
+},
+"s5066002": {
+"km": 12.7,
+"free_min": 15.8,
+"back_km": 10.7,
+"back_free_min": 13.9
+},
+"s5066001": {
+"km": 9.3,
+"free_min": 14.9,
+"back_km": 8.5,
+"back_free_min": 15.0
+},
+"s5065999": {
+"km": 9.4,
+"free_min": 14.8,
+"back_km": 8.1,
+"back_free_min": 13.7
+},
+"s5065997": {
+"km": 12.9,
+"free_min": 16.1,
+"back_km": 8.7,
+"back_free_min": 15.1
+},
+"s5065996": {
+"km": 9.9,
+"free_min": 15.0,
+"back_km": 9.0,
+"back_free_min": 14.1
+},
+"s5409527": {
+"km": 6.9,
+"free_min": 10.8,
+"back_km": 6.2,
+"back_free_min": 9.2
+},
+"s5065990": {
+"km": 10.7,
+"free_min": 16.4,
+"back_km": 10.1,
+"back_free_min": 15.8
+},
+"s5065989": {
+"km": 9.5,
+"free_min": 15.4,
+"back_km": 8.9,
+"back_free_min": 14.4
+},
+"s5065987": {
+"km": 12.2,
+"free_min": 16.7,
+"back_km": 12.6,
+"back_free_min": 17.3
+},
+"s5065986": {
+"km": 20.5,
+"free_min": 25.5,
+"back_km": 21.3,
+"back_free_min": 26.5
+},
+"s5065984": {
+"km": 8.5,
+"free_min": 12.6,
+"back_km": 8.0,
+"back_free_min": 12.1
+},
+"s5065982": {
+"km": 8.5,
+"free_min": 12.1,
+"back_km": 8.0,
+"back_free_min": 11.8
+},
+"s5065980": {
+"km": 8.5,
+"free_min": 12.3,
+"back_km": 8.0,
+"back_free_min": 12.0
+},
+"s5065954": {
+"km": 6.6,
+"free_min": 10.8,
+"back_km": 5.4,
+"back_free_min": 9.6
+},
+"s5409729": {
+"km": 14.1,
+"free_min": 18.1,
+"back_km": 13.1,
+"back_free_min": 17.2
+},
+"s5066142": {
+"km": 14.0,
+"free_min": 17.2,
+"back_km": 14.3,
+"back_free_min": 15.5
+},
+"s5065917": {
+"km": 8.0,
+"free_min": 11.3,
+"back_km": 8.2,
+"back_free_min": 11.6
+},
+"s5065914": {
+"km": 9.6,
+"free_min": 12.9,
+"back_km": 9.3,
+"back_free_min": 13.5
+},
+"s5065913": {
+"km": 7.9,
+"free_min": 11.2,
+"back_km": 8.2,
+"back_free_min": 11.4
+},
+"s5065912": {
+"km": 8.3,
+"free_min": 11.7,
+"back_km": 8.8,
+"back_free_min": 12.5
+},
+"s5065903": {
+"km": 9.0,
+"free_min": 13.3,
+"back_km": 9.6,
+"back_free_min": 13.9
+},
+"s5065902": {
+"km": 8.2,
+"free_min": 11.4,
+"back_km": 9.0,
+"back_free_min": 12.3
+},
+"s5065901": {
+"km": 9.4,
+"free_min": 14.3,
+"back_km": 9.9,
+"back_free_min": 14.7
+},
+"s5065893": {
+"km": 9.1,
+"free_min": 13.1,
+"back_km": 9.3,
+"back_free_min": 13.8
+},
+"s5065891": {
+"km": 8.7,
+"free_min": 12.3,
+"back_km": 8.6,
+"back_free_min": 12.2
+},
+"s5065880": {
+"km": 8.8,
+"free_min": 12.2,
+"back_km": 9.1,
+"back_free_min": 12.7
+},
+"s5065848": {
+"km": 5.9,
+"free_min": 9.2,
+"back_km": 5.4,
+"back_free_min": 8.6
+},
+"s5065845": {
+"km": 9.0,
+"free_min": 12.4,
+"back_km": 8.5,
+"back_free_min": 12.1
+},
+"s5065844": {
+"km": 7.4,
+"free_min": 11.6,
+"back_km": 6.5,
+"back_free_min": 10.8
+},
+"s5065843": {
+"km": 6.8,
+"free_min": 10.7,
+"back_km": 6.1,
+"back_free_min": 10.2
+},
+"s5065842": {
+"km": 8.2,
+"free_min": 12.3,
+"back_km": 6.9,
+"back_free_min": 11.6
+},
+"s5065840": {
+"km": 7.2,
+"free_min": 10.8,
+"back_km": 6.6,
+"back_free_min": 10.1
+},
+"s5065873": {
+"km": 8.1,
+"free_min": 11.2,
+"back_km": 8.6,
+"back_free_min": 12.4
+},
+"s5065869": {
+"km": 5.0,
+"free_min": 7.3,
+"back_km": 6.5,
+"back_free_min": 9.0
+},
+"s5065868": {
+"km": 6.6,
+"free_min": 10.3,
+"back_km": 6.4,
+"back_free_min": 9.2
+},
+"s5065867": {
+"km": 6.0,
+"free_min": 9.6,
+"back_km": 5.9,
+"back_free_min": 8.7
+},
+"s5065936": {
+"km": 7.9,
+"free_min": 12.0,
+"back_km": 7.5,
+"back_free_min": 11.5
+},
+"s5065935": {
+"km": 8.3,
+"free_min": 12.7,
+"back_km": 7.7,
+"back_free_min": 12.0
+},
+"s5065933": {
+"km": 9.1,
+"free_min": 12.6,
+"back_km": 9.1,
+"back_free_min": 12.8
+},
+"s5065932": {
+"km": 9.0,
+"free_min": 12.2,
+"back_km": 7.7,
+"back_free_min": 11.3
+},
+"s5039859": {
+"km": 21.2,
+"free_min": 26.1,
+"back_km": 21.1,
+"back_free_min": 26.7
+},
+"s5039678": {
+"km": 13.8,
+"free_min": 14.1,
+"back_km": 14.3,
+"back_free_min": 16.5
+},
+"s5040846": {
+"km": 11.0,
+"free_min": 15.6,
+"back_km": 13.9,
+"back_free_min": 17.9
+},
+"s5040867": {
+"km": 13.9,
+"free_min": 18.8,
+"back_km": 16.7,
+"back_free_min": 19.4
+},
+"s5040858": {
+"km": 12.9,
+"free_min": 19.1,
+"back_km": 13.7,
+"back_free_min": 19.3
+},
+"s5040856": {
+"km": 13.9,
+"free_min": 18.8,
+"back_km": 16.7,
+"back_free_min": 19.4
+},
+"s5039901": {
+"km": 7.1,
+"free_min": 11.5,
+"back_km": 5.8,
+"back_free_min": 9.6
+},
+"s5252003": {
+"km": 14.9,
+"free_min": 17.4,
+"back_km": 11.1,
+"back_free_min": 16.7
+},
+"s5041008": {
+"km": 26.8,
+"free_min": 26.3,
+"back_km": 26.7,
+"back_free_min": 26.7
+},
+"s5252665": {
+"km": 13.4,
+"free_min": 16.5,
+"back_km": 12.3,
+"back_free_min": 15.6
+},
+"s5251291": {
+"km": 6.9,
+"free_min": 10.4,
+"back_km": 7.5,
+"back_free_min": 11.6
+},
+"s5042866": {
+"km": 1.6,
+"free_min": 4.0,
+"back_km": 1.9,
+"back_free_min": 4.1
+}
+}
+}

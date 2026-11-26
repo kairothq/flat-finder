@@ -129,15 +129,41 @@ def judge(r, jev):
     return r
 
 
+def fetch_missing(urls):
+    """Download plan images not cached yet (polite: 3 at a time, a pause after each)."""
+    import time
+    import urllib.request
+    from concurrent.futures import ThreadPoolExecutor
+    UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
+    CACHE.mkdir(parents=True, exist_ok=True)
+    todo = [u for u in dict.fromkeys(urls) if not (CACHE / (hashlib.sha1(u.encode()).hexdigest() + ".jpg")).exists()]
+
+    def one(u):
+        try:
+            data = urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": UA}), timeout=40).read()
+            (CACHE / (hashlib.sha1(u.encode()).hexdigest() + ".jpg")).write_bytes(data)
+        except Exception as e:
+            print("  image failed", u, e, flush=True)
+        time.sleep(1.0)
+
+    print("plan images to download", len(todo), flush=True)
+    with ThreadPoolExecutor(max_workers=3) as ex:
+        for i, _ in enumerate(ex.map(one, todo), 1):
+            if i % 200 == 0:
+                print(f"downloaded {i}/{len(todo)}", flush=True)
+
+
 def main(city="gurgaon"):
     data = json.loads((ROOT.parent / "web" / "public" / "data" / f"{city}.json").read_text())
-    jev = json.loads((ROOT.parent / "data" / "verified" / f"{city}-ai.json").read_text())["plans"]
+    jev_file = ROOT.parent / "data" / "verified" / f"{city}-ai.json"
+    jev = json.loads(jev_file.read_text())["plans"] if jev_file.exists() else {}  # Jev is an optional cross-check
     jobs, sid_of = [], {}
     for s in data["societies"]:
         for b, urls in (s.get("plan_links") or {}).items():
             for u in urls[:3]:
                 jobs.append((u, b))
                 sid_of[u] = s["id"]
+    fetch_missing([u for u, _ in jobs])
     out = {}
     with ProcessPoolExecutor(max_workers=6) as ex:
         for i, (u, r) in enumerate(ex.map(read_image, jobs, chunksize=8), 1):
