@@ -155,11 +155,14 @@ def match_verified(v, projects, taken=()):
     return best
 
 
+CITY_NAME = "this city"
+
+
 def events_for(s):
     ev = []
     sid = s["id"]
     src = s.get("url")
-    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or 'Gurgaon'} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
+    ev.append({"sid": sid, "step": "Located on map", "finding": f"{s['locality'] or CITY_NAME} · {s['lat']:.4f}, {s['lng']:.4f}", "url": src})
     bits = [f"{int(s['towers'])} towers" if s.get("towers") else None, f"{int(s['units']):,} units" if s.get("units") else None,
             f"{s['acres']} acres" if s.get("acres") else None]
     if any(bits):
@@ -224,9 +227,13 @@ def shapes_for(s, area, bld_grid, sid_seed):
 
 def main(city="gurgaon"):
     cfg = json.loads((ROOT.parent / "data" / "cities.json").read_text())[city]
+    global CITY_NAME
+    CITY_NAME = cfg["name"]
     out = OUT / city
     raw = json.loads((out / "mb_projects.json").read_text())
-    located = [p for p in raw if p.get("lat") and p.get("lng") and 28.2 < p["lat"] < 28.7 and 76.7 < p["lng"] < 77.3]
+    south, west, north, east = cfg["bbox"]  # each city's own box from data/cities.json, padded for the fringe
+    south, west, north, east = south - 0.15, west - 0.15, north + 0.15, east + 0.15
+    located = [p for p in raw if p.get("lat") and p.get("lng") and south < p["lat"] < north and west < p["lng"] < east]
     not_located = len(raw) - len(located)
     projects = dedupe(located)
     areas = json.loads((out / "osm_areas.geojson").read_text())["features"]
@@ -442,7 +449,7 @@ def main(city="gurgaon"):
                        "ai_read": sum(1 for s in societies if s.get("ai_read")),
                        "for_sale": sum(s["sale_count"] or 0 for s in societies), "for_rent": sum(s["rent_count"] or 0 for s in societies),
                        "verified": sum(s["verified"] for s in societies)},
-            "sources": ["Magicbricks project pages", "OpenStreetMap contributors", "HRERA Gurugram", "Builder brochures (verified rows)"],
+            "sources": ["Magicbricks project pages", "OpenStreetMap contributors"] + (["HRERA Gurugram"] if city == "gurgaon" else []) + ["Builder brochures (verified rows)"],
             "societies": societies, "events": events}
     details = {}
     for s in societies:  # heavy per-society text, loaded only when a card opens
