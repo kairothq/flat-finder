@@ -50,6 +50,17 @@ def test_kind_from_card_type_codes():
     assert build_city.kind_of({"card_units": [{"kind": "10003", "bhk": 3, "sqft": 1900.0}]}) == "builder floor"
 
 
+def test_located_in_bbox_uses_the_citys_own_bbox():
+    # Greater Noida sits at ~77.4-77.6 E, outside Gurgaon's 76.7-77.3 E: a filter hardcoded to
+    # Gurgaon's coordinates would wrongly drop every project here.
+    gn_bbox = (28.38, 77.36, 28.63, 77.60)
+    inside = {"name": "In Greater Noida", "lat": 28.47, "lng": 77.50}
+    outside = {"name": "In Gurgaon", "lat": 28.42, "lng": 77.03}
+    no_coords = {"name": "No coords"}
+    located = build_city.located_in_bbox([inside, outside, no_coords], gn_bbox)
+    assert located == [inside]
+
+
 def test_infer_kind_from_name():
     assert build_city.kind_of({"name": "Sai Ram Apartment"}) == "apartment~"
     assert build_city.kind_of({"name": "Rzone Land Plot"}) == "plot~"

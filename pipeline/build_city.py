@@ -222,11 +222,22 @@ def shapes_for(s, area, bld_grid, sid_seed):
     return feats, shape
 
 
+def located_in_bbox(raw, bbox):
+    """Projects with a lat/lng inside the city's own bbox (south, west, north, east).
+
+    Must use the city's bbox, not a hardcoded one: a filter tuned to Gurgaon's coordinates
+    silently drops nearly every project in any other city (e.g. Greater Noida, ~77.4-77.6 E,
+    outside Gurgaon's 76.7-77.3 E), so "not_located" looks fine while "on_map" is near zero.
+    """
+    south, west, north, east = bbox
+    return [p for p in raw if p.get("lat") and p.get("lng") and south < p["lat"] < north and west < p["lng"] < east]
+
+
 def main(city="gurgaon"):
     cfg = json.loads((ROOT.parent / "data" / "cities.json").read_text())[city]
     out = OUT / city
     raw = json.loads((out / "mb_projects.json").read_text())
-    located = [p for p in raw if p.get("lat") and p.get("lng") and 28.2 < p["lat"] < 28.7 and 76.7 < p["lng"] < 77.3]
+    located = located_in_bbox(raw, cfg["bbox"])
     not_located = len(raw) - len(located)
     projects = dedupe(located)
     areas = json.loads((out / "osm_areas.geojson").read_text())["features"]
